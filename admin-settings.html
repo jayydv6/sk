@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Settings - Matka King</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h3><i class="fas fa-bars"></i> Admin Menu</h3>
+            <button class="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-content">
+            <a href="admin-dashboard.html" class="mobile-menu-item">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="manage-results.html" class="mobile-menu-item">
+                <i class="fas fa-flag-checkered"></i> Manage Results
+            </a>
+            <a href="manage-users.html" class="mobile-menu-item">
+                <i class="fas fa-users"></i> Manage Users
+            </a>
+            <a href="manage-predictions.html" class="mobile-menu-item">
+                <i class="fas fa-bullseye"></i> Manage Predictions
+            </a>
+            <a href="admin-settings.html" class="mobile-menu-item active">
+                <i class="fas fa-cogs"></i> Settings
+            </a>
+            <a href="#" class="mobile-menu-item logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>MATKA KING</h1>
+                <p>Admin Settings</p>
+            </div>
+            <div class="header-buttons">
+                <button class="btn btn-danger logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Navigation -->
+    <nav class="admin-nav container">
+        <a href="admin-dashboard.html">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="manage-results.html">
+            <i class="fas fa-flag-checkered"></i> Manage Results
+        </a>
+        <a href="manage-users.html">
+            <i class="fas fa-users"></i> Manage Users
+        </a>
+        <a href="manage-predictions.html">
+            <i class="fas fa-bullseye"></i> Manage Predictions
+        </a>
+        <a href="admin-settings.html" class="active">
+            <i class="fas fa-cogs"></i> Settings
+        </a>
+        <a href="index.html">
+            <i class="fas fa-home"></i> View Site
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container admin-settings-container">
+        <div class="dashboard-header">
+            <h1><i class="fas fa-cogs"></i> WEBSITE SETTINGS</h1>
+            <p>Manage all website settings from one place</p>
+        </div>
+
+        <!-- Contact Information Settings -->
+        <div class="settings-section">
+            <h3><i class="fas fa-address-book"></i> CONTACT INFORMATION</h3>
+            <p style="color: #a0a0c0; margin-bottom: 20px;">Update contact details that appear on the website</p>
+            
+            <div class="contact-input-group">
+                <label for="telegram-channel"><i class="fab fa-telegram"></i> Telegram Channel:</label>
+                <input type="text" id="telegram-channel" class="form-control" placeholder="https://t.me/yourchannel">
+            </div>
+            
+            <div class="contact-input-group">
+                <label for="whatsapp-contact"><i class="fab fa-whatsapp"></i> WhatsApp Contact:</label>
+                <input type="text" id="whatsapp-contact" class="form-control" placeholder="+91XXXXXXXXXX">
+            </div>
+            
+            <div class="contact-input-group">
+                <label for="admin-phone"><i class="fas fa-phone"></i> Admin Phone:</label>
+                <input type="text" id="admin-phone" class="form-control" placeholder="+91XXXXXXXXXX">
+            </div>
+            
+            <div class="contact-input-group">
+                <label for="support-email"><i class="fas fa-envelope"></i> Support Email:</label>
+                <input type="email" id="support-email" class="form-control" placeholder="support@matkaking.com">
+            </div>
+            
+            <div class="contact-input-group">
+                <label for="khaiwal-telegram"><i class="fab fa-telegram"></i> Khaiwal Telegram:</label>
+                <input type="text" id="khaiwal-telegram" class="form-control" placeholder="https://t.me/khaiwal">
+            </div>
+            
+            <div class="contact-input-group">
+                <label for="premium-contact"><i class="fas fa-crown"></i> Premium Contact:</label>
+                <input type="text" id="premium-contact" class="form-control" placeholder="Contact for premium access">
+            </div>
+            
+            <button class="btn btn-success" id="save-contacts-btn">
+                <i class="fas fa-save"></i> Save Contact Settings
+            </button>
+        </div>
+
+        <!-- Website Configuration -->
+        <div class="settings-section">
+            <h3><i class="fas fa-wrench"></i> WEBSITE CONFIGURATION</h3>
+            
+            <div class="contact-input-group">
+                <label for="site-title">Site Title:</label>
+                <input type="text" id="site-title" class="form-control" placeholder="Matka King">
+            </div>
+            
+            <div class="contact-input-group">
+                <label for="site-slogan">Site Slogan:</label>
+                <input type="text" id="site-slogan" class="form-control" placeholder="Faridabad | Gaziabad | Gali | Deshwar | Gali Dubai | Deshwar Dubai">
+            </div>
+            
+            <div class="contact-input-group">
+                <label for="maintenance-mode">Maintenance Mode:</label>
+                <select id="maintenance-mode" class="form-control">
+                    <option value="off">Off - Site Active</option>
+                    <option value="on">On - Maintenance Mode</option>
+                </select>
+            </div>
+            
+            <div class="contact-input-group">
+                <label for="result-delay">Result Delay (minutes):</label>
+                <input type="number" id="result-delay" class="form-control" placeholder="5" min="0" max="60">
+            </div>
+            
+            <div class="contact-input-group">
+                <label for="prediction-limit">Daily Prediction Limit:</label>
+                <input type="number" id="prediction-limit" class="form-control" placeholder="10" min="1" max="50">
+            </div>
+            
+            <button class="btn btn-info" id="save-config-btn">
+                <i class="fas fa-save"></i> Save Configuration
+            </button>
+        </div>
+
+        <!-- Game Times Configuration -->
+        <div class="settings-section">
+            <h3><i class="fas fa-clock"></i> GAME TIMES CONFIGURATION</h3>
+            
+            <div class="date-range-selector">
+                <div class="contact-input-group">
+                    <label for="faridabad-time">Faridabad Time:</label>
+                    <input type="text" id="faridabad-time" class="form-control" placeholder="05:15 PM">
+                </div>
+                
+                <div class="contact-input-group">
+                    <label for="gaziabad-time">Gaziabad Time:</label>
+                    <input type="text" id="gaziabad-time" class="form-control" placeholder="09:15 PM">
+                </div>
+                
+                <div class="contact-input-group">
+                    <label for="gali-time">Gali Time:</label>
+                    <input type="text" id="gali-time" class="form-control" placeholder="10:30 PM">
+                </div>
+                
+                <div class="contact-input-group">
+                    <label for="deshwar-time">Deshwar Time:</label>
+                    <input type="text" id="deshwar-time" class="form-control" placeholder="04:45 PM">
+                </div>
+                
+                <div class="contact-input-group">
+                    <label for="gali-dubai-time">Gali Dubai Time:</label>
+                    <input type="text" id="gali-dubai-time" class="form-control" placeholder="02:30 PM">
+                </div>
+                
+                <div class="contact-input-group">
+                    <label for="deshwar-dubai-time">Deshwar Dubai Time:</label>
+                    <input type="text" id="deshwar-dubai-time" class="form-control" placeholder="11:45 PM">
+                </div>
+            </div>
+            
+            <button class="btn btn-warning" id="save-times-btn">
+                <i class="fas fa-save"></i> Save Game Times
+            </button>
+        </div>
+
+        <!-- Advertisement Settings -->
+        <div class="settings-section">
+            <h3><i class="fas fa-ad"></i> ADVERTISEMENT SETTINGS</h3>
+            
+            <div class="contact-input-group">
+                <label for="top-ad-code">Top Banner Ad Code:</label>
+                <textarea id="top-ad-code" class="form-control" rows="3" placeholder="Paste HTML/JavaScript ad code"></textarea>
+            </div>
+            
+            <div class="contact-input-group">
+                <label for="sidebar-ad-code">Sidebar Ad Code:</label>
+                <textarea id="sidebar-ad-code" class="form-control" rows="3" placeholder="Paste HTML/JavaScript ad code"></textarea>
+            </div>
+            
+            <div class="contact-input-group">
+                <label for="mobile-ad-code">Mobile Ad Code:</label>
+                <textarea id="mobile-ad-code" class="form-control" rows="3" placeholder="Paste HTML/JavaScript ad code"></textarea>
+            </div>
+            
+            <button class="btn btn-primary" id="save-ads-btn">
+                <i class="fas fa-save"></i> Save Ad Settings
+            </button>
+        </div>
+
+        <!-- Backup & Restore -->
+        <div class="settings-section">
+            <h3><i class="fas fa-database"></i> DATA MANAGEMENT</h3>
+            
+            <div class="quick-actions">
+                <button class="quick-action-btn" id="backup-all-btn">
+                    <i class="fas fa-download"></i> Backup All Data
+                </button>
+                
+                <button class="quick-action-btn" id="restore-backup-btn">
+                    <i class="fas fa-upload"></i> Restore Backup
+                </button>
+                
+                <button class="quick-action-btn" id="clear-all-btn">
+                    <i class="fas fa-trash"></i> Clear All Data
+                </button>
+                
+                <button class="quick-action-btn" id="generate-history-btn">
+                    <i class="fas fa-history"></i> Generate 1 Month History
+                </button>
+            </div>
+            
+            <div id="backup-status" style="margin-top: 15px;"></div>
+        </div>
+
+        <!-- System Information -->
+        <div class="settings-section">
+            <h3><i class="fas fa-info-circle"></i> SYSTEM INFORMATION</h3>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">Total Users:</span>
+                    <span class="stat-value" id="sys-total-users">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Storage Used:</span>
+                    <span class="stat-value" id="sys-storage">0 KB</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Last Backup:</span>
+                    <span class="stat-value" id="sys-last-backup">Never</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Settings Version:</span>
+                    <span class="stat-value" id="sys-version">1.0</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ADMIN SETTINGS</h4>
+                    <p>Configure all website settings</p>
+                    <p>© 2024 Matka King. Admin Access Only.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="mobile-menu.js"></script>
+    <script src="admin-functions.js"></script>
+    <script>
+        // Check admin login
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            if (currentUser.type !== 'admin') {
+                alert('Admin access required!');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load current settings
+            loadSettings();
+            loadSystemInfo();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Log activity
+            logActivity('Accessed admin settings');
+        });
+        
+        function loadSettings() {
+            // Load contact settings
+            const settings = JSON.parse(localStorage.getItem('matkaSettings') || '{}');
+            const contacts = settings.contacts || {};
+            
+            document.getElementById('telegram-channel').value = contacts.telegram || '';
+            document.getElementById('whatsapp-contact').value = contacts.whatsapp || '';
+            document.getElementById('admin-phone').value = contacts.phone || '';
+            document.getElementById('support-email').value = contacts.email || '';
+            document.getElementById('khaiwal-telegram').value = contacts.khaiwalTelegram || '';
+            document.getElementById('premium-contact').value = contacts.premiumContact || '';
+            
+            // Load website config
+            const config = settings.config || {};
+            document.getElementById('site-title').value = config.siteTitle || 'Matka King';
+            document.getElementById('site-slogan').value = config.siteSlogan || 'Faridabad | Gaziabad | Gali | Deshwar | Gali Dubai | Deshwar Dubai';
+            document.getElementById('maintenance-mode').value = config.maintenanceMode || 'off';
+            document.getElementById('result-delay').value = config.resultDelay || '5';
+            document.getElementById('prediction-limit').value = config.predictionLimit || '10';
+            
+            // Load game times
+            const gameTimes = settings.gameTimes || {};
+            document.getElementById('faridabad-time').value = gameTimes.faridabad || '05:15 PM';
+            document.getElementById('gaziabad-time').value = gameTimes.gaziabad || '09:15 PM';
+            document.getElementById('gali-time').value = gameTimes.gali || '10:30 PM';
+            document.getElementById('deshwar-time').value = gameTimes.deshwar || '04:45 PM';
+            document.getElementById('gali-dubai-time').value = gameTimes.gali_dubai || '02:30 PM';
+            document.getElementById('deshwar-dubai-time').value = gameTimes.deshwar_dubai || '11:45 PM';
+            
+            // Load ad settings
+            const ads = settings.ads || {};
+            document.getElementById('top-ad-code').value = ads.top || '';
+            document.getElementById('sidebar-ad-code').value = ads.sidebar || '';
+            document.getElementById('mobile-ad-code').value = ads.mobile || '';
+        }
+        
+        function setupEventListeners() {
+            // Save buttons
+            document.getElementById('save-contacts-btn').addEventListener('click', saveContactSettings);
+            document.getElementById('save-config-btn').addEventListener('click', saveConfigSettings);
+            document.getElementById('save-times-btn').addEventListener('click', saveGameTimes);
+            document.getElementById('save-ads-btn').addEventListener('click', saveAdSettings);
+            
+            // Data management buttons
+            document.getElementById('backup-all-btn').addEventListener('click', backupAllData);
+            document.getElementById('restore-backup-btn').addEventListener('click', restoreBackup);
+            document.getElementById('clear-all-btn').addEventListener('click', clearAllData);
+            document.getElementById('generate-history-btn').addEventListener('click', generateOneMonthHistory);
+            
+            // Logout buttons
+            document.querySelectorAll('.logout-btn').forEach(btn => {
+                btn.addEventListener('click', logout);
+            });
+        }
+        
+        function saveContactSettings() {
+            const contacts = {
+                telegram: document.getElementById('telegram-channel').value.trim(),
+                whatsapp: document.getElementById('whatsapp-contact').value.trim(),
+                phone: document.getElementById('admin-phone').value.trim(),
+                email: document.getElementById('support-email').value.trim(),
+                khaiwalTelegram: document.getElementById('khaiwal-telegram').value.trim(),
+                premiumContact: document.getElementById('premium-contact').value.trim()
+            };
+            
+            let settings = JSON.parse(localStorage.getItem('matkaSettings') || '{}');
+            settings.contacts = contacts;
+            localStorage.setItem('matkaSettings', JSON.stringify(settings));
+            
+            showAlert('Contact settings saved successfully!', 'success');
+            logActivity('Updated contact settings');
+        }
+        
+        function saveConfigSettings() {
+            const config = {
+                siteTitle: document.getElementById('site-title').value.trim(),
+                siteSlogan: document.getElementById('site-slogan').value.trim(),
+                maintenanceMode: document.getElementById('maintenance-mode').value,
+                resultDelay: parseInt(document.getElementById('result-delay').value) || 5,
+                predictionLimit: parseInt(document.getElementById('prediction-limit').value) || 10
+            };
+            
+            let settings = JSON.parse(localStorage.getItem('matkaSettings') || '{}');
+            settings.config = config;
+            localStorage.setItem('matkaSettings', JSON.stringify(settings));
+            
+            showAlert('Website configuration saved successfully!', 'success');
+            logActivity('Updated website configuration');
+        }
+        
+        function saveGameTimes() {
+            const gameTimes = {
+                faridabad: document.getElementById('faridabad-time').value.trim(),
+                gaziabad: document.getElementById('gaziabad-time').value.trim(),
+                gali: document.getElementById('gali-time').value.trim(),
+                deshwar: document.getElementById('deshwar-time').value.trim(),
+                gali_dubai: document.getElementById('gali-dubai-time').value.trim(),
+                deshwar_dubai: document.getElementById('deshwar-dubai-time').value.trim()
+            };
+            
+            let settings = JSON.parse(localStorage.getItem('matkaSettings') || '{}');
+            settings.gameTimes = gameTimes;
+            localStorage.setItem('matkaSettings', JSON.stringify(settings));
+            
+            showAlert('Game times saved successfully!', 'success');
+            logActivity('Updated game times');
+        }
+        
+        function saveAdSettings() {
+            const ads = {
+                top: document.getElementById('top-ad-code').value.trim(),
+                sidebar: document.getElementById('sidebar-ad-code').value.trim(),
+                mobile: document.getElementById('mobile-ad-code').value.trim()
+            };
+            
+            let settings = JSON.parse(localStorage.getItem('matkaSettings') || '{}');
+            settings.ads = ads;
+            localStorage.setItem('matkaSettings', JSON.stringify(settings));
+            
+            showAlert('Advertisement settings saved successfully!', 'success');
+            logActivity('Updated advertisement settings');
+        }
+        
+        function backupAllData() {
+            const backup = {
+                users: JSON.parse(localStorage.getItem('matkaUsers') || '[]'),
+                results: JSON.parse(localStorage.getItem('matkaResults') || '{}'),
+                predictions: JSON.parse(localStorage.getItem('matkaPredictions') || '[]'),
+                guesserNumbers: JSON.parse(localStorage.getItem('guesserNumbers') || '{}'),
+                activity: JSON.parse(localStorage.getItem('adminActivity') || '[]'),
+                settings: JSON.parse(localStorage.getItem('matkaSettings') || '{}'),
+                backupTime: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `matka-backup-${new Date().getTime()}.json`;
+            a.click();
+            
+            localStorage.setItem('lastBackup', new Date().toISOString());
+            logActivity('Created full system backup');
+            
+            document.getElementById('backup-status').innerHTML = `
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i>
+                    Backup created successfully!
+                </div>
+            `;
+            
+            setTimeout(() => {
+                document.getElementById('backup-status').innerHTML = '';
+            }, 5000);
+            
+            loadSystemInfo();
+        }
+        
+        function restoreBackup() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    try {
+                        const backup = JSON.parse(event.target.result);
+                        
+                        if (confirm('Restore this backup? This will overwrite ALL current data.')) {
+                            localStorage.setItem('matkaUsers', JSON.stringify(backup.users || []));
+                            localStorage.setItem('matkaResults', JSON.stringify(backup.results || {}));
+                            localStorage.setItem('matkaPredictions', JSON.stringify(backup.predictions || []));
+                            localStorage.setItem('guesserNumbers', JSON.stringify(backup.guesserNumbers || {}));
+                            localStorage.setItem('adminActivity', JSON.stringify(backup.activity || []));
+                            localStorage.setItem('matkaSettings', JSON.stringify(backup.settings || {}));
+                            
+                            logActivity('Restored system from backup');
+                            
+                            document.getElementById('backup-status').innerHTML = `
+                                <div class="alert alert-success">
+                                    <i class="fas fa-check-circle"></i>
+                                    Data restored successfully! Page will reload.
+                                </div>
+                            `;
+                            
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }
+                    } catch (error) {
+                        document.getElementById('backup-status').innerHTML = `
+                            <div class="alert alert-danger">
+                                <i class="fas fa-exclamation-circle"></i>
+                                Invalid backup file format!
+                            </div>
+                        `;
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+        
+        function clearAllData() {
+            if (confirm('Clear ALL data including users, results, predictions, and settings? This cannot be undone!')) {
+                // Clear all data except current admin
+                const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+                
+                localStorage.clear();
+                
+                // Restore only admin user
+                localStorage.setItem('matkaUsers', JSON.stringify([{
+                    id: 'admin001',
+                    username: 'admin',
+                    password: 'admin123',
+                    type: 'admin',
+                    name: 'Super Admin',
+                    email: 'admin@matkaking.com',
+                    created: new Date().toISOString(),
+                    status: 'active'
+                }]));
+                
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                localStorage.setItem('adminActivity', JSON.stringify([]));
+                localStorage.setItem('matkaSettings', JSON.stringify({}));
+                
+                logActivity('Cleared all data');
+                
+                document.getElementById('backup-status').innerHTML = `
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        All data cleared successfully! Page will reload.
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            }
+        }
+        
+        function generateOneMonthHistory() {
+            if (confirm('Generate random results for the past 30 days? This will create historical data.')) {
+                const games = ['faridabad', 'gaziabad', 'gali', 'deshwar', 'gali_dubai', 'deshwar_dubai'];
+                let results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
+                
+                let generatedCount = 0;
+                const today = new Date();
+                
+                for (let i = 1; i <= 30; i++) {
+                    const date = new Date();
+                    date.setDate(date.getDate() - i);
+                    const dateStr = date.toISOString().split('T')[0];
+                    
+                    // Skip today and already existing dates
+                    if (dateStr === today.toISOString().split('T')[0] || results[dateStr]) {
+                        continue;
+                    }
+                    
+                    results[dateStr] = {};
+                    generatedCount++;
+                    
+                    games.forEach(game => {
+                        const hour = Math.floor(Math.random() * 12) + 12;
+                        const minute = Math.floor(Math.random() * 60);
+                        const result = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+                        
+                        results[dateStr][game] = {
+                            result: result,
+                            published: true,
+                            time: `${hour}:${minute.toString().padStart(2, '0')} ${hour >= 12 ? 'PM' : 'AM'}`,
+                            publishTime: new Date(date.setHours(18, 0, 0, 0)).toLocaleTimeString()
+                        };
+                    });
+                }
+                
+                localStorage.setItem('matkaResults', JSON.stringify(results));
+                
+                // Also generate some predictions for history
+                let predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+                const users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+                const guessers = users.filter(u => u.type === 'guesser');
+                
+                if (guessers.length > 0) {
+                    for (let i = 1; i <= 30; i++) {
+                        const date = new Date();
+                        date.setDate(date.getDate() - i);
+                        const dateStr = date.toISOString().split('T')[0];
+                        
+                        guessers.forEach(guesser => {
+                            games.forEach(game => {
+                                const numbers = [];
+                                while (numbers.length < 3) {
+                                    const num = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+                                    if (!numbers.includes(num)) numbers.push(num);
+                                }
+                                
+                                const actualResult = results[dateStr]?.[game]?.result;
+                                const isCorrect = actualResult ? numbers.includes(actualResult) : undefined;
+                                
+                                predictions.push({
+                                    id: 'hist' + Date.now() + Math.random(),
+                                    guesserId: guesser.id,
+                                    guesserName: guesser.name || guesser.username,
+                                    game: game,
+                                    numbers: numbers,
+                                    date: dateStr,
+                                    time: `${Math.floor(Math.random() * 12) + 1}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')} ${Math.random() > 0.5 ? 'PM' : 'AM'}`,
+                                    isCorrect: isCorrect,
+                                    accuracy: isCorrect ? 100 : 0,
+                                    actualResult: actualResult
+                                });
+                            });
+                        });
+                    }
+                    
+                    localStorage.setItem('matkaPredictions', JSON.stringify(predictions));
+                }
+                
+                logActivity(`Generated ${generatedCount} days of historical data`);
+                
+                document.getElementById('backup-status').innerHTML = `
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        Generated ${generatedCount} days of historical results with predictions!
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    document.getElementById('backup-status').innerHTML = '';
+                }, 5000);
+            }
+        }
+        
+        function loadSystemInfo() {
+            // Total users
+            const users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            document.getElementById('sys-total-users').textContent = users.length;
+            
+            // Storage used
+            let totalSize = 0;
+            for (let key in localStorage) {
+                if (localStorage.hasOwnProperty(key)) {
+                    totalSize += localStorage[key].length * 2;
+                }
+            }
+            document.getElementById('sys-storage').textContent = (totalSize / 1024).toFixed(2) + ' KB';
+            
+            // Last backup
+            const lastBackup = localStorage.getItem('lastBackup');
+            if (lastBackup) {
+                document.getElementById('sys-last-backup').textContent = new Date(lastBackup).toLocaleDateString();
+            }
+        }
+        
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                ${message}
+            `;
+            
+            const container = document.querySelector('.admin-settings-container');
+            container.insertBefore(alertDiv, container.firstChild);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+        
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
