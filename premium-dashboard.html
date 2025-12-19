@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Dashboard - Matka King</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h3><i class="fas fa-bars"></i> Premium Menu</h3>
+            <button class="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-content">
+            <a href="premium-dashboard.html" class="mobile-menu-item active">
+                <i class="fas fa-crown"></i> Dashboard
+            </a>
+            <a href="index.html" class="mobile-menu-item">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="results-history.html" class="mobile-menu-item">
+                <i class="fas fa-history"></i> Results History
+            </a>
+            <a href="#" class="mobile-menu-item logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>MATKA KING</h1>
+                <p>Premium Dashboard</p>
+            </div>
+            <div class="header-buttons">
+                <button class="btn btn-danger logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container dashboard-container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1><i class="fas fa-crown"></i> PREMIUM DASHBOARD</h1>
+            <p>Exclusive premium predictions and features</p>
+        </div>
+
+        <!-- User Info -->
+        <div class="user-info">
+            <div class="user-details">
+                <h3 id="premium-name">Premium User</h3>
+                <p><i class="fas fa-crown"></i> Premium Member | <span id="premium-expiry">Expires: Never</span></p>
+            </div>
+            <div>
+                <span class="user-badge badge-premium">PREMIUM</span>
+                <span class="user-badge" id="premium-since">Member Since: Today</span>
+            </div>
+        </div>
+
+        <!-- Premium Predictions -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-star"></i> TODAY'S PREMIUM PREDICTIONS</h3>
+            <div style="margin-top: 15px;">
+                <div class="single-prediction-box">
+                    <h3><i class="fas fa-lock"></i> PREMIUM SINGLE</h3>
+                    <div class="spot-prediction-number" id="premium-single-prediction">--</div>
+                    <p class="prediction-time">Confirmed Number for Today</p>
+                    <span class="prediction-accuracy">95% Accuracy</span>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+                    <div style="text-align: center; padding: 20px; background: rgba(0, 230, 118, 0.1); border-radius: 10px;">
+                        <h4 style="color: #00e676; margin-bottom: 10px;">Faridabad</h4>
+                        <div class="spot-prediction-number" id="premium-faridabad">--</div>
+                        <p class="prediction-time">5:15 PM</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 20px; background: rgba(33, 150, 243, 0.1); border-radius: 10px;">
+                        <h4 style="color: #2196f3; margin-bottom: 10px;">Gaziabad</h4>
+                        <div class="spot-prediction-number" id="premium-gaziabad">--</div>
+                        <p class="prediction-time">9:15 PM</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 20px; background: rgba(255, 152, 0, 0.1); border-radius: 10px;">
+                        <h4 style="color: #ff9800; margin-bottom: 10px;">Gali</h4>
+                        <div class="spot-prediction-number" id="premium-gali">--</div>
+                        <p class="prediction-time">10:30 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Early Results -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-bolt"></i> EARLY RESULTS ACCESS</h3>
+            <div style="margin-top: 15px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 5px;">
+                        <div style="font-size: 0.9rem; color: #a0a0c0;">Faridabad Result</div>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: #00e676;" id="early-faridabad">--</div>
+                        <div style="font-size: 0.8rem; color: #00e676;">5:10 PM (Early)</div>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 5px;">
+                        <div style="font-size: 0.9rem; color: #a0a0c0;">Gaziabad Result</div>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: #2196f3;" id="early-gaziabad">--</div>
+                        <div style="font-size: 0.8rem; color: #2196f3;">9:10 PM (Early)</div>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 5px;">
+                        <div style="font-size: 0.9rem; color: #a0a0c0;">Gali Result</div>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: #ff9800;" id="early-gali">--</div>
+                        <div style="font-size: 0.8rem; color: #ff9800;">10:25 PM (Early)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Features -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-gem"></i> PREMIUM FEATURES</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 15px;">
+                <div style="text-align: center; padding: 20px; background: rgba(255, 215, 0, 0.1); border-radius: 10px;">
+                    <i class="fas fa-bolt fa-2x" style="color: #ffd700; margin-bottom: 15px;"></i>
+                    <h4 style="color: #ffd700;">Early Results</h4>
+                    <p style="color: #a0a0c0; font-size: 0.9rem;">Get results 5 minutes before public</p>
+                </div>
+                
+                <div style="text-align: center; padding: 20px; background: rgba(0, 230, 118, 0.1); border-radius: 10px;">
+                    <i class="fas fa-star fa-2x" style="color: #00e676; margin-bottom: 15px;"></i>
+                    <h4 style="color: #00e676;">Confirmed Numbers</h4>
+                    <p style="color: #a0a0c0; font-size: 0.9rem;">Daily 3 confirmed numbers</p>
+                </div>
+                
+                <div style="text-align: center; padding: 20px; background: rgba(245, 0, 87, 0.1); border-radius: 10px;">
+                    <i class="fas fa-headset fa-2x" style="color: #ff4081; margin-bottom: 15px;"></i>
+                    <h4 style="color: #ff4081;">24/7 Support</h4>
+                    <p style="color: #a0a0c0; font-size: 0.9rem;">Direct admin support</p>
+                </div>
+                
+                <div style="text-align: center; padding: 20px; background: rgba(33, 150, 243, 0.1); border-radius: 10px;">
+                    <i class="fas fa-chart-line fa-2x" style="color: #2196f3; margin-bottom: 15px;"></i>
+                    <h4 style="color: #2196f3;">Analytics</h4>
+                    <p style="color: #a0a0c0; font-size: 0.9rem;">Advanced prediction analytics</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Admin -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-headset"></i> PREMIUM SUPPORT</h3>
+            <div style="margin-top: 15px;">
+                <div style="background: rgba(255, 215, 0, 0.1); padding: 20px; border-radius: 10px;">
+                    <h4 style="color: #ffd700; margin-bottom: 15px;">Need Help?</h4>
+                    <p style="color: #a0a0c0; margin-bottom: 15px;">
+                        As a premium member, you have direct access to our support team:
+                    </p>
+                    
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <a href="#" class="btn btn-telegram" style="flex: 1;">
+                            <i class="fab fa-telegram"></i> Telegram Support
+                        </a>
+                        <a href="#" class="btn btn-success" style="flex: 1;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp Support
+                        </a>
+                    </div>
+                    
+                    <div style="margin-top: 15px; padding: 15px; background: rgba(0, 0, 0, 0.2); border-radius: 5px;">
+                        <p style="color: #a0a0c0; margin: 0; font-size: 0.9rem;">
+                            <i class="fas fa-info-circle"></i> Premium support available 24/7
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Tips -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-lightbulb"></i> PREMIUM TIPS</h3>
+            <div style="margin-top: 15px;">
+                <div style="background: rgba(33, 150, 243, 0.1); padding: 15px; border-radius: 5px; margin-bottom: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                        <i class="fas fa-check-circle" style="color: #00e676;"></i>
+                        <strong style="color: #2196f3;">Today's Hot Number:</strong>
+                    </div>
+                    <p style="color: #a0a0c0; margin: 0;">Based on pattern analysis, today's hot number is <strong style="color: #00e676;">45</strong></p>
+                </div>
+                
+                <div style="background: rgba(255, 152, 0, 0.1); padding: 15px; border-radius: 5px; margin-bottom: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                        <i class="fas fa-exclamation-triangle" style="color: #ff9800;"></i>
+                        <strong style="color: #ff9800;">Avoid These Numbers:</strong>
+                    </div>
+                    <p style="color: #a0a0c0; margin: 0;">Numbers <strong style="color: #ff4081;">13, 29, 67</strong> have low probability today</p>
+                </div>
+                
+                <div style="background: rgba(0, 230, 118, 0.1); padding: 15px; border-radius: 5px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                        <i class="fas fa-chart-line" style="color: #00e676;"></i>
+                        <strong style="color: #00e676;">Pattern Alert:</strong>
+                    </div>
+                    <p style="color: #a0a0c0; margin: 0;">Faridabad showing repeating pattern from last week</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>PREMIUM DASHBOARD</h4>
+                    <p>Exclusive premium features and predictions</p>
+                    <p>© 2024 Matka King. Premium Access Only.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="mobile-menu.js"></script>
+    <script>
+        // Check premium login
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            if (currentUser.type !== 'premium') {
+                alert('Premium access required!');
+                window.location.href = 'login.html?type=premium';
+                return;
+            }
+            
+            // Load premium data
+            loadPremiumData();
+            loadPremiumPredictions();
+            loadEarlyResults();
+            
+            // Setup event listeners
+            setupEventListeners();
+        });
+        
+        function loadPremiumData() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const premiumUser = users.find(u => u.id === currentUser.id || u.username === currentUser.username);
+            
+            if (premiumUser) {
+                document.getElementById('premium-name').textContent = premiumUser.name || premiumUser.username;
+                
+                // Set expiry date
+                const expiry = premiumUser.expiryDate || 'Never';
+                document.getElementById('premium-expiry').textContent = `Expires: ${expiry}`;
+                
+                // Set member since
+                const since = new Date(premiumUser.created || Date.now()).toLocaleDateString();
+                document.getElementById('premium-since').textContent = `Member Since: ${since}`;
+            }
+        }
+        
+        function loadPremiumPredictions() {
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Generate premium predictions (for demo)
+            const premiumSingle = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+            const faridabadPred = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+            const gaziabadPred = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+            const galiPred = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+            
+            document.getElementById('premium-single-prediction').textContent = premiumSingle;
+            document.getElementById('premium-faridabad').textContent = faridabadPred;
+            document.getElementById('premium-gaziabad').textContent = gaziabadPred;
+            document.getElementById('premium-gali').textContent = galiPred;
+        }
+        
+        function loadEarlyResults() {
+            const today = new Date().toISOString().split('T')[0];
+            const results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
+            const todayResults = results[today] || {};
+            
+            // Check for early results (5 minutes before actual time)
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            
+            // Check Faridabad (5:15 PM)
+            const faridabadTime = { hour: 17, minute: 15 }; // 5:15 PM
+            if (currentHour >= 17 && currentMinute >= 10) { // 5:10 PM onwards
+                document.getElementById('early-faridabad').textContent = 
+                    todayResults.faridabad?.result || '--';
+            }
+            
+            // Check Gaziabad (9:15 PM)
+            const gaziabadTime = { hour: 21, minute: 15 }; // 9:15 PM
+            if (currentHour >= 21 && currentMinute >= 10) { // 9:10 PM onwards
+                document.getElementById('early-gaziabad').textContent = 
+                    todayResults.gaziabad?.result || '--';
+            }
+            
+            // Check Gali (10:30 PM)
+            const galiTime = { hour: 22, minute: 30 }; // 10:30 PM
+            if (currentHour >= 22 && currentMinute >= 25) { // 10:25 PM onwards
+                document.getElementById('early-gali').textContent = 
+                    todayResults.gali?.result || '--';
+            }
+        }
+        
+        function setupEventListeners() {
+            // Logout buttons
+            document.querySelectorAll('.logout-btn').forEach(btn => {
+                btn.addEventListener('click', logout);
+            });
+            
+            // Contact buttons
+            document.querySelectorAll('.btn-telegram, .btn-success').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Premium support contact information loaded from settings');
+                });
+            });
+            
+            // Auto-refresh predictions every minute
+            setInterval(loadPremiumPredictions, 60000);
+            
+            // Auto-refresh early results every 30 seconds
+            setInterval(loadEarlyResults, 30000);
+        }
+        
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
