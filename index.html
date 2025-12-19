@@ -9,19 +9,22 @@
     <meta name="author" content="Matka King">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎰</text></svg>">
 </head>
 <body>
     <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+    <button class="mobile-menu-btn">
         <i class="fas fa-bars"></i>
     </button>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay"></div>
+
     <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
     <div class="mobile-menu">
         <div class="mobile-menu-header">
             <h3><i class="fas fa-bars"></i> Menu</h3>
-            <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+            <button class="mobile-menu-close">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -38,10 +41,10 @@
             <a href="login.html?type=premium" class="mobile-menu-item">
                 <i class="fas fa-crown"></i> Premium Login
             </a>
-            <a href="#khaiwal" class="mobile-menu-item" onclick="toggleMobileMenu(); scrollToSection('khaiwal')">
+            <a href="#khaiwal" class="mobile-menu-item">
                 <i class="fas fa-gamepad"></i> Khaiwal
             </a>
-            <a href="#contact" class="mobile-menu-item" onclick="toggleMobileMenu(); scrollToSection('contact')">
+            <a href="#contact" class="mobile-menu-item">
                 <i class="fas fa-phone-alt"></i> Contact
             </a>
             <a href="login.html" class="mobile-menu-item">
@@ -51,7 +54,10 @@
         <div class="mobile-menu-footer">
             <div class="mobile-ads">
                 <div class="mobile-ad-slot">
-                    <!-- Mobile ad will be loaded here -->
+                    <!-- Mobile ad placeholder -->
+                    <div style="padding: 10px; text-align: center; color: #a0a0c0;">
+                        <i class="fas fa-ad"></i> Advertisement
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,16 +94,23 @@
     <!-- Advertisement Banner -->
     <div class="advertisement desktop-only">
         <div class="container">
-            <div class="ad-banner" id="ad-banner-top">
-                <!-- Top banner ad will be loaded here -->
+            <div class="ad-banner">
+                <!-- Top banner ad placeholder -->
+                <div style="padding: 20px; text-align: center; color: #a0a0c0;">
+                    <i class="fas fa-ad fa-2x"></i>
+                    <p>Advertisement Banner</p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Mobile Ad Top -->
     <div class="mobile-ad-top mobile-only">
-        <div class="mobile-ad-banner" id="mobile-ad-top">
-            <!-- Mobile top ad will be loaded here -->
+        <div class="mobile-ad-banner">
+            <!-- Mobile top ad placeholder -->
+            <div style="padding: 15px; text-align: center; color: #a0a0c0;">
+                <i class="fas fa-ad"></i> Advertisement
+            </div>
         </div>
     </div>
 
@@ -125,8 +138,8 @@
                                 <div class="stat">Today: <span id="today-1">--</span></div>
                             </div>
                             <div class="game-actions">
-                                <button class="btn btn-small" onclick="showPrediction(1)">Predictions</button>
-                                <button class="btn btn-small btn-info" onclick="checkResult(1)">Check Update</button>
+                                <button class="btn btn-small">Predictions</button>
+                                <button class="btn btn-small btn-info">Check Update</button>
                             </div>
                         </div>
 
@@ -145,8 +158,8 @@
                                 <div class="stat">Today: <span id="today-2">--</span></div>
                             </div>
                             <div class="game-actions">
-                                <button class="btn btn-small" onclick="showPrediction(2)">Predictions</button>
-                                <button class="btn btn-small btn-info" onclick="checkResult(2)">Check Update</button>
+                                <button class="btn btn-small">Predictions</button>
+                                <button class="btn btn-small btn-info">Check Update</button>
                             </div>
                         </div>
 
@@ -165,8 +178,8 @@
                                 <div class="stat">Today: <span id="today-3">--</span></div>
                             </div>
                             <div class="game-actions">
-                                <button class="btn btn-small" onclick="showPrediction(3)">Predictions</button>
-                                <button class="btn btn-small btn-info" onclick="checkResult(3)">Check Update</button>
+                                <button class="btn btn-small">Predictions</button>
+                                <button class="btn btn-small btn-info">Check Update</button>
                             </div>
                         </div>
 
@@ -185,8 +198,8 @@
                                 <div class="stat">Today: <span id="today-4">--</span></div>
                             </div>
                             <div class="game-actions">
-                                <button class="btn btn-small" onclick="showPrediction(4)">Predictions</button>
-                                <button class="btn btn-small btn-info" onclick="checkResult(4)">Check Update</button>
+                                <button class="btn btn-small">Predictions</button>
+                                <button class="btn btn-small btn-info">Check Update</button>
                             </div>
                         </div>
 
@@ -205,8 +218,8 @@
                                 <div class="stat">Today: <span id="today-5">--</span></div>
                             </div>
                             <div class="game-actions">
-                                <button class="btn btn-small" onclick="showPrediction(5)">Predictions</button>
-                                <button class="btn btn-small btn-info" onclick="checkResult(5)">Check Update</button>
+                                <button class="btn btn-small">Predictions</button>
+                                <button class="btn btn-small btn-info">Check Update</button>
                             </div>
                         </div>
 
@@ -225,8 +238,8 @@
                                 <div class="stat">Today: <span id="today-6">--</span></div>
                             </div>
                             <div class="game-actions">
-                                <button class="btn btn-small" onclick="showPrediction(6)">Predictions</button>
-                                <button class="btn btn-small btn-info" onclick="checkResult(6)">Check Update</button>
+                                <button class="btn btn-small">Predictions</button>
+                                <button class="btn btn-small btn-info">Check Update</button>
                             </div>
                         </div>
                     </div>
@@ -234,8 +247,11 @@
 
                 <!-- Mobile Ad Middle -->
                 <div class="mobile-ad-middle mobile-only">
-                    <div class="mobile-ad-square" id="mobile-ad-middle">
-                        <!-- Mobile middle ad will be loaded here -->
+                    <div class="mobile-ad-square">
+                        <!-- Mobile middle ad placeholder -->
+                        <div style="padding: 20px; text-align: center; color: #a0a0c0;">
+                            <i class="fas fa-ad"></i> Advertisement
+                        </div>
                     </div>
                 </div>
 
@@ -283,8 +299,12 @@
             <div class="right-column desktop-only">
                 <!-- Advertisement Sidebar -->
                 <div class="ad-sidebar">
-                    <div class="ad-vertical" id="ad-sidebar-1">
-                        <!-- Sidebar ad will be loaded here -->
+                    <div class="ad-vertical">
+                        <!-- Sidebar ad placeholder -->
+                        <div style="padding: 20px; text-align: center; color: #a0a0c0;">
+                            <i class="fas fa-ad fa-2x"></i>
+                            <p>Sidebar Advertisement</p>
+                        </div>
                     </div>
                 </div>
 
@@ -329,15 +349,15 @@
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Total Guessers:</span>
-                            <span class="stat-value" id="total-guessers">25</span>
+                            <span class="stat-value" id="total-guessers">0</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Predictions:</span>
-                            <span class="stat-value" id="total-predictions">156</span>
+                            <span class="stat-value" id="total-predictions">0</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Accuracy:</span>
-                            <span class="stat-value" id="accuracy-rate">89%</span>
+                            <span class="stat-value" id="accuracy-rate">0%</span>
                         </div>
                     </div>
                 </div>
@@ -345,8 +365,11 @@
                 <!-- Advertisement Slot -->
                 <div class="ad-slot">
                     <h4><i class="fas fa-ad"></i> Advertisement</h4>
-                    <div class="ad-rectangle" id="ad-rectangle">
-                        <!-- Rectangle ad will be loaded here -->
+                    <div class="ad-rectangle">
+                        <!-- Rectangle ad placeholder -->
+                        <div style="padding: 20px; text-align: center; color: #a0a0c0;">
+                            <i class="fas fa-ad"></i> Advertisement
+                        </div>
                     </div>
                 </div>
             </div>
@@ -368,11 +391,11 @@
                 <div class="mobile-stats">
                     <div class="mobile-stat-item">
                         <span>Markets: <strong>6</strong></span>
-                        <span>Guessers: <strong id="mobile-total-guessers">25</strong></span>
+                        <span>Guessers: <strong id="mobile-total-guessers">0</strong></span>
                     </div>
                     <div class="mobile-stat-item">
-                        <span>Predictions: <strong id="mobile-total-predictions">156</strong></span>
-                        <span>Accuracy: <strong id="mobile-accuracy-rate">89%</strong></span>
+                        <span>Predictions: <strong id="mobile-total-predictions">0</strong></span>
+                        <span>Accuracy: <strong id="mobile-accuracy-rate">0%</strong></span>
                     </div>
                 </div>
             </div>
@@ -390,8 +413,11 @@
 
     <!-- Mobile Ad Bottom -->
     <div class="mobile-ad-bottom mobile-only">
-        <div class="mobile-ad-rectangle" id="mobile-ad-bottom">
-            <!-- Mobile bottom ad will be loaded here -->
+        <div class="mobile-ad-rectangle">
+            <!-- Mobile bottom ad placeholder -->
+            <div style="padding: 15px; text-align: center; color: #a0a0c0;">
+                <i class="fas fa-ad"></i> Advertisement
+            </div>
         </div>
     </div>
 
@@ -407,12 +433,12 @@
                 <div class="footer-section">
                     <h4>Our Markets</h4>
                     <ul>
-                        <li><a href="#">Faridabad Matka</a></li>
-                        <li><a href="#">Gaziabad Matka</a></li>
-                        <li><a href="#">Gali Matka</a></li>
-                        <li><a href="#">Deshwar Matka</a></li>
-                        <li><a href="#">Gali Dubai Matka</a></li>
-                        <li><a href="#">Deshwar Dubai Matka</a></li>
+                        <li><a href="#khaiwal">Faridabad Matka</a></li>
+                        <li><a href="#khaiwal">Gaziabad Matka</a></li>
+                        <li><a href="#khaiwal">Gali Matka</a></li>
+                        <li><a href="#khaiwal">Deshwar Matka</a></li>
+                        <li><a href="#khaiwal">Gali Dubai Matka</a></li>
+                        <li><a href="#khaiwal">Deshwar Dubai Matka</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
