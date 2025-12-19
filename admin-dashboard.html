@@ -9,16 +9,18 @@
 </head>
 <body>
     <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+    <button class="mobile-menu-btn">
         <i class="fas fa-bars"></i>
     </button>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay"></div>
+
     <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
     <div class="mobile-menu">
         <div class="mobile-menu-header">
             <h3><i class="fas fa-bars"></i> Admin Menu</h3>
-            <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+            <button class="mobile-menu-close">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -38,7 +40,7 @@
             <a href="index.html" class="mobile-menu-item">
                 <i class="fas fa-home"></i> Home Page
             </a>
-            <a href="#" class="mobile-menu-item" onclick="logout()">
+            <a href="#" class="mobile-menu-item logout-btn">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>
@@ -52,7 +54,7 @@
                 <p>Admin Dashboard</p>
             </div>
             <div class="header-buttons">
-                <button onclick="logout()" class="btn btn-danger">
+                <button class="btn btn-danger logout-btn">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
             </div>
@@ -93,7 +95,7 @@
                 <p><i class="fas fa-user-shield"></i> Administrator | <span id="login-time"></span></p>
             </div>
             <div>
-                <span class="badge badge-admin">ADMIN</span>
+                <span class="user-badge badge-admin">ADMIN</span>
             </div>
         </div>
 
@@ -152,7 +154,7 @@
                     </div>
                     <div class="stat-item">
                         <span class="stat-label">Total Predictions:</span>
-                        <span class="stat-value" id="total-predictions">0</span>
+                        <span class="stat-value" id="total-predictions-admin">0</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-label">Accuracy Rate:</span>
@@ -173,7 +175,7 @@
                 <button class="btn btn-primary" onclick="window.location.href='manage-results.html'">
                     <i class="fas fa-plus"></i> Add Today's Results
                 </button>
-                <button class="btn btn-success" onclick="generateHistoricalResults()">
+                <button class="btn btn-success" id="generate-historical-btn">
                     <i class="fas fa-history"></i> Generate Historical Data
                 </button>
                 <button class="btn btn-info" onclick="window.location.href='manage-users.html'">
@@ -182,10 +184,10 @@
                 <button class="btn btn-premium" onclick="window.location.href='manage-predictions.html'">
                     <i class="fas fa-edit"></i> Edit Predictions
                 </button>
-                <button class="btn btn-outline" onclick="backupAllData()">
+                <button class="btn btn-outline" id="backup-btn">
                     <i class="fas fa-download"></i> Backup All Data
                 </button>
-                <button class="btn btn-outline" onclick="restoreAllData()">
+                <button class="btn btn-outline" id="restore-btn">
                     <i class="fas fa-upload"></i> Restore Data
                 </button>
             </div>
@@ -266,7 +268,29 @@
             loadDashboardStats();
             loadRecentActivity();
             loadSystemInfo();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Log activity
+            logActivity('Accessed admin dashboard');
         });
+        
+        function setupEventListeners() {
+            // Logout buttons
+            document.querySelectorAll('.logout-btn').forEach(btn => {
+                btn.addEventListener('click', logout);
+            });
+            
+            // Generate historical data
+            document.getElementById('generate-historical-btn').addEventListener('click', generateHistoricalResults);
+            
+            // Backup button
+            document.getElementById('backup-btn').addEventListener('click', backupAllData);
+            
+            // Restore button
+            document.getElementById('restore-btn').addEventListener('click', restoreAllData);
+        }
         
         function loadDashboardStats() {
             // Users statistics
@@ -297,10 +321,10 @@
             const todayPredictions = predictions.filter(p => p.date === today).length;
             
             document.getElementById('today-predictions').textContent = todayPredictions;
-            document.getElementById('total-predictions').textContent = predictions.length;
+            document.getElementById('total-predictions-admin').textContent = predictions.length;
             document.getElementById('active-guessers').textContent = users.filter(u => u.type === 'guesser' && u.status === 'active').length;
             
-            // Calculate accuracy (simplified)
+            // Calculate accuracy
             const correctPredictions = predictions.filter(p => p.isCorrect).length;
             const accuracy = predictions.length > 0 ? Math.round((correctPredictions / predictions.length) * 100) : 0;
             document.getElementById('overall-accuracy').textContent = accuracy + '%';
@@ -336,7 +360,7 @@
             let totalSize = 0;
             for (let key in localStorage) {
                 if (localStorage.hasOwnProperty(key)) {
-                    totalSize += localStorage[key].length * 2; // UTF-16 characters
+                    totalSize += localStorage[key].length * 2;
                 }
             }
             document.getElementById('storage-info').textContent = (totalSize / 1024).toFixed(2) + ' KB';
@@ -442,31 +466,10 @@
             input.click();
         }
         
-        function logActivity(action) {
-            const activity = JSON.parse(localStorage.getItem('adminActivity') || '[]');
-            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-            
-            activity.unshift({
-                user: currentUser.username || 'admin',
-                action: action,
-                time: new Date().toISOString()
-            });
-            
-            // Keep only last 100 activities
-            if (activity.length > 100) {
-                activity.length = 100;
-            }
-            
-            localStorage.setItem('adminActivity', JSON.stringify(activity));
-        }
-        
         function logout() {
             localStorage.removeItem('currentUser');
             window.location.href = 'login.html';
         }
-        
-        // Initialize activity logging
-        logActivity('Accessed admin dashboard');
     </script>
 </body>
 </html>
