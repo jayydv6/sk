@@ -3,178 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guesser Panel - Matka King</title>
+    <title>Guesser Dashboard - Matka King</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h3><i class="fas fa-bars"></i> Guesser Menu</h3>
+            <button class="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-content">
+            <a href="guesser-dashboard.html" class="mobile-menu-item active">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="index.html" class="mobile-menu-item">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="results-history.html" class="mobile-menu-item">
+                <i class="fas fa-history"></i> Results History
+            </a>
+            <a href="#" class="mobile-menu-item logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="logo">
-                <h1>GUESSER PANEL</h1>
-                <p>Submit Your Predictions for 6 Games</p>
+                <h1>MATKA KING</h1>
+                <p>Guesser Dashboard</p>
             </div>
             <div class="header-buttons">
-                <a href="index.html" class="btn btn-outline">
-                    <i class="fas fa-home"></i> Home
-                </a>
+                <button class="btn btn-danger logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="container">
-        <!-- Login Section -->
-        <div id="loginSection" class="login-container">
-            <div class="login-header">
-                <h2><i class="fas fa-user-secret"></i> Guesser Login</h2>
-                <p>Enter your Guesser ID and Password</p>
+    <main class="container dashboard-container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1><i class="fas fa-users"></i> GUESSER DASHBOARD</h1>
+            <p>Submit your predictions and track your performance</p>
+        </div>
+
+        <!-- User Info -->
+        <div class="user-info">
+            <div class="user-details">
+                <h3 id="guesser-name">Guesser Name</h3>
+                <p><i class="fas fa-user-circle"></i> Guesser | <span id="guesser-rating">Rating: 0/5</span> | Accuracy: <span id="guesser-accuracy">0%</span></p>
             </div>
-            <div class="form-group">
-                <label for="guesserId">Guesser ID</label>
-                <input type="text" id="guesserId" class="form-control" placeholder="Enter guesser ID">
-            </div>
-            <div class="form-group">
-                <label for="guesserPassword">Password</label>
-                <input type="password" id="guesserPassword" class="form-control" placeholder="Enter password">
-            </div>
-            <div class="form-group">
-                <button onclick="loginGuesser()" class="btn btn-primary" style="width: 100%;">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </button>
-            </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <p>Contact admin for guesser account</p>
-                <a href="index.html" style="color: #ff4081; text-decoration: none;">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </a>
+            <div>
+                <span class="user-badge badge-guesser">GUESSER</span>
+                <span class="user-badge" id="prediction-count">Predictions: 0</span>
             </div>
         </div>
 
-        <!-- Guesser Dashboard (Hidden by default) -->
-        <div id="guesserDashboard" style="display: none;">
-            <div class="admin-header">
-                <h1><i class="fas fa-bullhorn"></i> Guesser Dashboard</h1>
-                <p>Welcome, <span id="currentGuesserName"></span> (ID: <span id="currentGuesserId"></span>)</p>
+        <!-- Single/Spot Prediction Display -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-bullseye"></i> TODAY'S TOP PREDICTIONS</h3>
+            <div id="single-predictions-display">
+                <!-- Single predictions will be loaded here -->
+                <div class="single-prediction-box">
+                    <h3><i class="fas fa-star"></i> SINGLE PREDICTION</h3>
+                    <div class="spot-prediction-number" id="single-prediction-number">--</div>
+                    <p class="prediction-time">For: <span id="single-prediction-game">Faridabad</span></p>
+                    <span class="prediction-accuracy">Accuracy: <span id="single-prediction-accuracy">--%</span></span>
+                </div>
             </div>
+        </div>
 
-            <div class="admin-grid">
-                <!-- Submit Prediction -->
-                <div class="admin-card" id="predictionForm">
-                    <h3><i class="fas fa-paper-plane"></i> Submit Prediction</h3>
-                    <div class="form-group">
-                        <label>Select Game</label>
-                        <select id="predictionGame" class="form-control">
-                            <option value="1">FARIDABAD</option>
-                            <option value="2">GAZIABAD</option>
-                            <option value="3">GALI</option>
-                            <option value="4">DESHWAR</option>
-                            <option value="5">GALI DUBAI</option>
-                            <option value="6">DESHWAR DUBAI</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Prediction Type</label>
-                        <div class="prediction-type-selector">
-                            <button type="button" class="type-btn active" onclick="selectPredictionType('single')">Single (1 Number)</button>
-                            <button type="button" class="type-btn" onclick="selectPredictionType('spot')">Spot (2 Numbers)</button>
-                        </div>
-                        <input type="hidden" id="predictionType" value="single">
-                    </div>
-                    
-                    <!-- Single Number Input -->
-                    <div id="singleInput" class="prediction-inputs active">
-                        <div class="form-group">
-                            <label>Enter Single Number (00-99)</label>
-                            <input type="number" id="singleNumber" class="form-control number-input" 
-                                   placeholder="00" min="0" max="99" step="1">
-                            <small style="color: #a0a0c0;">Enter one number between 00-99</small>
-                        </div>
-                    </div>
-                    
-                    <!-- Spot Numbers Input -->
-                    <div id="spotInput" class="prediction-inputs">
-                        <div class="form-group">
-                            <label>Enter Spot Numbers (00-99 each)</label>
-                            <div class="spot-inputs">
-                                <input type="number" id="spotNumber1" class="form-control number-input" 
-                                       placeholder="First" min="0" max="99" step="1">
-                                <input type="number" id="spotNumber2" class="form-control number-input" 
-                                       placeholder="Second" min="0" max="99" step="1">
-                            </div>
-                            <small style="color: #a0a0c0;">Enter two numbers between 00-99</small>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Confidence Level (Optional)</label>
-                        <select id="confidence" class="form-control">
-                            <option value="low">Low (30-50%)</option>
-                            <option value="medium">Medium (50-70%)</option>
-                            <option value="high">High (70-90%)</option>
-                            <option value="very-high">Very High (90-100%)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <button onclick="submitPrediction()" class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-share-square"></i> Submit Prediction
-                        </button>
-                    </div>
+        <!-- Submit Prediction Form -->
+        <div class="guesser-prediction-form">
+            <h3><i class="fas fa-paper-plane"></i> SUBMIT NEW PREDICTION</h3>
+            
+            <!-- Prediction Type Selector -->
+            <div class="prediction-type-selector">
+                <button class="prediction-type-btn active" data-type="single">
+                    <i class="fas fa-star"></i>
+                    Single Prediction
+                </button>
+                <button class="prediction-type-btn" data-type="spot">
+                    <i class="fas fa-bullseye"></i>
+                    Spot Prediction (3 Numbers)
+                </button>
+            </div>
+            
+            <!-- Game Selection -->
+            <div class="form-group">
+                <label>Select Game:</label>
+                <select id="prediction-game" class="form-control">
+                    <option value="faridabad">Faridabad (05:15 PM)</option>
+                    <option value="gaziabad">Gaziabad (09:15 PM)</option>
+                    <option value="gali">Gali (10:30 PM)</option>
+                    <option value="deshwar">Deshwar (04:45 PM)</option>
+                    <option value="gali_dubai">Gali Dubai (02:30 PM)</option>
+                    <option value="deshwar_dubai">Deshwar Dubai (11:45 PM)</option>
+                </select>
+            </div>
+            
+            <!-- Single Prediction Input -->
+            <div id="single-prediction-input" class="prediction-input-section">
+                <div class="form-group">
+                    <label>Enter Single Number (00-99):</label>
+                    <input type="text" id="single-number" class="form-control" maxlength="2" placeholder="Enter number">
                 </div>
-
-                <!-- My Recent Predictions -->
-                <div class="admin-card">
-                    <h3><i class="fas fa-history"></i> My Recent Predictions</h3>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Time</th>
-                                    <th>Game</th>
-                                    <th>Type</th>
-                                    <th>Numbers</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="myPredictions">
-                                <!-- Predictions will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Performance Stats -->
-                <div class="admin-card">
-                    <h3><i class="fas fa-chart-line"></i> My Performance</h3>
-                    <div id="performanceStats">
-                        <!-- Stats will be loaded here -->
-                    </div>
-                    <div style="margin-top: 20px;">
-                        <h4>Quick Actions</h4>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <button onclick="viewAllMyPredictions()" class="btn btn-small">
-                                <i class="fas fa-list"></i> View All
-                            </button>
-                            <button onclick="exportMyData()" class="btn btn-small">
-                                <i class="fas fa-download"></i> Export Data
-                            </button>
-                            <button onclick="logoutGuesser()" class="btn btn-small btn-danger">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </button>
-                        </div>
+            </div>
+            
+            <!-- Spot Prediction Input -->
+            <div id="spot-prediction-input" class="prediction-input-section" style="display: none;">
+                <div class="form-group">
+                    <label>Enter 3 Spot Numbers (00-99):</label>
+                    <div class="numbers-input-grid">
+                        <input type="text" class="number-input" maxlength="2" placeholder="01">
+                        <input type="text" class="number-input" maxlength="2" placeholder="02">
+                        <input type="text" class="number-input" maxlength="2" placeholder="03">
                     </div>
                 </div>
             </div>
+            
+            <button class="btn btn-success" id="submit-prediction-btn">
+                <i class="fas fa-paper-plane"></i> Submit Prediction
+            </button>
+            
+            <div class="guesser-login-prompt" style="margin-top: 15px;">
+                <p>Note: You can submit up to <strong id="daily-limit">10</strong> predictions per day</p>
+            </div>
+        </div>
 
-            <!-- Today's Game Schedule -->
-            <div class="admin-card" style="margin-top: 30px;">
-                <h3><i class="fas fa-calendar-alt"></i> Today's Game Schedule</h3>
-                <div class="games-grid" id="gameSchedule">
-                    <!-- Game schedule will be loaded here -->
+        <!-- My Recent Predictions -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-history"></i> MY RECENT PREDICTIONS</h3>
+            <div id="my-predictions-list">
+                <!-- Predictions will be loaded here -->
+            </div>
+            <button class="btn btn-outline btn-block" id="load-more-predictions">
+                <i class="fas fa-sync"></i> Load More
+            </button>
+        </div>
+
+        <!-- Performance Statistics -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-chart-line"></i> PERFORMANCE STATISTICS</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 15px;">
+                <div style="text-align: center; padding: 15px; background: rgba(33, 150, 243, 0.1); border-radius: 5px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #2196f3;" id="total-pred-stats">0</div>
+                    <div style="font-size: 0.9rem; color: #a0a0c0;">Total Predictions</div>
                 </div>
+                <div style="text-align: center; padding: 15px; background: rgba(0, 230, 118, 0.1); border-radius: 5px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #00e676;" id="correct-pred-stats">0</div>
+                    <div style="font-size: 0.9rem; color: #a0a0c0;">Correct</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: rgba(255, 152, 0, 0.1); border-radius: 5px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #ff9800;" id="pending-pred-stats">0</div>
+                    <div style="font-size: 0.9rem; color: #a0a0c0;">Pending</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: rgba(245, 0, 87, 0.1); border-radius: 5px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #ff4081;" id="accuracy-stats">0%</div>
+                    <div style="font-size: 0.9rem; color: #a0a0c0;">Accuracy</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Available Games for Today -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-gamepad"></i> TODAY'S GAMES</h3>
+            <div class="games-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <!-- Games will be loaded here -->
             </div>
         </div>
     </main>
@@ -182,212 +193,389 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-bottom">
-                <p>Guesser Panel - Matka King &copy; 2024 | For authorized guessers only</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>GUESSER DASHBOARD</h4>
+                    <p>Submit predictions and track your accuracy</p>
+                    <p>© 2024 Matka King. Guesser Access Only.</p>
+                </div>
             </div>
         </div>
     </footer>
 
+    <script src="mobile-menu.js"></script>
     <script>
-        // Guesser Panel JavaScript
+        // Check guesser login
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if guesser is already logged in
-            const currentGuesser = JSON.parse(localStorage.getItem('currentGuesser'));
-            if (currentGuesser) {
-                showGuesserDashboard(currentGuesser);
-            }
-        });
-
-        function loginGuesser() {
-            const guesserId = document.getElementById('guesserId').value.trim();
-            const password = document.getElementById('guesserPassword').value.trim();
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
             
-            if (!guesserId || !password) {
-                showNotification('Please enter ID and password!', 'error');
+            if (currentUser.type !== 'guesser') {
+                alert('Guesser access required!');
+                window.location.href = 'login.html?type=guesser';
                 return;
             }
             
-            const guessers = JSON.parse(localStorage.getItem('matkaGuessers')) || [];
-            const guesser = guessers.find(g => 
-                g.id === guesserId && 
-                g.password === password && 
-                g.status === 'active'
-            );
+            // Load guesser data
+            loadGuesserData();
+            loadPredictions();
+            loadPerformanceStats();
+            loadTodayGames();
+            loadSinglePredictions();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Update daily limit from settings
+            const settings = JSON.parse(localStorage.getItem('matkaSettings') || '{}');
+            const limit = settings.config?.predictionLimit || 10;
+            document.getElementById('daily-limit').textContent = limit;
+        });
+        
+        function loadGuesserData() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const guesser = users.find(u => u.id === currentUser.id || u.username === currentUser.username);
             
             if (guesser) {
-                localStorage.setItem('currentGuesser', JSON.stringify(guesser));
-                showGuesserDashboard(guesser);
-                showNotification('Login successful!', 'success');
-            } else {
-                showNotification('Invalid credentials or account inactive!', 'error');
+                document.getElementById('guesser-name').textContent = guesser.name || guesser.username;
+                
+                // Calculate rating
+                const rating = guesser.rating || 0;
+                document.getElementById('guesser-rating').textContent = `Rating: ${rating}/5`;
+                
+                // Calculate accuracy
+                const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+                const guesserPredictions = predictions.filter(p => 
+                    p.guesserId === guesser.id || p.guesserId === guesser.username
+                );
+                const correct = guesserPredictions.filter(p => p.isCorrect === true).length;
+                const totalChecked = guesserPredictions.filter(p => p.isCorrect !== undefined).length;
+                const accuracy = totalChecked > 0 ? Math.round((correct / totalChecked) * 100) : 0;
+                
+                document.getElementById('guesser-accuracy').textContent = accuracy + '%';
+                document.getElementById('prediction-count').textContent = `Predictions: ${guesserPredictions.length}`;
             }
         }
-
-        function showGuesserDashboard(guesser) {
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('guesserDashboard').style.display = 'block';
+        
+        function loadSinglePredictions() {
+            const today = new Date().toISOString().split('T')[0];
+            const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
             
-            document.getElementById('currentGuesserName').textContent = guesser.name;
-            document.getElementById('currentGuesserId').textContent = guesser.id;
+            // Get top single predictions for today
+            const todaySinglePredictions = predictions.filter(p => 
+                p.date === today && p.numbers && p.numbers.length === 1
+            ).slice(0, 3);
             
-            // Initialize prediction form
-            selectPredictionType('single');
+            const container = document.getElementById('single-predictions-display');
             
-            // Load data
-            loadMyPredictions();
-            loadPerformanceStats();
-            loadGameSchedule();
-        }
-
-        function selectPredictionType(type) {
-            // Update buttons
-            document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
-            if (type === 'single') {
-                document.querySelectorAll('.type-btn')[0].classList.add('active');
-            } else if (type === 'spot') {
-                document.querySelectorAll('.type-btn')[1].classList.add('active');
-            }
-            
-            // Update hidden input
-            document.getElementById('predictionType').value = type;
-            
-            // Show/hide inputs
-            document.getElementById('singleInput').style.display = type === 'single' ? 'block' : 'none';
-            document.getElementById('spotInput').style.display = type === 'spot' ? 'block' : 'none';
-        }
-
-        function submitPrediction() {
-            const currentGuesser = JSON.parse(localStorage.getItem('currentGuesser'));
-            if (!currentGuesser) {
-                showNotification('Please login first!', 'error');
+            if (todaySinglePredictions.length === 0) {
+                container.innerHTML = `
+                    <div class="single-prediction-box">
+                        <h3><i class="fas fa-star"></i> SINGLE PREDICTION</h3>
+                        <div class="spot-prediction-number">--</div>
+                        <p class="prediction-time">No single predictions today</p>
+                        <span class="prediction-accuracy">Be the first!</span>
+                    </div>
+                `;
                 return;
             }
             
-            const gameId = parseInt(document.getElementById('predictionGame').value);
-            const type = document.getElementById('predictionType').value;
-            const confidence = document.getElementById('confidence').value;
+            let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">';
+            
+            todaySinglePredictions.forEach(pred => {
+                const gameName = pred.game.toUpperCase();
+                const number = pred.numbers[0];
+                const accuracy = pred.accuracy || '--';
+                
+                html += `
+                    <div class="single-prediction-box">
+                        <h3><i class="fas fa-star"></i> SINGLE PREDICTION</h3>
+                        <div class="spot-prediction-number">${number}</div>
+                        <p class="prediction-time">For: ${gameName}</p>
+                        <p class="prediction-time">By: ${pred.guesserName}</p>
+                        <span class="prediction-accuracy">Accuracy: ${accuracy}%</span>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+        
+        function loadPredictions() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            
+            // Get this guesser's recent predictions
+            const myPredictions = predictions.filter(p => 
+                p.guesserId === currentUser.id || p.guesserId === currentUser.username
+            ).sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 10);
+            
+            const container = document.getElementById('my-predictions-list');
+            
+            if (myPredictions.length === 0) {
+                container.innerHTML = `
+                    <p style="color: #a0a0c0; text-align: center; padding: 20px;">
+                        No predictions submitted yet.
+                    </p>
+                `;
+                return;
+            }
+            
+            let html = '';
+            myPredictions.forEach(pred => {
+                const date = new Date(pred.date).toLocaleDateString();
+                const status = pred.isCorrect === true ? 'Correct' : 
+                               pred.isCorrect === false ? 'Wrong' : 'Pending';
+                const statusClass = pred.isCorrect === true ? 'status-active' : 
+                                   pred.isCorrect === false ? 'status-inactive' : '';
+                
+                html += `
+                    <div style="background: rgba(255,255,255,0.03); padding: 15px; margin-bottom: 10px; border-radius: 5px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <div>
+                                <strong style="color: #2196f3;">${pred.game.toUpperCase()}</strong>
+                                <span style="color: #a0a0c0; margin-left: 10px;">${date}</span>
+                            </div>
+                            <div>
+                                <span class="${statusClass}">${status}</span>
+                                ${pred.actualResult ? `<span style="color: #00e676; margin-left: 10px;">Result: ${pred.actualResult}</span>` : ''}
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+                            ${pred.numbers.map(num => 
+                                `<span style="padding: 5px 10px; background: rgba(33,150,243,0.2); border-radius: 5px;">${num}</span>`
+                            ).join('')}
+                        </div>
+                        <div style="font-size: 0.8rem; color: #a0a0c0;">
+                            Submitted at ${pred.time}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function loadPerformanceStats() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            
+            const myPredictions = predictions.filter(p => 
+                p.guesserId === currentUser.id || p.guesserId === currentUser.username
+            );
+            
+            const total = myPredictions.length;
+            const correct = myPredictions.filter(p => p.isCorrect === true).length;
+            const pending = myPredictions.filter(p => p.isCorrect === undefined).length;
+            const wrong = myPredictions.filter(p => p.isCorrect === false).length;
+            const checked = total - pending;
+            const accuracy = checked > 0 ? Math.round((correct / checked) * 100) : 0;
+            
+            document.getElementById('total-pred-stats').textContent = total;
+            document.getElementById('correct-pred-stats').textContent = correct;
+            document.getElementById('pending-pred-stats').textContent = pending;
+            document.getElementById('accuracy-stats').textContent = accuracy + '%';
+        }
+        
+        function loadTodayGames() {
+            const settings = JSON.parse(localStorage.getItem('matkaSettings') || '{}');
+            const gameTimes = settings.gameTimes || {
+                faridabad: '05:15 PM',
+                gaziabad: '09:15 PM',
+                gali: '10:30 PM',
+                deshwar: '04:45 PM',
+                gali_dubai: '02:30 PM',
+                deshwar_dubai: '11:45 PM'
+            };
+            
+            const container = document.querySelector('.games-grid');
+            let html = '';
+            
+            Object.entries(gameTimes).forEach(([game, time]) => {
+                const gameName = game.toUpperCase().replace('_', ' ');
+                const now = new Date();
+                const gameTime = parseTime(time);
+                const currentHour = now.getHours();
+                const currentMinute = now.getMinutes();
+                
+                let status = 'Upcoming';
+                let statusClass = 'status-upcoming';
+                
+                if (gameTime.hour < currentHour || 
+                    (gameTime.hour === currentHour && gameTime.minute < currentMinute)) {
+                    status = 'Finished';
+                    statusClass = 'status-finished';
+                }
+                
+                html += `
+                    <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 5px; text-align: center;">
+                        <h4 style="color: #00e676; margin-bottom: 10px;">${gameName}</h4>
+                        <div style="color: #a0a0c0; margin-bottom: 10px;">${time}</div>
+                        <span class="game-status-indicator ${statusClass}">${status}</span>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function parseTime(timeStr) {
+            const [time, modifier] = timeStr.split(' ');
+            let [hours, minutes] = time.split(':');
+            
+            hours = parseInt(hours);
+            if (modifier === 'PM' && hours !== 12) hours += 12;
+            if (modifier === 'AM' && hours === 12) hours = 0;
+            
+            return { hour: hours, minute: parseInt(minutes) };
+        }
+        
+        function setupEventListeners() {
+            // Prediction type selector
+            document.querySelectorAll('.prediction-type-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.prediction-type-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const type = this.getAttribute('data-type');
+                    document.getElementById('single-prediction-input').style.display = 
+                        type === 'single' ? 'block' : 'none';
+                    document.getElementById('spot-prediction-input').style.display = 
+                        type === 'spot' ? 'block' : 'none';
+                });
+            });
+            
+            // Submit prediction
+            document.getElementById('submit-prediction-btn').addEventListener('click', submitPrediction);
+            
+            // Load more predictions
+            document.getElementById('load-more-predictions').addEventListener('click', loadMorePredictions);
+            
+            // Logout buttons
+            document.querySelectorAll('.logout-btn').forEach(btn => {
+                btn.addEventListener('click', logout);
+            });
+            
+            // Auto-validate number inputs
+            document.querySelectorAll('.number-input').forEach(input => {
+                input.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);
+                    if (this.value.length === 2) {
+                        const nextInput = this.nextElementSibling;
+                        if (nextInput && nextInput.classList.contains('number-input')) {
+                            nextInput.focus();
+                        }
+                    }
+                });
+            });
+            
+            // Single number validation
+            document.getElementById('single-number').addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);
+            });
+        }
+        
+        function submitPrediction() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const game = document.getElementById('prediction-game').value;
+            const type = document.querySelector('.prediction-type-btn.active').getAttribute('data-type');
             
             let numbers = [];
             
             if (type === 'single') {
-                const singleNum = parseInt(document.getElementById('singleNumber').value);
-                if (isNaN(singleNum) || singleNum < 0 || singleNum > 99) {
-                    showNotification('Please enter a valid single number (00-99)!', 'error');
+                const singleNum = document.getElementById('single-number').value.trim();
+                if (!singleNum || !/^\d{2}$/.test(singleNum)) {
+                    alert('Please enter a valid 2-digit number (00-99)');
                     return;
                 }
                 numbers = [singleNum];
-            } else if (type === 'spot') {
-                const spot1 = parseInt(document.getElementById('spotNumber1').value);
-                const spot2 = parseInt(document.getElementById('spotNumber2').value);
+            } else {
+                const numberInputs = document.querySelectorAll('#spot-prediction-input .number-input');
+                numbers = Array.from(numberInputs)
+                    .map(input => input.value.trim())
+                    .filter(num => /^\d{2}$/.test(num));
                 
-                if (isNaN(spot1) || isNaN(spot2) || 
-                    spot1 < 0 || spot1 > 99 || 
-                    spot2 < 0 || spot2 > 99) {
-                    showNotification('Please enter valid spot numbers (00-99)!', 'error');
+                if (numbers.length !== 3) {
+                    alert('Please enter exactly 3 valid 2-digit numbers');
                     return;
                 }
                 
-                if (spot1 === spot2) {
-                    showNotification('Spot numbers must be different!', 'error');
+                // Check for duplicates
+                const uniqueNumbers = [...new Set(numbers)];
+                if (uniqueNumbers.length !== 3) {
+                    alert('Please enter 3 different numbers');
                     return;
                 }
-                
-                numbers = [spot1, spot2];
             }
             
-            // Check if already predicted for this game today
-            const today = new Date().toDateString();
+            // Check daily limit
+            const settings = JSON.parse(localStorage.getItem('matkaSettings') || '{}');
+            const limit = settings.config?.predictionLimit || 10;
+            const today = new Date().toISOString().split('T')[0];
             const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
-            const existingPrediction = predictions.find(p => 
-                p.guesserId === currentGuesser.id && 
-                p.gameId === gameId &&
-                new Date(p.timestamp).toDateString() === today
-            );
             
-            if (existingPrediction) {
-                showNotification('You already submitted a prediction for this game today!', 'error');
+            const todayPredictions = predictions.filter(p => 
+                (p.guesserId === currentUser.id || p.guesserId === currentUser.username) && 
+                p.date === today
+            ).length;
+            
+            if (todayPredictions >= limit) {
+                alert(`You have reached your daily limit of ${limit} predictions!`);
                 return;
             }
             
-            // Save prediction
-            predictions.push({
-                id: Date.now(),
-                guesserId: currentGuesser.id,
-                guesserName: currentGuesser.name,
-                gameId: gameId,
-                type: type,
-                numbers: numbers,
-                confidence: confidence,
-                timestamp: new Date().toISOString(),
-                status: 'pending'
-            });
+            // Create new prediction
+            const users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const guesser = users.find(u => u.id === currentUser.id || u.username === currentUser.username);
             
+            const newPrediction = {
+                id: 'pred' + Date.now() + Math.random().toString(36).substr(2, 9),
+                guesserId: currentUser.id || currentUser.username,
+                guesserName: guesser ? guesser.name || guesser.username : currentUser.name || currentUser.username,
+                game: game,
+                numbers: numbers,
+                date: today,
+                time: new Date().toLocaleTimeString('en-IN', { 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: true 
+                }),
+                isCorrect: undefined,
+                accuracy: undefined,
+                actualResult: null,
+                type: type
+            };
+            
+            predictions.push(newPrediction);
             localStorage.setItem('matkaPredictions', JSON.stringify(predictions));
             
-            // Clear form
-            document.getElementById('singleNumber').value = '';
-            document.getElementById('spotNumber1').value = '';
-            document.getElementById('spotNumber2').value = '';
-            
-            showNotification('Prediction submitted successfully!', 'success');
-            
-            // Reload data
-            loadMyPredictions();
-            loadPerformanceStats();
-        }
-
-        function loadMyPredictions() {
-            const currentGuesser = JSON.parse(localStorage.getItem('currentGuesser'));
-            if (!currentGuesser) return;
-            
-            const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
-            const games = JSON.parse(localStorage.getItem('matkaGames') || []);
-            
-            const myPredictions = predictions
-                .filter(p => p.guesserId === currentGuesser.id)
-                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
-                .slice(0, 10);
-            
-            const tbody = document.getElementById('myPredictions');
-            tbody.innerHTML = '';
-            
-            if (myPredictions.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" style="text-align: center; color: #a0a0c0;">
-                            No predictions submitted yet.
-                        </td>
-                    </tr>
-                `;
-                return;
+            // Reset form
+            if (type === 'single') {
+                document.getElementById('single-number').value = '';
+            } else {
+                document.querySelectorAll('#spot-prediction-input .number-input').forEach(input => {
+                    input.value = '';
+                });
             }
             
-            myPredictions.forEach(prediction => {
-                const game = games.find(g => g.id === prediction.gameId);
-                const date = new Date(prediction.timestamp);
-                const typeBadge = prediction.type === 'single' ? 
-                    '<span class="badge badge-single">Single</span>' : 
-                    '<span class="badge badge-spot">Spot</span>';
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${date.toLocaleDateString()} ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
-                    <td>${game ? game.name : 'Game'}</td>
-                    <td>${typeBadge}</td>
-                    <td>${prediction.numbers.map(n => n.toString().padStart(2, '0')).join(', ')}</td>
-                    <td>
-                        <span class="${prediction.status === 'correct' ? 'active-status' : 
-                                     prediction.status === 'wrong' ? 'inactive-status' : 'pending-status'}">
-                            ${prediction.status}
-                        </span>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function loadPerformanceStats() {
-            const currentGuesser = JSON.parse(localStorage.getItem('currentGuesser'));
-            if (!currentGuesser) return;
+            // Reload data
+            loadPredictions();
+            loadPerformanceStats();
+            loadSinglePredictions();
             
-            const predictions =
+            alert('Prediction submitted successfully!');
+        }
+        
+        function loadMorePredictions() {
+            // Implementation for loading more predictions
+            alert('Loading more predictions...');
+        }
+        
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
