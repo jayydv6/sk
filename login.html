@@ -9,16 +9,18 @@
 </head>
 <body>
     <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+    <button class="mobile-menu-btn">
         <i class="fas fa-bars"></i>
     </button>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay"></div>
+
     <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
     <div class="mobile-menu">
         <div class="mobile-menu-header">
             <h3><i class="fas fa-bars"></i> Menu</h3>
-            <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+            <button class="mobile-menu-close">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -61,26 +63,26 @@
 
             <!-- Login Type Selector -->
             <div class="login-type-selector">
-                <button class="login-type-btn" data-type="admin" onclick="selectLoginType('admin')">
+                <button class="login-type-btn" data-type="admin">
                     <i class="fas fa-lock"></i>
                     Admin
                 </button>
-                <button class="login-type-btn" data-type="guesser" onclick="selectLoginType('guesser')">
+                <button class="login-type-btn" data-type="guesser">
                     <i class="fas fa-users"></i>
                     Guesser
                 </button>
-                <button class="login-type-btn" data-type="premium" onclick="selectLoginType('premium')">
+                <button class="login-type-btn" data-type="premium">
                     <i class="fas fa-crown"></i>
                     Premium
                 </button>
-                <button class="login-type-btn" data-type="user" onclick="selectLoginType('user')">
+                <button class="login-type-btn" data-type="user">
                     <i class="fas fa-user"></i>
                     User
                 </button>
             </div>
 
             <!-- Admin Login Form -->
-            <div id="admin-login" class="login-form">
+            <div id="admin-login" class="login-form" style="display: none;">
                 <h3><i class="fas fa-lock"></i> Admin Login</h3>
                 <p style="color: #a0a0c0; margin-bottom: 20px;">Access admin dashboard to manage results, users, and predictions</p>
                 
@@ -110,7 +112,7 @@
             </div>
 
             <!-- Guesser Login Form -->
-            <div id="guesser-login" class="login-form">
+            <div id="guesser-login" class="login-form" style="display: none;">
                 <h3><i class="fas fa-users"></i> Guesser Login</h3>
                 <p style="color: #a0a0c0; margin-bottom: 20px;">Login to submit predictions and track your accuracy</p>
                 
@@ -133,13 +135,13 @@
                 <div style="margin-top: 15px; text-align: center;">
                     <p style="color: #a0a0c0; font-size: 0.9rem;">
                         Don't have a guesser account? 
-                        <a href="#" onclick="requestGuesserAccount()" style="color: #2196f3;">Request from admin</a>
+                        <a href="#" style="color: #2196f3;">Request from admin</a>
                     </p>
                 </div>
             </div>
 
             <!-- Premium Login Form -->
-            <div id="premium-login" class="login-form">
+            <div id="premium-login" class="login-form" style="display: none;">
                 <h3><i class="fas fa-crown"></i> Premium Login</h3>
                 <p style="color: #a0a0c0; margin-bottom: 20px;">Access premium predictions and early results</p>
                 
@@ -162,13 +164,13 @@
                 <div style="margin-top: 15px; text-align: center;">
                     <p style="color: #a0a0c0; font-size: 0.9rem;">
                         Want premium access? 
-                        <a href="#" onclick="requestPremiumAccess()" style="color: #ffd700;">Contact admin</a>
+                        <a href="#" style="color: #ffd700;">Contact admin</a>
                     </p>
                 </div>
             </div>
 
             <!-- User Login Form -->
-            <div id="user-login" class="login-form">
+            <div id="user-login" class="login-form" style="display: none;">
                 <h3><i class="fas fa-user"></i> User Login</h3>
                 <p style="color: #a0a0c0; margin-bottom: 20px;">Login to view personalized results and history</p>
                 
@@ -191,7 +193,7 @@
                 <div style="margin-top: 15px; text-align: center;">
                     <p style="color: #a0a0c0; font-size: 0.9rem;">
                         New user? 
-                        <a href="#" onclick="registerUser()" style="color: #00e676;">Register here</a>
+                        <a href="#" style="color: #00e676;">Register here</a>
                     </p>
                 </div>
             </div>
@@ -210,10 +212,10 @@
                 <div class="footer-section">
                     <h4>Account Types</h4>
                     <ul>
-                        <li><a href="#" onclick="selectLoginType('admin')">Admin</a></li>
-                        <li><a href="#" onclick="selectLoginType('guesser')">Guesser</a></li>
-                        <li><a href="#" onclick="selectLoginType('premium')">Premium</a></li>
-                        <li><a href="#" onclick="selectLoginType('user')">User</a></li>
+                        <li><a href="#" data-type="admin">Admin</a></li>
+                        <li><a href="#" data-type="guesser">Guesser</a></li>
+                        <li><a href="#" data-type="premium">Premium</a></li>
+                        <li><a href="#" data-type="user">User</a></li>
                     </ul>
                 </div>
             </div>
@@ -251,6 +253,26 @@
                 e.preventDefault();
                 userLogin();
             });
+            
+            // Setup login type buttons
+            document.querySelectorAll('.login-type-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    selectLoginType(type);
+                });
+            });
+            
+            // Setup account type links in footer
+            document.querySelectorAll('a[data-type]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const type = this.getAttribute('data-type');
+                    selectLoginType(type);
+                });
+            });
+            
+            // Initialize default admin credentials
+            initializeDefaultAdmin();
         });
         
         function selectLoginType(type) {
@@ -272,31 +294,32 @@
             window.history.replaceState({}, '', url);
         }
         
+        function initializeDefaultAdmin() {
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const adminExists = users.find(user => user.type === 'admin');
+            
+            if (!adminExists) {
+                // Create admin user
+                users.push({
+                    id: 'admin001',
+                    username: 'admin',
+                    password: 'admin123',
+                    type: 'admin',
+                    name: 'Super Admin',
+                    email: 'admin@matkaking.com',
+                    created: new Date().toISOString(),
+                    status: 'active'
+                });
+                localStorage.setItem('matkaUsers', JSON.stringify(users));
+            }
+        }
+        
         function adminLogin() {
             const username = document.getElementById('admin-username').value;
             const password = document.getElementById('admin-password').value;
             
             // Check default admin credentials
             if (username === 'admin' && password === 'admin123') {
-                // Check if admin exists in users
-                let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
-                const adminExists = users.find(user => user.type === 'admin');
-                
-                if (!adminExists) {
-                    // Create admin user
-                    users.push({
-                        id: 'admin001',
-                        username: 'admin',
-                        password: 'admin123',
-                        type: 'admin',
-                        name: 'Super Admin',
-                        email: 'admin@matkaking.com',
-                        created: new Date().toISOString(),
-                        status: 'active'
-                    });
-                    localStorage.setItem('matkaUsers', JSON.stringify(users));
-                }
-                
                 // Login admin
                 localStorage.setItem('currentUser', JSON.stringify({
                     username: 'admin',
@@ -307,22 +330,23 @@
                 
                 // Redirect to admin dashboard
                 window.location.href = 'admin-dashboard.html';
+                return;
+            }
+            
+            // Check in stored users
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const user = users.find(u => u.username === username && u.password === password && u.type === 'admin');
+            
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify({
+                    username: user.username,
+                    type: user.type,
+                    name: user.name,
+                    loginTime: new Date().toISOString()
+                }));
+                window.location.href = 'admin-dashboard.html';
             } else {
-                // Check in stored users
-                let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
-                const user = users.find(u => u.username === username && u.password === password && u.type === 'admin');
-                
-                if (user) {
-                    localStorage.setItem('currentUser', JSON.stringify({
-                        username: user.username,
-                        type: user.type,
-                        name: user.name,
-                        loginTime: new Date().toISOString()
-                    }));
-                    window.location.href = 'admin-dashboard.html';
-                } else {
-                    alert('Invalid admin credentials!');
-                }
+                alert('Invalid admin credentials!');
             }
         }
         
@@ -396,48 +420,6 @@
             } else {
                 alert('Invalid user credentials!');
             }
-        }
-        
-        function requestGuesserAccount() {
-            alert('To get a guesser account, please contact admin with your details.');
-        }
-        
-        function requestPremiumAccess() {
-            alert('For premium access, contact admin for subscription details.');
-        }
-        
-        function registerUser() {
-            const username = prompt('Enter desired username:');
-            if (!username) return;
-            
-            const password = prompt('Enter password:');
-            if (!password) return;
-            
-            const name = prompt('Enter your name:');
-            if (!name) return;
-            
-            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
-            
-            // Check if username exists
-            if (users.find(u => u.username === username)) {
-                alert('Username already exists!');
-                return;
-            }
-            
-            // Create new user
-            users.push({
-                id: 'user' + Date.now(),
-                username: username,
-                password: password,
-                type: 'user',
-                name: name,
-                created: new Date().toISOString(),
-                status: 'active'
-            });
-            
-            localStorage.setItem('matkaUsers', JSON.stringify(users));
-            alert('Registration successful! You can now login.');
-            selectLoginType('user');
         }
     </script>
 </body>
