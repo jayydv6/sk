@@ -1,6 +1,11 @@
-// Matka Website - Updated Main Script
+// Matka King - Main JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize everything
+    console.log('Matka King Website Initialized');
+    
+    // Initialize Local Storage with Default Data
+    initializeLocalStorage();
+    
+    // Load all components
     initializeGames();
     loadResults();
     loadPredictions();
@@ -13,16 +18,129 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         showNotification('Welcome to Matka King! Real-time results for 6 markets.', 'info');
     }, 1000);
+    
+    // Start auto-refresh
+    startAutoRefresh();
 });
+
+// Initialize Local Storage with Default Data
+function initializeLocalStorage() {
+    // Initialize users if not exists
+    if (!localStorage.getItem('matkaUsers')) {
+        const defaultUsers = [
+            {
+                id: 'admin001',
+                username: 'admin',
+                password: 'admin123',
+                type: 'admin',
+                name: 'Super Admin',
+                email: 'admin@matkaking.com',
+                created: new Date().toISOString(),
+                status: 'active'
+            },
+            {
+                id: 'guesser001',
+                username: 'raju_guesser',
+                password: 'pass123',
+                type: 'guesser',
+                name: 'Raju Kumar',
+                created: new Date().toISOString(),
+                status: 'active',
+                balance: 5000
+            },
+            {
+                id: 'premium001',
+                username: 'vip_user',
+                password: 'pass123',
+                type: 'premium',
+                name: 'VIP User',
+                created: new Date().toISOString(),
+                status: 'active',
+                balance: 15000
+            }
+        ];
+        localStorage.setItem('matkaUsers', JSON.stringify(defaultUsers));
+    }
+    
+    // Initialize results if not exists
+    if (!localStorage.getItem('matkaResults')) {
+        const today = new Date().toISOString().split('T')[0];
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().split('T')[0];
+        
+        const defaultResults = {
+            [yesterdayStr]: {
+                faridabad: { result: '45', published: true, time: '05:15 PM' },
+                gaziabad: { result: '78', published: true, time: '09:15 PM' },
+                gali: { result: '23', published: true, time: '10:30 PM' },
+                deshwar: { result: '56', published: true, time: '04:45 PM' },
+                gali_dubai: { result: '89', published: true, time: '02:30 PM' },
+                deshwar_dubai: { result: '12', published: true, time: '11:45 PM' }
+            }
+        };
+        localStorage.setItem('matkaResults', JSON.stringify(defaultResults));
+    }
+    
+    // Initialize predictions if not exists
+    if (!localStorage.getItem('matkaPredictions')) {
+        const today = new Date().toISOString().split('T')[0];
+        const defaultPredictions = [
+            {
+                id: 'pred1',
+                guesserId: 'guesser001',
+                guesserName: 'Raju Kumar',
+                game: 'faridabad',
+                numbers: ['45', '67', '89'],
+                date: today,
+                time: '03:00 PM',
+                isCorrect: undefined,
+                accuracy: undefined,
+                actualResult: null
+            },
+            {
+                id: 'pred2',
+                guesserId: 'guesser001',
+                guesserName: 'Raju Kumar',
+                game: 'gaziabad',
+                numbers: ['23', '45', '78'],
+                date: today,
+                time: '04:00 PM',
+                isCorrect: undefined,
+                accuracy: undefined,
+                actualResult: null
+            }
+        ];
+        localStorage.setItem('matkaPredictions', JSON.stringify(defaultPredictions));
+    }
+    
+    // Initialize guesser numbers if not exists
+    if (!localStorage.getItem('guesserNumbers')) {
+        const defaultNumbers = {
+            faridabad: ['10', '25', '36', '47', '58', '69', '72', '84', '91', '03'],
+            gaziabad: ['15', '28', '37', '49', '52', '63', '74', '86', '95', '07'],
+            gali: ['12', '24', '35', '46', '57', '68', '79', '81', '93', '05'],
+            deshwar: ['11', '22', '33', '44', '55', '66', '77', '88', '99', '00'],
+            gali_dubai: ['13', '26', '39', '42', '54', '67', '71', '85', '98', '02'],
+            deshwar_dubai: ['14', '27', '38', '41', '53', '65', '76', '87', '92', '06']
+        };
+        localStorage.setItem('guesserNumbers', JSON.stringify(defaultNumbers));
+    }
+    
+    // Initialize admin activity log if not exists
+    if (!localStorage.getItem('adminActivity')) {
+        localStorage.setItem('adminActivity', JSON.stringify([]));
+    }
+}
 
 // Game Data Structure
 const games = {
-    1: { name: 'FARIDABAD', time: '05:15 PM', status: 'upcoming' },
-    2: { name: 'GAZIABAD', time: '09:15 PM', status: 'upcoming' },
-    3: { name: 'GALI', time: '10:30 PM', status: 'upcoming' },
-    4: { name: 'DESHWAR', time: '04:45 PM', status: 'upcoming' },
-    5: { name: 'GALI DUBAI', time: '02:30 PM', status: 'upcoming' },
-    6: { name: 'DESHWAR DUBAI', time: '11:45 PM', status: 'upcoming' }
+    1: { name: 'FARIDABAD', time: '05:15 PM', status: 'upcoming', key: 'faridabad' },
+    2: { name: 'GAZIABAD', time: '09:15 PM', status: 'upcoming', key: 'gaziabad' },
+    3: { name: 'GALI', time: '10:30 PM', status: 'upcoming', key: 'gali' },
+    4: { name: 'DESHWAR', time: '04:45 PM', status: 'upcoming', key: 'deshwar' },
+    5: { name: 'GALI DUBAI', time: '02:30 PM', status: 'upcoming', key: 'gali_dubai' },
+    6: { name: 'DESHWAR DUBAI', time: '11:45 PM', status: 'upcoming', key: 'deshwar_dubai' }
 };
 
 // Initialize games
@@ -42,7 +160,7 @@ function initializeGames() {
         if (gameTime.hour < currentHour || 
             (gameTime.hour === currentHour && gameTime.minute < currentMinute)) {
             game.status = 'active';
-            updateGameStatus(gameId, 'Game in progress...');
+            updateGameStatus(gameId, 'Awaiting result...');
         }
         
         // Update display time
@@ -73,18 +191,9 @@ function loadResults() {
 
 // Update results display
 function updateResultsDisplay(todayResults) {
-    const gameMapping = {
-        1: 'faridabad',
-        2: 'gaziabad',
-        3: 'gali',
-        4: 'deshwar',
-        5: 'gali_dubai',
-        6: 'deshwar_dubai'
-    };
-    
-    Object.keys(gameMapping).forEach(gameId => {
-        const gameKey = gameMapping[gameId];
-        const resultData = todayResults[gameKey];
+    Object.keys(games).forEach(gameId => {
+        const game = games[gameId];
+        const resultData = todayResults[game.key];
         const resultElement = document.getElementById(`result-${gameId}`);
         const statusElement = document.getElementById(`status-${gameId}`);
         const todayElement = document.getElementById(`today-${gameId}`);
@@ -107,7 +216,6 @@ function updateResultsDisplay(todayResults) {
             resultElement.className = 'single-result';
             
             // Check if game time has passed
-            const game = games[gameId];
             const gameTime = parseTime(game.time);
             const now = new Date();
             const currentHour = now.getHours();
@@ -136,43 +244,30 @@ function updateYesterdayResult(gameId) {
     const results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
     const yesterdayResults = results[yesterdayStr] || {};
     
-    const gameMapping = {
-        1: 'faridabad',
-        2: 'gaziabad',
-        3: 'gali',
-        4: 'deshwar',
-        5: 'gali_dubai',
-        6: 'deshwar_dubai'
-    };
+    const game = games[gameId];
+    const yesterdayResult = yesterdayResults[game.key];
     
-    const gameKey = gameMapping[gameId];
-    const yesterdayResult = yesterdayResults[gameKey];
-    
-    if (yesterdayResult && yesterdayResult.result) {
-        document.getElementById(`yesterday-${gameId}`).textContent = yesterdayResult.result;
-    } else {
-        document.getElementById(`yesterday-${gameId}`).textContent = '--';
+    const yesterdayElement = document.getElementById(`yesterday-${gameId}`);
+    if (yesterdayElement) {
+        if (yesterdayResult && yesterdayResult.result) {
+            yesterdayElement.textContent = yesterdayResult.result;
+        } else {
+            yesterdayElement.textContent = '--';
+        }
     }
 }
 
 // Check for result update
 function checkResult(gameId) {
-    const gameMapping = {
-        1: 'faridabad',
-        2: 'gaziabad',
-        3: 'gali',
-        4: 'deshwar',
-        5: 'gali_dubai',
-        6: 'deshwar_dubai'
-    };
-    
-    const gameKey = gameMapping[gameId];
+    const game = games[gameId];
     const today = new Date().toISOString().split('T')[0];
     const results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
-    const resultData = results[today]?.[gameKey];
+    const resultData = results[today]?.[game.key];
     
     const resultElement = document.getElementById(`result-${gameId}`);
     const statusElement = document.getElementById(`status-${gameId}`);
+    
+    if (!resultElement || !statusElement) return;
     
     // Show checking animation
     resultElement.textContent = '...';
@@ -189,9 +284,10 @@ function checkResult(gameId) {
                 statusElement.className = 'result-status published';
                 
                 // Update today's result
-                document.getElementById(`today-${gameId}`).textContent = resultData.result;
+                const todayElement = document.getElementById(`today-${gameId}`);
+                if (todayElement) todayElement.textContent = resultData.result;
                 
-                showNotification(`Result for ${games[gameId].name}: ${resultData.result}`, 'success');
+                showNotification(`Result for ${game.name}: ${resultData.result}`, 'success');
             } else {
                 resultElement.textContent = '--';
                 resultElement.className = 'single-result';
@@ -210,13 +306,15 @@ function checkResult(gameId) {
 
 // Show prediction modal
 function showPrediction(gameId) {
-    // Create modal for predictions
+    const game = games[gameId];
+    
+    // Create modal
     const modal = document.createElement('div');
     modal.className = 'modal';
     modal.innerHTML = `
         <div class="modal-content" style="max-width: 400px; background: rgba(26, 26, 46, 0.95); padding: 20px; border-radius: 10px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 style="color: #ff4081;">${games[gameId].name} Predictions</h3>
+                <h3 style="color: #ff4081;">${game.name} Predictions</h3>
                 <button onclick="this.parentElement.parentElement.parentElement.remove()" 
                         style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">×</button>
             </div>
@@ -236,23 +334,16 @@ function showPrediction(gameId) {
     
     // Load predictions for this game
     setTimeout(() => {
-        const predictions = getPredictionsForGame(gameId);
-        document.getElementById(`prediction-content-${gameId}`).innerHTML = predictions;
+        const predictions = getPredictionsForGame(game.key);
+        const contentElement = document.getElementById(`prediction-content-${gameId}`);
+        if (contentElement) {
+            contentElement.innerHTML = predictions;
+        }
     }, 500);
 }
 
 // Get predictions for a specific game
-function getPredictionsForGame(gameId) {
-    const gameMapping = {
-        1: 'faridabad',
-        2: 'gaziabad',
-        3: 'gali',
-        4: 'deshwar',
-        5: 'gali_dubai',
-        6: 'deshwar_dubai'
-    };
-    
-    const gameKey = gameMapping[gameId];
+function getPredictionsForGame(gameKey) {
     const today = new Date().toISOString().split('T')[0];
     const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
     
@@ -289,6 +380,7 @@ function getPredictionsForGame(gameId) {
     return html;
 }
 
+// Get rating stars
 function getRating(accuracy) {
     if (accuracy >= 90) return '★★★★★';
     if (accuracy >= 80) return '★★★★☆';
@@ -350,14 +442,22 @@ function loadWebsiteStats() {
     const accuracy = totalChecked > 0 ? Math.round((correctPredictions / totalChecked) * 100) : 0;
     
     // Update desktop stats
-    document.getElementById('total-guessers').textContent = guessers;
-    document.getElementById('total-predictions').textContent = todayPredictions;
-    document.getElementById('accuracy-rate').textContent = accuracy + '%';
+    const totalGuessersEl = document.getElementById('total-guessers');
+    const totalPredictionsEl = document.getElementById('total-predictions');
+    const accuracyRateEl = document.getElementById('accuracy-rate');
+    
+    if (totalGuessersEl) totalGuessersEl.textContent = guessers;
+    if (totalPredictionsEl) totalPredictionsEl.textContent = todayPredictions;
+    if (accuracyRateEl) accuracyRateEl.textContent = accuracy + '%';
     
     // Update mobile stats
-    document.getElementById('mobile-total-guessers').textContent = guessers;
-    document.getElementById('mobile-total-predictions').textContent = todayPredictions;
-    document.getElementById('mobile-accuracy-rate').textContent = accuracy + '%';
+    const mobileGuessersEl = document.getElementById('mobile-total-guessers');
+    const mobilePredictionsEl = document.getElementById('mobile-total-predictions');
+    const mobileAccuracyEl = document.getElementById('mobile-accuracy-rate');
+    
+    if (mobileGuessersEl) mobileGuessersEl.textContent = guessers;
+    if (mobilePredictionsEl) mobilePredictionsEl.textContent = todayPredictions;
+    if (mobileAccuracyEl) mobileAccuracyEl.textContent = accuracy + '%';
 }
 
 // Load contact links
@@ -421,6 +521,22 @@ function setupEventListeners() {
             }
         });
     });
+    
+    // Check result buttons
+    for (let i = 1; i <= 6; i++) {
+        const checkBtn = document.querySelector(`[onclick="checkResult(${i})"]`);
+        if (checkBtn) {
+            checkBtn.onclick = function() { checkResult(i); };
+        }
+    }
+    
+    // Prediction buttons
+    for (let i = 1; i <= 6; i++) {
+        const predBtn = document.querySelector(`[onclick="showPrediction(${i})"]`);
+        if (predBtn) {
+            predBtn.onclick = function() { showPrediction(i); };
+        }
+    }
 }
 
 // Scroll to section
@@ -445,7 +561,7 @@ function updateRealTime() {
         el.textContent = timeString;
     });
     
-    // Check for game status updates every minute
+    // Check for game status updates
     updateGameStatuses();
 }
 
@@ -506,17 +622,20 @@ function updateGameStatus(gameId, status) {
     }
 }
 
-// Auto-refresh results every 30 seconds
-setInterval(() => {
-    updateGameStatuses();
-    loadResults();
-    loadWebsiteStats();
-}, 30000);
+// Start auto-refresh
+function startAutoRefresh() {
+    // Auto-refresh results every 30 seconds
+    setInterval(() => {
+        updateGameStatuses();
+        loadResults();
+        loadWebsiteStats();
+    }, 30000);
+    
+    // Update time every minute
+    setInterval(updateRealTime, 60000);
+}
 
-// Update time every minute
-setInterval(updateRealTime, 60000);
-
-// Expose functions to global scope
+// Global functions
 window.checkResult = checkResult;
 window.showPrediction = showPrediction;
 window.scrollToSection = scrollToSection;
