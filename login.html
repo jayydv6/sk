@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Matka King</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h3><i class="fas fa-bars"></i> Menu</h3>
+            <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-content">
+            <a href="index.html" class="mobile-menu-item">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="results-history.html" class="mobile-menu-item">
+                <i class="fas fa-history"></i> Results
+            </a>
+            <a href="login.html?type=guesser" class="mobile-menu-item">
+                <i class="fas fa-users"></i> Guesser Login
+            </a>
+            <a href="login.html?type=premium" class="mobile-menu-item">
+                <i class="fas fa-crown"></i> Premium Login
+            </a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>MATKA KING</h1>
+                <p>User Login System</p>
+            </div>
+            <div class="header-buttons">
+                <a href="index.html" class="btn btn-outline"><i class="fas fa-home"></i> Home</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Container -->
+    <main class="container">
+        <div class="login-container">
+            <div class="login-header">
+                <h2><i class="fas fa-sign-in-alt"></i> USER LOGIN</h2>
+                <p>Select your account type and login</p>
+            </div>
+
+            <!-- Login Type Selector -->
+            <div class="login-type-selector">
+                <button class="login-type-btn" data-type="admin" onclick="selectLoginType('admin')">
+                    <i class="fas fa-lock"></i>
+                    Admin
+                </button>
+                <button class="login-type-btn" data-type="guesser" onclick="selectLoginType('guesser')">
+                    <i class="fas fa-users"></i>
+                    Guesser
+                </button>
+                <button class="login-type-btn" data-type="premium" onclick="selectLoginType('premium')">
+                    <i class="fas fa-crown"></i>
+                    Premium
+                </button>
+                <button class="login-type-btn" data-type="user" onclick="selectLoginType('user')">
+                    <i class="fas fa-user"></i>
+                    User
+                </button>
+            </div>
+
+            <!-- Admin Login Form -->
+            <div id="admin-login" class="login-form">
+                <h3><i class="fas fa-lock"></i> Admin Login</h3>
+                <p style="color: #a0a0c0; margin-bottom: 20px;">Access admin dashboard to manage results, users, and predictions</p>
+                
+                <form id="adminForm">
+                    <div class="form-group">
+                        <label for="admin-username">Admin ID:</label>
+                        <input type="text" id="admin-username" class="form-control" placeholder="Enter admin ID" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="admin-password">Password:</label>
+                        <input type="password" id="admin-password" class="form-control" placeholder="Enter password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Login as Admin
+                    </button>
+                </form>
+                
+                <div style="margin-top: 15px; padding: 15px; background: rgba(255, 64, 129, 0.1); border-radius: 5px;">
+                    <p style="color: #ff4081; margin-bottom: 5px; font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i> Default Admin Credentials:
+                    </p>
+                    <p style="color: #a0a0c0; margin: 0; font-size: 0.9rem;">ID: <strong>admin</strong></p>
+                    <p style="color: #a0a0c0; margin: 0; font-size: 0.9rem;">Password: <strong>admin123</strong></p>
+                </div>
+            </div>
+
+            <!-- Guesser Login Form -->
+            <div id="guesser-login" class="login-form">
+                <h3><i class="fas fa-users"></i> Guesser Login</h3>
+                <p style="color: #a0a0c0; margin-bottom: 20px;">Login to submit predictions and track your accuracy</p>
+                
+                <form id="guesserForm">
+                    <div class="form-group">
+                        <label for="guesser-username">Guesser ID:</label>
+                        <input type="text" id="guesser-username" class="form-control" placeholder="Enter guesser ID" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="guesser-password">Password:</label>
+                        <input type="password" id="guesser-password" class="form-control" placeholder="Enter password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Login as Guesser
+                    </button>
+                </form>
+                
+                <div style="margin-top: 15px; text-align: center;">
+                    <p style="color: #a0a0c0; font-size: 0.9rem;">
+                        Don't have a guesser account? 
+                        <a href="#" onclick="requestGuesserAccount()" style="color: #2196f3;">Request from admin</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Premium Login Form -->
+            <div id="premium-login" class="login-form">
+                <h3><i class="fas fa-crown"></i> Premium Login</h3>
+                <p style="color: #a0a0c0; margin-bottom: 20px;">Access premium predictions and early results</p>
+                
+                <form id="premiumForm">
+                    <div class="form-group">
+                        <label for="premium-username">Premium ID:</label>
+                        <input type="text" id="premium-username" class="form-control" placeholder="Enter premium ID" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="premium-password">Password:</label>
+                        <input type="password" id="premium-password" class="form-control" placeholder="Enter password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-premium" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Login as Premium User
+                    </button>
+                </form>
+                
+                <div style="margin-top: 15px; text-align: center;">
+                    <p style="color: #a0a0c0; font-size: 0.9rem;">
+                        Want premium access? 
+                        <a href="#" onclick="requestPremiumAccess()" style="color: #ffd700;">Contact admin</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- User Login Form -->
+            <div id="user-login" class="login-form">
+                <h3><i class="fas fa-user"></i> User Login</h3>
+                <p style="color: #a0a0c0; margin-bottom: 20px;">Login to view personalized results and history</p>
+                
+                <form id="userForm">
+                    <div class="form-group">
+                        <label for="user-username">Username:</label>
+                        <input type="text" id="user-username" class="form-control" placeholder="Enter username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="user-password">Password:</label>
+                        <input type="password" id="user-password" class="form-control" placeholder="Enter password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Login as User
+                    </button>
+                </form>
+                
+                <div style="margin-top: 15px; text-align: center;">
+                    <p style="color: #a0a0c0; font-size: 0.9rem;">
+                        New user? 
+                        <a href="#" onclick="registerUser()" style="color: #00e676;">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>MATKA KING</h4>
+                    <p>Secure Login System</p>
+                    <p>Multiple user types with different access levels</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Account Types</h4>
+                    <ul>
+                        <li><a href="#" onclick="selectLoginType('admin')">Admin</a></li>
+                        <li><a href="#" onclick="selectLoginType('guesser')">Guesser</a></li>
+                        <li><a href="#" onclick="selectLoginType('premium')">Premium</a></li>
+                        <li><a href="#" onclick="selectLoginType('user')">User</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Matka King. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="mobile-menu.js"></script>
+    <script>
+        // Check URL parameters for login type
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type') || 'admin';
+            selectLoginType(type);
+            
+            // Setup form submissions
+            document.getElementById('adminForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                adminLogin();
+            });
+            
+            document.getElementById('guesserForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                guesserLogin();
+            });
+            
+            document.getElementById('premiumForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                premiumLogin();
+            });
+            
+            document.getElementById('userForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                userLogin();
+            });
+        });
+        
+        function selectLoginType(type) {
+            // Update buttons
+            document.querySelectorAll('.login-type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-type="${type}"]`).classList.add('active');
+            
+            // Show selected form
+            document.querySelectorAll('.login-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            document.getElementById(`${type}-login`).style.display = 'block';
+            
+            // Update URL without reload
+            const url = new URL(window.location);
+            url.searchParams.set('type', type);
+            window.history.replaceState({}, '', url);
+        }
+        
+        function adminLogin() {
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+            
+            // Check default admin credentials
+            if (username === 'admin' && password === 'admin123') {
+                // Check if admin exists in users
+                let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+                const adminExists = users.find(user => user.type === 'admin');
+                
+                if (!adminExists) {
+                    // Create admin user
+                    users.push({
+                        id: 'admin001',
+                        username: 'admin',
+                        password: 'admin123',
+                        type: 'admin',
+                        name: 'Super Admin',
+                        email: 'admin@matkaking.com',
+                        created: new Date().toISOString(),
+                        status: 'active'
+                    });
+                    localStorage.setItem('matkaUsers', JSON.stringify(users));
+                }
+                
+                // Login admin
+                localStorage.setItem('currentUser', JSON.stringify({
+                    username: 'admin',
+                    type: 'admin',
+                    name: 'Super Admin',
+                    loginTime: new Date().toISOString()
+                }));
+                
+                // Redirect to admin dashboard
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                // Check in stored users
+                let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+                const user = users.find(u => u.username === username && u.password === password && u.type === 'admin');
+                
+                if (user) {
+                    localStorage.setItem('currentUser', JSON.stringify({
+                        username: user.username,
+                        type: user.type,
+                        name: user.name,
+                        loginTime: new Date().toISOString()
+                    }));
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    alert('Invalid admin credentials!');
+                }
+            }
+        }
+        
+        function guesserLogin() {
+            const username = document.getElementById('guesser-username').value;
+            const password = document.getElementById('guesser-password').value;
+            
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const user = users.find(u => u.username === username && u.password === password && u.type === 'guesser');
+            
+            if (user) {
+                if (user.status === 'active') {
+                    localStorage.setItem('currentUser', JSON.stringify({
+                        username: user.username,
+                        type: user.type,
+                        name: user.name,
+                        id: user.id,
+                        loginTime: new Date().toISOString()
+                    }));
+                    window.location.href = 'guesser-dashboard.html';
+                } else {
+                    alert('Your account is inactive. Contact admin.');
+                }
+            } else {
+                alert('Invalid guesser credentials!');
+            }
+        }
+        
+        function premiumLogin() {
+            const username = document.getElementById('premium-username').value;
+            const password = document.getElementById('premium-password').value;
+            
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const user = users.find(u => u.username === username && u.password === password && u.type === 'premium');
+            
+            if (user) {
+                if (user.status === 'active') {
+                    localStorage.setItem('currentUser', JSON.stringify({
+                        username: user.username,
+                        type: user.type,
+                        name: user.name,
+                        id: user.id,
+                        loginTime: new Date().toISOString()
+                    }));
+                    window.location.href = 'premium-dashboard.html';
+                } else {
+                    alert('Your premium account is inactive. Contact admin.');
+                }
+            } else {
+                alert('Invalid premium credentials!');
+            }
+        }
+        
+        function userLogin() {
+            const username = document.getElementById('user-username').value;
+            const password = document.getElementById('user-password').value;
+            
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const user = users.find(u => u.username === username && u.password === password && u.type === 'user');
+            
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify({
+                    username: user.username,
+                    type: user.type,
+                    name: user.name,
+                    id: user.id,
+                    loginTime: new Date().toISOString()
+                }));
+                alert('User login successful! Redirecting to home page...');
+                window.location.href = 'index.html';
+            } else {
+                alert('Invalid user credentials!');
+            }
+        }
+        
+        function requestGuesserAccount() {
+            alert('To get a guesser account, please contact admin with your details.');
+        }
+        
+        function requestPremiumAccess() {
+            alert('For premium access, contact admin for subscription details.');
+        }
+        
+        function registerUser() {
+            const username = prompt('Enter desired username:');
+            if (!username) return;
+            
+            const password = prompt('Enter password:');
+            if (!password) return;
+            
+            const name = prompt('Enter your name:');
+            if (!name) return;
+            
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            
+            // Check if username exists
+            if (users.find(u => u.username === username)) {
+                alert('Username already exists!');
+                return;
+            }
+            
+            // Create new user
+            users.push({
+                id: 'user' + Date.now(),
+                username: username,
+                password: password,
+                type: 'user',
+                name: name,
+                created: new Date().toISOString(),
+                status: 'active'
+            });
+            
+            localStorage.setItem('matkaUsers', JSON.stringify(users));
+            alert('Registration successful! You can now login.');
+            selectLoginType('user');
+        }
+    </script>
+</body>
+</html>

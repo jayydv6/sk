@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Predictions - Matka King</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h3><i class="fas fa-bars"></i> Admin Menu</h3>
+            <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-content">
+            <a href="admin-dashboard.html" class="mobile-menu-item">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="manage-results.html" class="mobile-menu-item">
+                <i class="fas fa-flag-checkered"></i> Manage Results
+            </a>
+            <a href="manage-users.html" class="mobile-menu-item">
+                <i class="fas fa-users"></i> Manage Users
+            </a>
+            <a href="manage-predictions.html" class="mobile-menu-item active">
+                <i class="fas fa-bullseye"></i> Manage Predictions
+            </a>
+            <a href="#" class="mobile-menu-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>MATKA KING</h1>
+                <p>Prediction Management</p>
+            </div>
+            <div class="header-buttons">
+                <button onclick="logout()" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Navigation -->
+    <nav class="admin-nav container">
+        <a href="admin-dashboard.html">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="manage-results.html">
+            <i class="fas fa-flag-checkered"></i> Manage Results
+        </a>
+        <a href="manage-users.html">
+            <i class="fas fa-users"></i> Manage Users
+        </a>
+        <a href="manage-predictions.html" class="active">
+            <i class="fas fa-bullseye"></i> Manage Predictions
+        </a>
+        <a href="index.html">
+            <i class="fas fa-home"></i> View Site
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container dashboard-container">
+        <div class="dashboard-header">
+            <h1><i class="fas fa-bullseye"></i> PREDICTION MANAGEMENT</h1>
+            <p>Manage guesser numbers, predictions, and accuracy tracking</p>
+        </div>
+
+        <!-- Guesser Numbers Management -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-list-ol"></i> MANAGE GUESSER NUMBERS</h3>
+            <p style="color: #a0a0c0; margin-bottom: 15px;">Set which numbers guessers can choose for each game</p>
+            
+            <div class="numbers-management">
+                <!-- Faridabad -->
+                <div class="numbers-card">
+                    <h4>FARIDABAD</h4>
+                    <div class="numbers-list" id="numbers-faridabad">
+                        <!-- Numbers will be loaded here -->
+                    </div>
+                    <div class="add-number-form">
+                        <input type="text" id="new-number-faridabad" class="form-control" placeholder="Enter number (00-99)" maxlength="2">
+                        <button class="btn btn-primary" onclick="addNumber('faridabad')">Add</button>
+                    </div>
+                    <button class="btn btn-outline btn-block" onclick="generateRandomNumbers('faridabad')">
+                        <i class="fas fa-random"></i> Generate Random
+                    </button>
+                </div>
+                
+                <!-- Gaziabad -->
+                <div class="numbers-card">
+                    <h4>GAZIABAD</h4>
+                    <div class="numbers-list" id="numbers-gaziabad">
+                        <!-- Numbers will be loaded here -->
+                    </div>
+                    <div class="add-number-form">
+                        <input type="text" id="new-number-gaziabad" class="form-control" placeholder="Enter number (00-99)" maxlength="2">
+                        <button class="btn btn-primary" onclick="addNumber('gaziabad')">Add</button>
+                    </div>
+                    <button class="btn btn-outline btn-block" onclick="generateRandomNumbers('gaziabad')">
+                        <i class="fas fa-random"></i> Generate Random
+                    </button>
+                </div>
+                
+                <!-- Gali -->
+                <div class="numbers-card">
+                    <h4>GALI</h4>
+                    <div class="numbers-list" id="numbers-gali">
+                        <!-- Numbers will be loaded here -->
+                    </div>
+                    <div class="add-number-form">
+                        <input type="text" id="new-number-gali" class="form-control" placeholder="Enter number (00-99)" maxlength="2">
+                        <button class="btn btn-primary" onclick="addNumber('gali')">Add</button>
+                    </div>
+                    <button class="btn btn-outline btn-block" onclick="generateRandomNumbers('gali')">
+                        <i class="fas fa-random"></i> Generate Random
+                    </button>
+                </div>
+                
+                <!-- Deshwar -->
+                <div class="numbers-card">
+                    <h4>DESHWAR</h4>
+                    <div class="numbers-list" id="numbers-deshwar">
+                        <!-- Numbers will be loaded here -->
+                    </div>
+                    <div class="add-number-form">
+                        <input type="text" id="new-number-deshwar" class="form-control" placeholder="Enter number (00-99)" maxlength="2">
+                        <button class="btn btn-primary" onclick="addNumber('deshwar')">Add</button>
+                    </div>
+                    <button class="btn btn-outline btn-block" onclick="generateRandomNumbers('deshwar')">
+                        <i class="fas fa-random"></i> Generate Random
+                    </button>
+                </div>
+                
+                <!-- Gali Dubai -->
+                <div class="numbers-card">
+                    <h4>GALI DUBAI</h4>
+                    <div class="numbers-list" id="numbers-gali_dubai">
+                        <!-- Numbers will be loaded here -->
+                    </div>
+                    <div class="add-number-form">
+                        <input type="text" id="new-number-gali_dubai" class="form-control" placeholder="Enter number (00-99)" maxlength="2">
+                        <button class="btn btn-primary" onclick="addNumber('gali_dubai')">Add</button>
+                    </div>
+                    <button class="btn btn-outline btn-block" onclick="generateRandomNumbers('gali_dubai')">
+                        <i class="fas fa-random"></i> Generate Random
+                    </button>
+                </div>
+                
+                <!-- Deshwar Dubai -->
+                <div class="numbers-card">
+                    <h4>DESHWAR DUBAI</h4>
+                    <div class="numbers-list" id="numbers-deshwar_dubai">
+                        <!-- Numbers will be loaded here -->
+                    </div>
+                    <div class="add-number-form">
+                        <input type="text" id="new-number-deshwar_dubai" class="form-control" placeholder="Enter number (00-99)" maxlength="2">
+                        <button class="btn btn-primary" onclick="addNumber('deshwar_dubai')">Add</button>
+                    </div>
+                    <button class="btn btn-outline btn-block" onclick="generateRandomNumbers('deshwar_dubai')">
+                        <i class="fas fa-random"></i> Generate Random
+                    </button>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button class="btn btn-success" onclick="saveAllNumbers()">
+                    <i class="fas fa-save"></i> Save All Numbers
+                </button>
+                <button class="btn btn-outline" onclick="clearAllNumbers()">
+                    <i class="fas fa-trash"></i> Clear All
+                </button>
+                <button class="btn btn-info" onclick="generateAllRandomNumbers()">
+                    <i class="fas fa-random"></i> Generate All
+                </button>
+            </div>
+        </div>
+
+        <!-- Manage Predictions -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-edit"></i> MANAGE PREDICTIONS</h3>
+            <div style="margin-top: 15px;">
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <select id="filter-game" class="form-control" onchange="filterPredictions()">
+                        <option value="">All Games</option>
+                        <option value="faridabad">Faridabad</option>
+                        <option value="gaziabad">Gaziabad</option>
+                        <option value="gali">Gali</option>
+                        <option value="deshwar">Deshwar</option>
+                        <option value="gali_dubai">Gali Dubai</option>
+                        <option value="deshwar_dubai">Deshwar Dubai</option>
+                    </select>
+                    <select id="filter-date" class="form-control" onchange="filterPredictions()">
+                        <option value="">All Dates</option>
+                        <option value="today">Today</option>
+                        <option value="yesterday">Yesterday</option>
+                        <option value="week">This Week</option>
+                    </select>
+                    <select id="filter-status" class="form-control" onchange="filterPredictions()">
+                        <option value="">All Status</option>
+                        <option value="correct">Correct</option>
+                        <option value="wrong">Wrong</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="user-management-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Guesser</th>
+                                <th>Game</th>
+                                <th>Numbers</th>
+                                <th>Result</th>
+                                <th>Status</th>
+                                <th>Accuracy</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="predictions-list">
+                            <!-- Predictions will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="margin-top: 15px; text-align: center;">
+                    <button class="btn btn-primary" onclick="addPrediction()">
+                        <i class="fas fa-plus"></i> Add Prediction
+                    </button>
+                    <button class="btn btn-outline" onclick="updateAllAccuracy()">
+                        <i class="fas fa-sync"></i> Update Accuracy
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteOldPredictions()">
+                        <i class="fas fa-trash"></i> Delete Old
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guesser Performance -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-chart-line"></i> GUESSER PERFORMANCE</h3>
+            <div style="margin-top: 15px;">
+                <div class="table-responsive">
+                    <table class="user-management-table">
+                        <thead>
+                            <tr>
+                                <th>Guesser</th>
+                                <th>Total Predictions</th>
+                                <th>Correct</th>
+                                <th>Wrong</th>
+                                <th>Accuracy</th>
+                                <th>Last Active</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guesser-performance">
+                            <!-- Performance data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prediction Tools -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-tools"></i> PREDICTION TOOLS</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                <button class="btn btn-info" onclick="generatePredictionsForToday()">
+                    <i class="fas fa-bolt"></i> Generate Today's Predictions
+                </button>
+                <button class="btn btn-success" onclick="calculateAllAccuracy()">
+                    <i class="fas fa-calculator"></i> Calculate All Accuracy
+                </button>
+                <button class="btn btn-warning" onclick="resetAllAccuracy()">
+                    <i class="fas fa-redo"></i> Reset Accuracy
+                </button>
+                <button class="btn btn-outline" onclick="exportPredictions()">
+                    <i class="fas fa-download"></i> Export Predictions
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>PREDICTION MANAGEMENT</h4>
+                    <p>Manage guesser numbers and predictions</p>
+                    <p>© 2024 Matka King. Admin Access Only.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="mobile-menu.js"></script>
+    <script>
+        // Check admin login
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            if (currentUser.type !== 'admin') {
+                alert('Admin access required!');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load numbers and predictions
+            loadNumbers();
+            loadPredictions();
+            loadGuesserPerformance();
+        });
+        
+        function loadNumbers() {
+            const games = ['faridabad', 'gaziabad', 'gali', 'deshwar', 'gali_dubai', 'deshwar_dubai'];
+            const numbers = JSON.parse(localStorage.getItem('guesserNumbers') || '{}');
+            
+            games.forEach(game => {
+                const container = document.getElementById(`numbers-${game}`);
+                const gameNumbers = numbers[game] || [];
+                
+                if (gameNumbers.length === 0) {
+                    container.innerHTML = '<p style="color: #a0a0c0; text-align: center;">No numbers set</p>';
+                } else {
+                    container.innerHTML = gameNumbers.map(num => `
+                        <span class="number-item">
+                            ${num}
+                            <button onclick="removeNumber('${game}', '${num}')" style="background: none; border: none; color: #ff4081; margin-left: 5px; cursor: pointer;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </span>
+                    `).join('');
+                }
+            });
+        }
+        
+        function addNumber(game) {
+            const input = document.getElementById(`new-number-${game}`);
+            const number = input.value.trim();
+            
+            if (!number || !/^\d{2}$/.test(number)) {
+                alert('Please enter a valid 2-digit number (00-99)');
+                return;
+            }
+            
+            let numbers = JSON.parse(localStorage.getItem('guesserNumbers') || '{}');
+            if (!numbers[game]) numbers[game] = [];
+            
+            if (numbers[game].includes(number)) {
+                alert('Number already exists!');
+                return;
+            }
+            
+            numbers[game].push(number);
+            localStorage.setItem('guesserNumbers', JSON.stringify(numbers));
+            
+            input.value = '';
+            loadNumbers();
+            logActivity(`Added number ${number} to ${game}`);
+        }
+        
+        function removeNumber(game, number) {
+            if (!confirm(`Remove number ${number} from ${game}?`)) return;
+            
+            let numbers = JSON.parse(localStorage.getItem('guesserNumbers') || '{}');
+            if (numbers[game]) {
+                numbers[game] = numbers[game].filter(n => n !== number);
+                localStorage.setItem('guesserNumbers', JSON.stringify(numbers));
+                loadNumbers();
+                logActivity(`Removed number ${number} from ${game}`);
+            }
+        }
+        
+        function generateRandomNumbers(game) {
+            if (!confirm(`Generate 10 random numbers for ${game}?`)) return;
+            
+            let numbers = JSON.parse(localStorage.getItem('guesserNumbers') || '{}');
+            numbers[game] = [];
+            
+            // Generate 10 unique random numbers
+            while (numbers[game].length < 10) {
+                const num = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+                if (!numbers[game].includes(num)) {
+                    numbers[game].push(num);
+                }
+            }
+            
+            localStorage.setItem('guesserNumbers', JSON.stringify(numbers));
+            loadNumbers();
+            logActivity(`Generated random numbers for ${game}`);
+        }
+        
+        function generateAllRandomNumbers() {
+            if (!confirm('Generate random numbers for ALL games?')) return;
+            
+            const games = ['faridabad', 'gaziabad', 'gali', 'deshwar', 'gali_dubai', 'deshwar_dubai'];
+            let numbers = JSON.parse(localStorage.getItem('guesserNumbers') || '{}');
+            
+            games.forEach(game => {
+                numbers[game] = [];
+                while (numbers[game].length < 10) {
+                    const num = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+                    if (!numbers[game].includes(num)) {
+                        numbers[game].push(num);
+                    }
+                }
+            });
+            
+            localStorage.setItem('guesserNumbers', JSON.stringify(numbers));
+            loadNumbers();
+            logActivity('Generated random numbers for all games');
+        }
+        
+        function saveAllNumbers() {
+            alert('All numbers saved successfully!');
+            logActivity('Saved all guesser numbers');
+        }
+        
+        function clearAllNumbers() {
+            if (!confirm('Clear ALL numbers from ALL games?')) return;
+            
+            localStorage.removeItem('guesserNumbers');
+            loadNumbers();
+            logActivity('Cleared all guesser numbers');
+        }
+        
+        function loadPredictions() {
+            const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            const container = document.getElementById('predictions-list');
+            
+            if (predictions.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 30px;">
+                            <p style="color: #a0a0c0;">No predictions found</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            predictions.slice(0, 50).forEach(pred => {
+                const status = pred.isCorrect === true ? 'Correct' : pred.isCorrect === false ? 'Wrong' : 'Pending';
+                const statusClass = pred.isCorrect === true ? 'status-active' : pred.isCorrect === false ? 'status-inactive' : '';
+                const accuracy = pred.accuracy ? `${pred.accuracy}%` : 'N/A';
+                
+                html += `
+                    <tr>
+                        <td>${new Date(pred.date).toLocaleDateString()}</td>
+                        <td>${pred.guesserName || pred.guesserId}</td>
+                        <td>${pred.game.toUpperCase()}</td>
+                        <td>${pred.numbers.join(', ')}</td>
+                        <td>${pred.actualResult || 'N/A'}</td>
+                        <td><span class="${statusClass}">${status}</span></td>
+                        <td>${accuracy}</td>
+                        <td>
+                            <button class="btn btn-small btn-info" onclick="editPrediction('${pred.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-small btn-danger" onclick="deletePrediction('${pred.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            ${pred.isCorrect === undefined ? `
+                                <button class="btn btn-small btn-success" onclick="markCorrect('${pred.id}')">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            ` : ''}
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function addPrediction() {
+            const guessers = JSON.parse(localStorage.getItem('matkaUsers') || '[]').filter(u => u.type === 'guesser');
+            
+            if (guessers.length === 0) {
+                alert('No guessers found! Create guesser accounts first.');
+                return;
+            }
+            
+            const guesserId = prompt('Enter guesser ID:');
+            if (!guesserId) return;
+            
+            const game = prompt('Enter game (faridabad/gaziabad/gali/deshwar/gali_dubai/deshwar_dubai):');
+            if (!game) return;
+            
+            const numbersStr = prompt('Enter 3 numbers separated by commas (e.g., 12,34,56):');
+            if (!numbersStr) return;
+            
+            const numbers = numbersStr.split(',').map(n => n.trim()).filter(n => /^\d{2}$/.test(n));
+            if (numbers.length !== 3) {
+                alert('Please enter exactly 3 valid 2-digit numbers!');
+                return;
+            }
+            
+            const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            const guesser = guessers.find(g => g.id === guesserId || g.username === guesserId);
+            
+            predictions.push({
+                id: 'pred' + Date.now(),
+                guesserId: guesserId,
+                guesserName: guesser ? guesser.name : guesserId,
+                game: game,
+                numbers: numbers,
+                date: new Date().toISOString().split('T')[0],
+                time: new Date().toLocaleTimeString(),
+                isCorrect: undefined,
+                accuracy: undefined,
+                actualResult: null
+            });
+            
+            localStorage.setItem('matkaPredictions', JSON.stringify(predictions));
+            loadPredictions();
+            logActivity(`Added prediction for ${game}`);
+            alert('Prediction added successfully!');
+        }
+        
+        function editPrediction(predictionId) {
+            // Implementation for editing prediction
+            alert('Edit prediction feature coming soon!');
+        }
+        
+        function deletePrediction(predictionId) {
+            if (!confirm('Delete this prediction?')) return;
+            
+            let predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            predictions = predictions.filter(p => p.id !== predictionId);
+            
+            localStorage.setItem('matkaPredictions', JSON.stringify(predictions));
+            loadPredictions();
+            logActivity('Deleted prediction');
+        }
+        
+        function markCorrect(predictionId) {
+            const actualResult = prompt('Enter actual result (00-99):');
+            if (!actualResult || !/^\d{2}$/.test(actualResult)) {
+                alert('Invalid result!');
+                return;
+            }
+            
+            let predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            const prediction = predictions.find(p => p.id === predictionId);
+            
+            if (prediction) {
+                prediction.actualResult = actualResult;
+                prediction.isCorrect = prediction.numbers.includes(actualResult);
+                prediction.accuracy = prediction.isCorrect ? 100 : 0;
+                
+                localStorage.setItem('matkaPredictions', JSON.stringify(predictions));
+                loadPredictions();
+                logActivity(`Marked prediction ${predictionId} as ${prediction.isCorrect ? 'correct' : 'wrong'}`);
+            }
+        }
+        
+        function filterPredictions() {
+            // Implementation for filtering predictions
+            alert('Filter feature coming soon!');
+        }
+        
+        function loadGuesserPerformance() {
+            const guessers = JSON.parse(localStorage.getItem('matkaUsers') || '[]').filter(u => u.type === 'guesser');
+            const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            const container = document.getElementById('guesser-performance');
+            
+            if (guessers.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 20px;">
+                            <p style="color: #a0a0c0;">No guessers found</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            guessers.forEach(guesser => {
+                const guesserPredictions = predictions.filter(p => p.guesserId === guesser.id || p.guesserId === guesser.username);
+                const total = guesserPredictions.length;
+                const correct = guesserPredictions.filter(p => p.isCorrect === true).length;
+                const wrong = guesserPredictions.filter(p => p.isCorrect === false).length;
+                const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+                
+                html += `
+                    <tr>
+                        <td><strong>${guesser.name || guesser.username}</strong></td>
+                        <td>${total}</td>
+                        <td style="color: #00e676;">${correct}</td>
+                        <td style="color: #ff4081;">${wrong}</td>
+                        <td><span class="status-active">${accuracy}%</span></td>
+                        <td>${guesser.lastLogin ? new Date(guesser.lastLogin).toLocaleDateString() : 'Never'}</td>
+                        <td>${getRating(accuracy)}</td>
+                    </tr>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function getRating(accuracy) {
+            if (accuracy >= 90) return '★★★★★';
+            if (accuracy >= 80) return '★★★★☆';
+            if (accuracy >= 70) return '★★★☆☆';
+            if (accuracy >= 60) return '★★☆☆☆';
+            return '★☆☆☆☆';
+        }
+        
+        function generatePredictionsForToday() {
+            const guessers = JSON.parse(localStorage.getItem('matkaUsers') || '[]').filter(u => u.type === 'guesser');
+            const games = ['faridabad', 'gaziabad', 'gali', 'deshwar', 'gali_dubai', 'deshwar_dubai'];
+            const numbersData = JSON.parse(localStorage.getItem('guesserNumbers') || '{}');
+            const today = new Date().toISOString().split('T')[0];
+            
+            if (guessers.length === 0) {
+                alert('No guessers found!');
+                return;
+            }
+            
+            if (!confirm(`Generate predictions for ${guessers.length} guessers for all 6 games?`)) return;
+            
+            let predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            
+            guessers.forEach(guesser => {
+                games.forEach(game => {
+                    const gameNumbers = numbersData[game] || [];
+                    if (gameNumbers.length >= 3) {
+                        // Pick 3 random numbers from allowed numbers
+                        const selectedNumbers = [];
+                        while (selectedNumbers.length < 3) {
+                            const randomIndex = Math.floor(Math.random() * gameNumbers.length);
+                            const num = gameNumbers[randomIndex];
+                            if (!selectedNumbers.includes(num)) {
+                                selectedNumbers.push(num);
+                            }
+                        }
+                        
+                        predictions.push({
+                            id: 'pred' + Date.now() + Math.random(),
+                            guesserId: guesser.id || guesser.username,
+                            guesserName: guesser.name || guesser.username,
+                            game: game,
+                            numbers: selectedNumbers,
+                            date: today,
+                            time: new Date().toLocaleTimeString(),
+                            isCorrect: undefined,
+                            accuracy: undefined,
+                            actualResult: null
+                        });
+                    }
+                });
+            });
+            
+            localStorage.setItem('matkaPredictions', JSON.stringify(predictions));
+            loadPredictions();
+            logActivity('Generated predictions for all guessers');
+            alert('Predictions generated successfully!');
+        }
+        
+        function calculateAllAccuracy() {
+            const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            const results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
+            
+            predictions.forEach(pred => {
+                const date = pred.date;
+                const game = pred.game;
+                const gameResult = results[date]?.[game]?.result;
+                
+                if (gameResult && !pred.actualResult) {
+                    pred.actualResult = gameResult;
+                    pred.isCorrect = pred.numbers.includes(gameResult);
+                    pred.accuracy = pred.isCorrect ? 100 : 0;
+                }
+            });
+            
+            localStorage.setItem('matkaPredictions', JSON.stringify(predictions));
+            loadPredictions();
+            loadGuesserPerformance();
+            logActivity('Calculated all prediction accuracy');
+            alert('Accuracy calculated successfully!');
+        }
+        
+        function updateAllAccuracy() {
+            calculateAllAccuracy();
+        }
+        
+        function resetAllAccuracy() {
+            if (!confirm('Reset all prediction accuracy?')) return;
+            
+            let predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            predictions.forEach(pred => {
+                pred.isCorrect = undefined;
+                pred.accuracy = undefined;
+                pred.actualResult = null;
+            });
+            
+            localStorage.setItem('matkaPredictions', JSON.stringify(predictions));
+            loadPredictions();
+            logActivity('Reset all prediction accuracy');
+            alert('Accuracy reset successfully!');
+        }
+        
+        function deleteOldPredictions() {
+            if (!confirm('Delete predictions older than 30 days?')) return;
+            
+            const thirtyDaysAgo = new Date();
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+            
+            let predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            const originalLength = predictions.length;
+            
+            predictions = predictions.filter(pred => {
+                const predDate = new Date(pred.date);
+                return predDate >= thirtyDaysAgo;
+            });
+            
+            localStorage.setItem('matkaPredictions', JSON.stringify(predictions));
+            loadPredictions();
+            logActivity(`Deleted ${originalLength - predictions.length} old predictions`);
+            alert(`Deleted ${originalLength - predictions.length} old predictions!`);
+        }
+        
+        function exportPredictions() {
+            const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            
+            if (predictions.length === 0) {
+                alert('No predictions to export!');
+                return;
+            }
+            
+            const headers = ['ID', 'Date', 'Guesser', 'Game', 'Numbers', 'Result', 'Correct', 'Accuracy'];
+            const csv = [
+                headers.join(','),
+                ...predictions.map(pred => [
+                    pred.id,
+                    pred.date,
+                    pred.guesserName,
+                    pred.game,
+                    pred.numbers.join(','),
+                    pred.actualResult || '',
+                    pred.isCorrect ? 'Yes' : 'No',
+                    pred.accuracy || ''
+                ].map(field => `"${field}"`).join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `predictions-export-${new Date().getTime()}.csv`;
+            a.click();
+            
+            logActivity('Exported predictions to CSV');
+        }
+        
+        function logActivity(action) {
+            const activity = JSON.parse(localStorage.getItem('adminActivity') || '[]');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            activity.unshift({
+                user: currentUser.username || 'admin',
+                action: action,
+                time: new Date().toISOString()
+            });
+            
+            if (activity.length > 100) {
+                activity.length = 100;
+            }
+            
+            localStorage.setItem('adminActivity', JSON.stringify(activity));
+        }
+        
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

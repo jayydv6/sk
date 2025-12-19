@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matka King | Faridabad | Gaziabad | Gali | Deshwar | Gali Dubai | Deshwar Dubai Results</title>
+    <meta name="description" content="Get live Faridabad, Gaziabad, Gali, Deshwar, Gali Dubai, Deshwar Dubai Matka results. Daily Satta Matka results, charts, and expert predictions.">
+    <meta name="keywords" content="faridabad matka, gaziabad matka, gali matka, deshwar matka, gali dubai matka, deshwar dubai matka, satta matka, matka result">
+    <meta name="author" content="Matka King">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h3><i class="fas fa-bars"></i> Menu</h3>
+            <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-content">
+            <a href="index.html" class="mobile-menu-item active">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="results-history.html" class="mobile-menu-item">
+                <i class="fas fa-history"></i> Results
+            </a>
+            <a href="login.html?type=guesser" class="mobile-menu-item">
+                <i class="fas fa-users"></i> Guesser Login
+            </a>
+            <a href="login.html?type=premium" class="mobile-menu-item">
+                <i class="fas fa-crown"></i> Premium Login
+            </a>
+            <a href="#khaiwal" class="mobile-menu-item" onclick="toggleMobileMenu(); scrollToSection('khaiwal')">
+                <i class="fas fa-gamepad"></i> Khaiwal
+            </a>
+            <a href="#contact" class="mobile-menu-item" onclick="toggleMobileMenu(); scrollToSection('contact')">
+                <i class="fas fa-phone-alt"></i> Contact
+            </a>
+            <a href="login.html" class="mobile-menu-item">
+                <i class="fas fa-user"></i> User Login
+            </a>
+        </div>
+        <div class="mobile-menu-footer">
+            <div class="mobile-ads">
+                <div class="mobile-ad-slot">
+                    <!-- Mobile ad will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>MATKA KING</h1>
+                <p>Faridabad | Gaziabad | Gali | Deshwar | Gali Dubai | Deshwar Dubai</p>
+            </div>
+            <div class="header-buttons">
+                <a href="login.html" class="btn btn-outline"><i class="fas fa-user"></i> Login</a>
+                <a href="login.html?type=premium" class="btn btn-premium"><i class="fas fa-crown"></i> Premium</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="results-history.html"><i class="fas fa-history"></i> Results</a></li>
+                <li><a href="login.html?type=guesser"><i class="fas fa-users"></i> Guessers</a></li>
+                <li><a href="#khaiwal"><i class="fas fa-gamepad"></i> Khaiwal</a></li>
+                <li><a href="#contact"><i class="fas fa-phone-alt"></i> Contact</a></li>
+                <li><a href="login.html?type=premium"><i class="fas fa-crown"></i> Premium</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Advertisement Banner -->
+    <div class="advertisement desktop-only">
+        <div class="container">
+            <div class="ad-banner" id="ad-banner-top">
+                <!-- Top banner ad will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Ad Top -->
+    <div class="mobile-ad-top mobile-only">
+        <div class="mobile-ad-banner" id="mobile-ad-top">
+            <!-- Mobile top ad will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="content-wrapper">
+            <!-- Left Column: Games & Results -->
+            <div class="left-column">
+                <!-- Today's Matka Games -->
+                <section class="games-section">
+                    <h2><i class="fas fa-dice"></i> TODAY'S 6 MATKA MARKETS</h2>
+                    <div class="games-grid">
+                        <!-- Game 1: Faridabad -->
+                        <div class="game-card" id="game-1">
+                            <div class="game-header">
+                                <h3>FARIDABAD</h3>
+                                <span class="game-time">Time: <span id="time-1">05:15 PM</span></span>
+                            </div>
+                            <div class="game-result-single">
+                                <div class="single-result" id="result-1">--</div>
+                                <div class="result-status" id="status-1">Waiting for result</div>
+                            </div>
+                            <div class="game-stats">
+                                <div class="stat">Yesterday: <span id="yesterday-1">--</span></div>
+                                <div class="stat">Today: <span id="today-1">--</span></div>
+                            </div>
+                            <div class="game-actions">
+                                <button class="btn btn-small" onclick="showPrediction(1)">Predictions</button>
+                                <button class="btn btn-small btn-info" onclick="checkResult(1)">Check Update</button>
+                            </div>
+                        </div>
+
+                        <!-- Game 2: Gaziabad -->
+                        <div class="game-card" id="game-2">
+                            <div class="game-header">
+                                <h3>GAZIABAD</h3>
+                                <span class="game-time">Time: <span id="time-2">09:15 PM</span></span>
+                            </div>
+                            <div class="game-result-single">
+                                <div class="single-result" id="result-2">--</div>
+                                <div class="result-status" id="status-2">Game starts at 9:15 PM</div>
+                            </div>
+                            <div class="game-stats">
+                                <div class="stat">Yesterday: <span id="yesterday-2">--</span></div>
+                                <div class="stat">Today: <span id="today-2">--</span></div>
+                            </div>
+                            <div class="game-actions">
+                                <button class="btn btn-small" onclick="showPrediction(2)">Predictions</button>
+                                <button class="btn btn-small btn-info" onclick="checkResult(2)">Check Update</button>
+                            </div>
+                        </div>
+
+                        <!-- Game 3: Gali -->
+                        <div class="game-card" id="game-3">
+                            <div class="game-header">
+                                <h3>GALI</h3>
+                                <span class="game-time">Time: <span id="time-3">10:30 PM</span></span>
+                            </div>
+                            <div class="game-result-single">
+                                <div class="single-result" id="result-3">--</div>
+                                <div class="result-status" id="status-3">Game starts at 10:30 PM</div>
+                            </div>
+                            <div class="game-stats">
+                                <div class="stat">Yesterday: <span id="yesterday-3">--</span></div>
+                                <div class="stat">Today: <span id="today-3">--</span></div>
+                            </div>
+                            <div class="game-actions">
+                                <button class="btn btn-small" onclick="showPrediction(3)">Predictions</button>
+                                <button class="btn btn-small btn-info" onclick="checkResult(3)">Check Update</button>
+                            </div>
+                        </div>
+
+                        <!-- Game 4: Deshwar -->
+                        <div class="game-card" id="game-4">
+                            <div class="game-header">
+                                <h3>DESHWAR</h3>
+                                <span class="game-time">Time: <span id="time-4">04:45 PM</span></span>
+                            </div>
+                            <div class="game-result-single">
+                                <div class="single-result" id="result-4">--</div>
+                                <div class="result-status" id="status-4">Game starts at 4:45 PM</div>
+                            </div>
+                            <div class="game-stats">
+                                <div class="stat">Yesterday: <span id="yesterday-4">--</span></div>
+                                <div class="stat">Today: <span id="today-4">--</span></div>
+                            </div>
+                            <div class="game-actions">
+                                <button class="btn btn-small" onclick="showPrediction(4)">Predictions</button>
+                                <button class="btn btn-small btn-info" onclick="checkResult(4)">Check Update</button>
+                            </div>
+                        </div>
+
+                        <!-- Game 5: Gali Dubai -->
+                        <div class="game-card" id="game-5">
+                            <div class="game-header">
+                                <h3>GALI DUBAI</h3>
+                                <span class="game-time">Time: <span id="time-5">02:30 PM</span></span>
+                            </div>
+                            <div class="game-result-single">
+                                <div class="single-result" id="result-5">--</div>
+                                <div class="result-status" id="status-5">Game starts at 2:30 PM</div>
+                            </div>
+                            <div class="game-stats">
+                                <div class="stat">Yesterday: <span id="yesterday-5">--</span></div>
+                                <div class="stat">Today: <span id="today-5">--</span></div>
+                            </div>
+                            <div class="game-actions">
+                                <button class="btn btn-small" onclick="showPrediction(5)">Predictions</button>
+                                <button class="btn btn-small btn-info" onclick="checkResult(5)">Check Update</button>
+                            </div>
+                        </div>
+
+                        <!-- Game 6: Deshwar Dubai -->
+                        <div class="game-card" id="game-6">
+                            <div class="game-header">
+                                <h3>DESHWAR DUBAI</h3>
+                                <span class="game-time">Time: <span id="time-6">11:45 PM</span></span>
+                            </div>
+                            <div class="game-result-single">
+                                <div class="single-result" id="result-6">--</div>
+                                <div class="result-status" id="status-6">Game starts at 11:45 PM</div>
+                            </div>
+                            <div class="game-stats">
+                                <div class="stat">Yesterday: <span id="yesterday-6">--</span></div>
+                                <div class="stat">Today: <span id="today-6">--</span></div>
+                            </div>
+                            <div class="game-actions">
+                                <button class="btn btn-small" onclick="showPrediction(6)">Predictions</button>
+                                <button class="btn btn-small btn-info" onclick="checkResult(6)">Check Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Mobile Ad Middle -->
+                <div class="mobile-ad-middle mobile-only">
+                    <div class="mobile-ad-square" id="mobile-ad-middle">
+                        <!-- Mobile middle ad will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Khaiwal Games Section -->
+                <section id="khaiwal" class="khaiwal-section">
+                    <h2><i class="fas fa-gamepad"></i> PLAY WITH KHAIWAL</h2>
+                    <div class="khaiwal-info">
+                        <div class="khaiwal-card">
+                            <h3><i class="fas fa-star"></i> What is Khaiwal Matka?</h3>
+                            <p>Khaiwal is the most trusted and popular Matka platform where you can play all 6 major markets:</p>
+                            <ul>
+                                <li><strong>Faridabad:</strong> Daily market at 5:15 PM</li>
+                                <li><strong>Gaziabad:</strong> Evening market at 9:15 PM</li>
+                                <li><strong>Gali:</strong> Night market at 10:30 PM</li>
+                                <li><strong>Deshwar:</strong> Evening market at 4:45 PM</li>
+                                <li><strong>Gali Dubai:</strong> Afternoon market at 2:30 PM</li>
+                                <li><strong>Deshwar Dubai:</strong> Late night at 11:45 PM</li>
+                            </ul>
+                            <p><strong>How to Play:</strong> Select your market, choose 3 numbers between 00-99, and place your bet. Results are declared at specified times.</p>
+                            
+                            <div class="khaiwal-contact">
+                                <h4><i class="fab fa-telegram"></i> Contact Khaiwal Support</h4>
+                                <p>For premium predictions and game support, contact us on Telegram:</p>
+                                <a href="#" class="btn-khaiwal" id="khaiwal-telegram">
+                                    <i class="fab fa-telegram"></i> Join Khaiwal Telegram
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Guesser Predictions Section -->
+                <section class="predictions-section">
+                    <h2><i class="fas fa-users"></i> TOP GUESSER PREDICTIONS</h2>
+                    <div class="predictions-list" id="predictions-list">
+                        <!-- Predictions will be loaded here -->
+                    </div>
+                    <div class="guesser-login-prompt">
+                        <p>Want to become a guesser? <a href="login.html?type=guesser">Login here</a> or contact admin for guesser ID</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Ads & Info -->
+            <div class="right-column desktop-only">
+                <!-- Advertisement Sidebar -->
+                <div class="ad-sidebar">
+                    <div class="ad-vertical" id="ad-sidebar-1">
+                        <!-- Sidebar ad will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Premium Section -->
+                <div id="premium" class="premium-box">
+                    <h3><i class="fas fa-crown"></i> PREMIUM ACCESS</h3>
+                    <p>Get premium predictions with 95% accuracy:</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Daily 3 confirmed numbers</li>
+                        <li><i class="fas fa-check"></i> Early result alerts</li>
+                        <li><i class="fas fa-check"></i> VIP guesser access</li>
+                        <li><i class="fas fa-check"></i> 24/7 support</li>
+                    </ul>
+                    <div class="premium-contact">
+                        <p>Contact admin for premium ID and password</p>
+                        <a href="login.html?type=premium" class="btn-premium-small">
+                            <i class="fas fa-key"></i> Get Premium Access
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div id="contact" class="contact-box">
+                    <h3><i class="fas fa-headset"></i> CONTACT & SUPPORT</h3>
+                    <div class="contact-links" id="contact-links">
+                        <!-- Contact links will be loaded here -->
+                    </div>
+                    <div class="telegram-group">
+                        <a href="#" class="btn-telegram" id="telegram-group-btn">
+                            <i class="fab fa-telegram"></i> Join Telegram Group
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="stats-box">
+                    <h3><i class="fas fa-chart-bar"></i> TODAY'S STATS</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Active Markets:</span>
+                            <span class="stat-value">6</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Guessers:</span>
+                            <span class="stat-value" id="total-guessers">25</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Predictions:</span>
+                            <span class="stat-value" id="total-predictions">156</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Accuracy:</span>
+                            <span class="stat-value" id="accuracy-rate">89%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advertisement Slot -->
+                <div class="ad-slot">
+                    <h4><i class="fas fa-ad"></i> Advertisement</h4>
+                    <div class="ad-rectangle" id="ad-rectangle">
+                        <!-- Rectangle ad will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Bottom Content -->
+        <div class="mobile-bottom-content mobile-only">
+            <!-- Mobile Contact Info -->
+            <div id="mobile-contact" class="mobile-contact-box">
+                <h3><i class="fas fa-headset"></i> CONTACT SUPPORT</h3>
+                <div class="mobile-contact-links" id="mobile-contact-links">
+                    <!-- Mobile contact links will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Mobile Stats -->
+            <div class="mobile-stats-box">
+                <h3><i class="fas fa-chart-bar"></i> TODAY'S STATS</h3>
+                <div class="mobile-stats">
+                    <div class="mobile-stat-item">
+                        <span>Markets: <strong>6</strong></span>
+                        <span>Guessers: <strong id="mobile-total-guessers">25</strong></span>
+                    </div>
+                    <div class="mobile-stat-item">
+                        <span>Predictions: <strong id="mobile-total-predictions">156</strong></span>
+                        <span>Accuracy: <strong id="mobile-accuracy-rate">89%</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Premium -->
+            <div class="mobile-premium-box">
+                <h3><i class="fas fa-crown"></i> PREMIUM ACCESS</h3>
+                <p>Get premium predictions with 95% accuracy</p>
+                <a href="login.html?type=premium" class="btn-premium-small">
+                    <i class="fas fa-key"></i> Get Premium
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Ad Bottom -->
+    <div class="mobile-ad-bottom mobile-only">
+        <div class="mobile-ad-rectangle" id="mobile-ad-bottom">
+            <!-- Mobile bottom ad will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>MATKA KING</h4>
+                    <p>Faridabad | Gaziabad | Gali | Deshwar | Gali Dubai | Deshwar Dubai</p>
+                    <p>Most trusted Matka results platform with 6 major markets</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Our Markets</h4>
+                    <ul>
+                        <li><a href="#">Faridabad Matka</a></li>
+                        <li><a href="#">Gaziabad Matka</a></li>
+                        <li><a href="#">Gali Matka</a></li>
+                        <li><a href="#">Deshwar Matka</a></li>
+                        <li><a href="#">Gali Dubai Matka</a></li>
+                        <li><a href="#">Deshwar Dubai Matka</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="results-history.html">Results History</a></li>
+                        <li><a href="login.html">User Login</a></li>
+                        <li><a href="login.html?type=guesser">Guesser Login</a></li>
+                        <li><a href="login.html?type=premium">Premium Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <p>This website is for informational purposes only. We don't promote gambling. Results are for entertainment only.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Matka King. All Rights Reserved.</p>
+                <p class="mobile-info">Optimized for mobile devices</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Quick Actions -->
+    <div class="mobile-quick-actions mobile-only">
+        <a href="index.html" class="mobile-quick-action">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="results-history.html" class="mobile-quick-action">
+            <i class="fas fa-history"></i>
+            <span>Results</span>
+        </a>
+        <a href="login.html?type=guesser" class="mobile-quick-action">
+            <i class="fas fa-users"></i>
+            <span>Guessers</span>
+        </a>
+        <a href="login.html" class="mobile-quick-action">
+            <i class="fas fa-user"></i>
+            <span>Login</span>
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="mobile-menu.js"></script>
+</body>
+</html>

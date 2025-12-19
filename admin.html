@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Matka King</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h3><i class="fas fa-bars"></i> Admin Menu</h3>
+            <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-content">
+            <a href="admin-dashboard.html" class="mobile-menu-item active">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="manage-results.html" class="mobile-menu-item">
+                <i class="fas fa-flag-checkered"></i> Manage Results
+            </a>
+            <a href="manage-users.html" class="mobile-menu-item">
+                <i class="fas fa-users"></i> Manage Users
+            </a>
+            <a href="manage-predictions.html" class="mobile-menu-item">
+                <i class="fas fa-bullseye"></i> Manage Predictions
+            </a>
+            <a href="index.html" class="mobile-menu-item">
+                <i class="fas fa-home"></i> Home Page
+            </a>
+            <a href="#" class="mobile-menu-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>MATKA KING</h1>
+                <p>Admin Dashboard</p>
+            </div>
+            <div class="header-buttons">
+                <button onclick="logout()" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Navigation -->
+    <nav class="admin-nav container">
+        <a href="admin-dashboard.html" class="active">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="manage-results.html">
+            <i class="fas fa-flag-checkered"></i> Manage Results
+        </a>
+        <a href="manage-users.html">
+            <i class="fas fa-users"></i> Manage Users
+        </a>
+        <a href="manage-predictions.html">
+            <i class="fas fa-bullseye"></i> Manage Predictions
+        </a>
+        <a href="index.html">
+            <i class="fas fa-home"></i> View Site
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container dashboard-container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1><i class="fas fa-lock"></i> ADMIN CONTROL PANEL</h1>
+            <p>Manage all aspects of the Matka King website</p>
+        </div>
+
+        <!-- User Info -->
+        <div class="user-info">
+            <div class="user-details">
+                <h3 id="admin-name">Super Admin</h3>
+                <p><i class="fas fa-user-shield"></i> Administrator | <span id="login-time"></span></p>
+            </div>
+            <div>
+                <span class="badge badge-admin">ADMIN</span>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3><i class="fas fa-users"></i> USERS STATISTICS</h3>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Users:</span>
+                        <span class="stat-value" id="total-users">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Admins:</span>
+                        <span class="stat-value" id="total-admins">1</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Guessers:</span>
+                        <span class="stat-value" id="total-guessers">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Premium Users:</span>
+                        <span class="stat-value" id="total-premium">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3><i class="fas fa-flag-checkered"></i> RESULTS STATISTICS</h3>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Today's Results:</span>
+                        <span class="stat-value" id="today-results">0/6</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Published:</span>
+                        <span class="stat-value" id="published-results">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Pending:</span>
+                        <span class="stat-value" id="pending-results">6</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total History:</span>
+                        <span class="stat-value" id="total-history">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3><i class="fas fa-bullseye"></i> PREDICTIONS STATISTICS</h3>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Today's Predictions:</span>
+                        <span class="stat-value" id="today-predictions">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Predictions:</span>
+                        <span class="stat-value" id="total-predictions">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Accuracy Rate:</span>
+                        <span class="stat-value" id="overall-accuracy">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Active Guessers:</span>
+                        <span class="stat-value" id="active-guessers">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-bolt"></i> QUICK ACTIONS</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                <button class="btn btn-primary" onclick="window.location.href='manage-results.html'">
+                    <i class="fas fa-plus"></i> Add Today's Results
+                </button>
+                <button class="btn btn-success" onclick="generateHistoricalResults()">
+                    <i class="fas fa-history"></i> Generate Historical Data
+                </button>
+                <button class="btn btn-info" onclick="window.location.href='manage-users.html'">
+                    <i class="fas fa-user-plus"></i> Create New User
+                </button>
+                <button class="btn btn-premium" onclick="window.location.href='manage-predictions.html'">
+                    <i class="fas fa-edit"></i> Edit Predictions
+                </button>
+                <button class="btn btn-outline" onclick="backupAllData()">
+                    <i class="fas fa-download"></i> Backup All Data
+                </button>
+                <button class="btn btn-outline" onclick="restoreAllData()">
+                    <i class="fas fa-upload"></i> Restore Data
+                </button>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-history"></i> RECENT ACTIVITY</h3>
+            <div id="recent-activity" style="margin-top: 15px;">
+                <p>Loading recent activity...</p>
+            </div>
+        </div>
+
+        <!-- System Information -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-info-circle"></i> SYSTEM INFORMATION</h3>
+            <div class="stats" style="margin-top: 15px;">
+                <div class="stat-item">
+                    <span class="stat-label">Browser:</span>
+                    <span class="stat-value" id="browser-info">Loading...</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">LocalStorage:</span>
+                    <span class="stat-value" id="storage-info">Loading...</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Last Backup:</span>
+                    <span class="stat-value" id="last-backup">Never</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">System Status:</span>
+                    <span class="stat-value" id="system-status">Online</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ADMIN DASHBOARD</h4>
+                    <p>Full control over Matka King website</p>
+                    <p>© 2024 Matka King. Admin Access Only.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="manage-results.html">Manage Results</a></li>
+                        <li><a href="manage-users.html">Manage Users</a></li>
+                        <li><a href="manage-predictions.html">Manage Predictions</a></li>
+                        <li><a href="index.html">View Site</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="mobile-menu.js"></script>
+    <script src="admin-functions.js"></script>
+    <script>
+        // Check admin login
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            if (currentUser.type !== 'admin') {
+                alert('Admin access required!');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Update user info
+            document.getElementById('admin-name').textContent = currentUser.name || 'Super Admin';
+            document.getElementById('login-time').textContent = new Date(currentUser.loginTime).toLocaleTimeString();
+            
+            // Load dashboard data
+            loadDashboardStats();
+            loadRecentActivity();
+            loadSystemInfo();
+        });
+        
+        function loadDashboardStats() {
+            // Users statistics
+            const users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const admins = users.filter(u => u.type === 'admin').length;
+            const guessers = users.filter(u => u.type === 'guesser').length;
+            const premium = users.filter(u => u.type === 'premium').length;
+            const totalUsers = users.length;
+            
+            document.getElementById('total-users').textContent = totalUsers;
+            document.getElementById('total-admins').textContent = admins;
+            document.getElementById('total-guessers').textContent = guessers;
+            document.getElementById('total-premium').textContent = premium;
+            
+            // Results statistics
+            const results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
+            const today = new Date().toISOString().split('T')[0];
+            const todayResults = results[today] || {};
+            const publishedResults = Object.values(todayResults).filter(r => r.published).length;
+            
+            document.getElementById('today-results').textContent = `${Object.keys(todayResults).length}/6`;
+            document.getElementById('published-results').textContent = publishedResults;
+            document.getElementById('pending-results').textContent = 6 - publishedResults;
+            document.getElementById('total-history').textContent = Object.keys(results).length;
+            
+            // Predictions statistics
+            const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            const todayPredictions = predictions.filter(p => p.date === today).length;
+            
+            document.getElementById('today-predictions').textContent = todayPredictions;
+            document.getElementById('total-predictions').textContent = predictions.length;
+            document.getElementById('active-guessers').textContent = users.filter(u => u.type === 'guesser' && u.status === 'active').length;
+            
+            // Calculate accuracy (simplified)
+            const correctPredictions = predictions.filter(p => p.isCorrect).length;
+            const accuracy = predictions.length > 0 ? Math.round((correctPredictions / predictions.length) * 100) : 0;
+            document.getElementById('overall-accuracy').textContent = accuracy + '%';
+        }
+        
+        function loadRecentActivity() {
+            const activity = JSON.parse(localStorage.getItem('adminActivity') || '[]');
+            const container = document.getElementById('recent-activity');
+            
+            if (activity.length === 0) {
+                container.innerHTML = '<p>No recent activity</p>';
+                return;
+            }
+            
+            let html = '';
+            activity.slice(0, 10).forEach(item => {
+                html += `
+                    <div style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem;">
+                        <span style="color: #a0a0c0;">${new Date(item.time).toLocaleString()}</span>
+                        <span style="color: #fff; margin-left: 10px;">${item.action}</span>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function loadSystemInfo() {
+            // Browser info
+            document.getElementById('browser-info').textContent = navigator.userAgent.split(' ')[0];
+            
+            // LocalStorage info
+            let totalSize = 0;
+            for (let key in localStorage) {
+                if (localStorage.hasOwnProperty(key)) {
+                    totalSize += localStorage[key].length * 2; // UTF-16 characters
+                }
+            }
+            document.getElementById('storage-info').textContent = (totalSize / 1024).toFixed(2) + ' KB';
+            
+            // Last backup
+            const lastBackup = localStorage.getItem('lastBackup');
+            if (lastBackup) {
+                document.getElementById('last-backup').textContent = new Date(lastBackup).toLocaleString();
+            }
+        }
+        
+        function generateHistoricalResults() {
+            if (confirm('Generate historical results for the past 30 days? This will create random results for all 6 games.')) {
+                const games = ['faridabad', 'gaziabad', 'gali', 'deshwar', 'gali_dubai', 'deshwar_dubai'];
+                let results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
+                
+                for (let i = 30; i >= 0; i--) {
+                    const date = new Date();
+                    date.setDate(date.getDate() - i);
+                    const dateStr = date.toISOString().split('T')[0];
+                    
+                    if (!results[dateStr]) {
+                        results[dateStr] = {};
+                        games.forEach(game => {
+                            const hour = Math.floor(Math.random() * 12) + 12;
+                            const minute = Math.floor(Math.random() * 60);
+                            results[dateStr][game] = {
+                                result: Math.floor(Math.random() * 100).toString().padStart(2, '0'),
+                                published: true,
+                                time: `${hour}:${minute.toString().padStart(2, '0')} ${hour >= 12 ? 'PM' : 'AM'}`,
+                                publishTime: new Date(date.setHours(18, 0, 0, 0)).toLocaleTimeString()
+                            };
+                        });
+                    }
+                }
+                
+                localStorage.setItem('matkaResults', JSON.stringify(results));
+                
+                // Log activity
+                logActivity('Generated 30 days of historical results');
+                
+                alert('Historical results generated successfully!');
+                loadDashboardStats();
+            }
+        }
+        
+        function backupAllData() {
+            const backup = {
+                users: JSON.parse(localStorage.getItem('matkaUsers') || '[]'),
+                results: JSON.parse(localStorage.getItem('matkaResults') || '{}'),
+                predictions: JSON.parse(localStorage.getItem('matkaPredictions') || '[]'),
+                guesserNumbers: JSON.parse(localStorage.getItem('guesserNumbers') || '{}'),
+                activity: JSON.parse(localStorage.getItem('adminActivity') || '[]'),
+                backupTime: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `matka-backup-${new Date().getTime()}.json`;
+            a.click();
+            
+            localStorage.setItem('lastBackup', new Date().toISOString());
+            logActivity('Created full system backup');
+            
+            alert('Backup created successfully!');
+            loadSystemInfo();
+        }
+        
+        function restoreAllData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    try {
+                        const backup = JSON.parse(event.target.result);
+                        
+                        if (confirm('Restore this backup? This will overwrite all current data.')) {
+                            localStorage.setItem('matkaUsers', JSON.stringify(backup.users || []));
+                            localStorage.setItem('matkaResults', JSON.stringify(backup.results || {}));
+                            localStorage.setItem('matkaPredictions', JSON.stringify(backup.predictions || []));
+                            localStorage.setItem('guesserNumbers', JSON.stringify(backup.guesserNumbers || {}));
+                            localStorage.setItem('adminActivity', JSON.stringify(backup.activity || []));
+                            
+                            logActivity('Restored system from backup');
+                            alert('Data restored successfully! Page will reload.');
+                            location.reload();
+                        }
+                    } catch (error) {
+                        alert('Invalid backup file!');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+        
+        function logActivity(action) {
+            const activity = JSON.parse(localStorage.getItem('adminActivity') || '[]');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            activity.unshift({
+                user: currentUser.username || 'admin',
+                action: action,
+                time: new Date().toISOString()
+            });
+            
+            // Keep only last 100 activities
+            if (activity.length > 100) {
+                activity.length = 100;
+            }
+            
+            localStorage.setItem('adminActivity', JSON.stringify(activity));
+        }
+        
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+        
+        // Initialize activity logging
+        logActivity('Accessed admin dashboard');
+    </script>
+</body>
+</html>

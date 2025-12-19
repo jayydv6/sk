@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results History - Matka King</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h3><i class="fas fa-bars"></i> Menu</h3>
+            <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-content">
+            <a href="index.html" class="mobile-menu-item">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="results-history.html" class="mobile-menu-item active">
+                <i class="fas fa-history"></i> Results
+            </a>
+            <a href="login.html?type=guesser" class="mobile-menu-item">
+                <i class="fas fa-users"></i> Guesser Login
+            </a>
+            <a href="login.html?type=premium" class="mobile-menu-item">
+                <i class="fas fa-crown"></i> Premium Login
+            </a>
+            <a href="#contact" class="mobile-menu-item" onclick="toggleMobileMenu(); scrollToSection('contact')">
+                <i class="fas fa-phone-alt"></i> Contact
+            </a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>MATKA KING</h1>
+                <p>Complete Results History</p>
+            </div>
+            <div class="header-buttons">
+                <a href="index.html" class="btn btn-outline"><i class="fas fa-home"></i> Home</a>
+                <a href="#search" class="btn btn-info"><i class="fas fa-search"></i> Search</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="results-history.html" class="active"><i class="fas fa-history"></i> Results</a></li>
+                <li><a href="#charts"><i class="fas fa-chart-line"></i> Charts</a></li>
+                <li><a href="#analysis"><i class="fas fa-chart-bar"></i> Analysis</a></li>
+                <li><a href="#patterns"><i class="fas fa-project-diagram"></i> Patterns</a></li>
+                <li><a href="#contact"><i class="fas fa-phone-alt"></i> Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="content-wrapper">
+            <!-- Left Column: Results History -->
+            <div class="left-column">
+                <!-- Search Section -->
+                <section id="search" class="games-section">
+                    <h2><i class="fas fa-search"></i> SEARCH RESULTS</h2>
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px;">
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <input type="date" id="search-date" class="form-control" style="flex: 1;">
+                            <select id="search-game" class="form-control" style="width: 150px;">
+                                <option value="">All Games</option>
+                                <option value="faridabad">Faridabad</option>
+                                <option value="gaziabad">Gaziabad</option>
+                                <option value="gali">Gali</option>
+                                <option value="deshwar">Deshwar</option>
+                                <option value="gali_dubai">Gali Dubai</option>
+                                <option value="deshwar_dubai">Deshwar Dubai</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="searchResults()">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                            <button class="btn btn-outline" onclick="clearSearch()">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Results -->
+                <section class="games-section">
+                    <h2><i class="fas fa-history"></i> RECENT RESULTS</h2>
+                    <div id="recent-results">
+                        <p style="color: #a0a0c0; text-align: center; padding: 20px;">Loading recent results...</p>
+                    </div>
+                </section>
+
+                <!-- Historical Results -->
+                <section id="charts" class="games-section">
+                    <h2><i class="fas fa-chart-line"></i> HISTORICAL DATA</h2>
+                    <div style="margin-top: 15px;">
+                        <div class="date-selector">
+                            <button class="date-btn active" onclick="showDateResults('today')">Today</button>
+                            <button class="date-btn" onclick="showDateResults('yesterday')">Yesterday</button>
+                            <button class="date-btn" onclick="showDateResults('week')">This Week</button>
+                            <button class="date-btn" onclick="showDateResults('month')">This Month</button>
+                            <button class="date-btn" onclick="showDateResults('all')">All Time</button>
+                        </div>
+                        <div id="historical-data" style="margin-top: 20px;">
+                            <!-- Historical data will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pattern Analysis -->
+                <section id="analysis" class="games-section">
+                    <h2><i class="fas fa-chart-bar"></i> PATTERN ANALYSIS</h2>
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px;">
+                        <div id="pattern-analysis">
+                            <p style="color: #a0a0c0; text-align: center;">Loading pattern analysis...</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Stats & Info -->
+            <div class="right-column desktop-only">
+                <!-- Quick Stats -->
+                <div class="stats-box">
+                    <h3><i class="fas fa-chart-bar"></i> HISTORY STATS</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Days:</span>
+                            <span class="stat-value" id="total-days">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Results:</span>
+                            <span class="stat-value" id="total-results">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Most Common:</span>
+                            <span class="stat-value" id="most-common">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Avg. Number:</span>
+                            <span class="stat-value" id="avg-number">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Statistics -->
+                <div class="stats-box">
+                    <h3><i class="fas fa-gamepad"></i> GAME STATS</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Faridabad:</span>
+                            <span class="stat-value" id="stats-faridabad">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Gaziabad:</span>
+                            <span class="stat-value" id="stats-gaziabad">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Gali:</span>
+                            <span class="stat-value" id="stats-gali">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Deshwar:</span>
+                            <span class="stat-value" id="stats-deshwar">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Gali Dubai:</span>
+                            <span class="stat-value" id="stats-gali-dubai">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Deshwar Dubai:</span>
+                            <span class="stat-value" id="stats-deshwar-dubai">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Numbers -->
+                <div class="stats-box">
+                    <h3><i class="fas fa-star"></i> POPULAR NUMBERS</h3>
+                    <div id="popular-numbers" style="padding: 10px;">
+                        <!-- Popular numbers will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div id="contact" class="contact-box">
+                    <h3><i class="fas fa-headset"></i> NEED HELP?</h3>
+                    <p style="color: #a0a0c0; margin-bottom: 10px;">For result verification or historical data queries:</p>
+                    <a href="#" class="btn-telegram">
+                        <i class="fab fa-telegram"></i> Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>RESULTS HISTORY</h4>
+                    <p>Complete historical data of all Matka results</p>
+                    <p>© 2024 Matka King. All results are for informational purposes only.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Data Source</h4>
+                    <ul>
+                        <li><a href="#">Faridabad History</a></li>
+                        <li><a href="#">Gaziabad History</a></li>
+                        <li><a href="#">Gali History</a></li>
+                        <li><a href="#">Deshwar History</a></li>
+                        <li><a href="#">Gali Dubai History</a></li>
+                        <li><a href="#">Deshwar Dubai History</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="login.html?type=premium">Premium Access</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="mobile-menu.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set today's date in search
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('search-date').value = today;
+            
+            // Load data
+            loadRecentResults();
+            loadHistoricalStats();
+            loadPatternAnalysis();
+            showDateResults('today');
+        });
+        
+        function loadRecentResults() {
+            const results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
+            const dates = Object.keys(results).sort().reverse().slice(0, 5); // Last 5 days
+            
+            const container = document.getElementById('recent-results');
+            
+            if (dates.length === 0) {
+                container.innerHTML = '<p style="color: #a0a0c0; text-align: center; padding: 20px;">No historical data available.</p>';
+                return;
+            }
+            
+            let html = '';
+            dates.forEach(date => {
+                const dateResults = results[date];
+                const gameCount = Object.keys(dateResults).length;
+                
+                if (gameCount > 0) {
+                    html += `
+                        <div style="background: rgba(255,255,255,0.03); padding: 15px; margin-bottom: 10px; border-radius: 5px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <h4 style="color: #ff4081;">${formatDate(date)}</h4>
+                                <span style="color: #00e676;">${gameCount}/6 Games</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px;">
+                                ${Object.entries(dateResults).map(([game, data]) => `
+                                    <div style="text-align: center; padding: 8px; background: rgba(255,255,255,0.02); border-radius: 3px;">
+                                        <div style="font-size: 0.8rem; color: #a0a0c0;">${game.toUpperCase()}</div>
+                                        <div style="font-size: 1.2rem; font-weight: bold; color: #00e676;">${data.result}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function loadHistoricalStats() {
+            const results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
+            const dates = Object.keys(results);
+            
+            // Calculate stats
+            let totalResults = 0;
+            let numberCounts = {};
+            let gameStats = {
+                faridabad: { count: 0, sum: 0 },
+                gaziabad: { count: 0, sum: 0 },
+                gali: { count: 0, sum: 0 },
+                deshwar: { count: 0, sum: 0 },
+                gali_dubai: { count: 0, sum: 0 },
+                deshwar_dubai: { count: 0, sum: 0 }
+            };
+            
+            Object.values(results).forEach(dateResults => {
+                Object.entries(dateResults).forEach(([game, data]) => {
+                    if (data.result) {
+                        totalResults++;
+                        
+                        // Count numbers
+                        numberCounts[data.result] = (numberCounts[data.result] || 0) + 1;
+                        
+                        // Game stats
+                        if (gameStats[game]) {
+                            gameStats[game].count++;
+                            gameStats[game].sum += parseInt(data.result);
+                        }
+                    }
+                });
+            });
+            
+            // Update stats
+            document.getElementById('total-days').textContent = dates.length;
+            document.getElementById('total-results').textContent = totalResults;
+            
+            // Find most common number
+            let mostCommon = '--';
+            let maxCount = 0;
+            for (const [number, count] of Object.entries(numberCounts)) {
+                if (count > maxCount) {
+                    maxCount = count;
+                    mostCommon = number;
+                }
+            }
+            document.getElementById('most-common').textContent = mostCommon;
+            
+            // Calculate average number
+            const allNumbers = Object.keys(numberCounts).map(n => parseInt(n));
+            const avg = allNumbers.length > 0 ? Math.round(allNumbers.reduce((a, b) => a + b) / allNumbers.length) : '--';
+            document.getElementById('avg-number').textContent = avg;
+            
+            // Update game stats
+            Object.entries(gameStats).forEach(([game, stats]) => {
+                const elementId = `stats-${game.replace('_', '-')}`;
+                const element = document.getElementById(elementId);
+                if (element && stats.count > 0) {
+                    const avg = Math.round(stats.sum / stats.count);
+                    element.textContent = `${avg} (${stats.count})`;
+                }
+            });
+            
+            // Update popular numbers
+            const popularContainer = document.getElementById('popular-numbers');
+            const sortedNumbers = Object.entries(numberCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 6);
+            
+            if (sortedNumbers.length > 0) {
+                popularContainer.innerHTML = sortedNumbers.map(([number, count]) => `
+                    <div style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span>${number}</span>
+                        <span style="color: #00e676;">${count} times</span>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function showDateResults(range) {
+            const results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
+            const container = document.getElementById('historical-data');
+            
+            let filteredDates = Object.keys(results).sort().reverse();
+            
+            // Filter by range
+            const now = new Date();
+            switch(range) {
+                case 'today':
+                    const today = now.toISOString().split('T')[0];
+                    filteredDates = filteredDates.filter(d => d === today);
+                    break;
+                case 'yesterday':
+                    const yesterday = new Date();
+                    yesterday.setDate(yesterday.getDate() - 1);
+                    const yesterdayStr = yesterday.toISOString().split('T')[0];
+                    filteredDates = filteredDates.filter(d => d === yesterdayStr);
+                    break;
+                case 'week':
+                    const weekAgo = new Date();
+                    weekAgo.setDate(weekAgo.getDate() - 7);
+                    filteredDates = filteredDates.filter(d => new Date(d) >= weekAgo);
+                    break;
+                case 'month':
+                    const monthAgo = new Date();
+                    monthAgo.setMonth(monthAgo.getMonth() - 1);
+                    filteredDates = filteredDates.filter(d => new Date(d) >= monthAgo);
+                    break;
+                // 'all' shows all dates
+            }
+            
+            if (filteredDates.length === 0) {
+                container.innerHTML = '<p style="color: #a0a0c0; text-align: center; padding: 20px;">No data available for this period.</p>';
+                return;
+            }
+            
+            let html = '';
+            filteredDates.forEach(date => {
+                const dateResults = results[date];
+                const gameCount = Object.keys(dateResults).length;
+                
+                if (gameCount > 0) {
+                    html += `
+                        <div style="background: rgba(255,255,255,0.03); padding: 15px; margin-bottom: 10px; border-radius: 5px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <h4 style="color: #ff4081; font-size: 1rem;">${formatDate(date)}</h4>
+                                <span style="color: #00e676; font-size: 0.9rem;">${gameCount}/6 Games</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px;">
+                                ${Object.entries(dateResults).map(([game, data]) => `
+                                    <div style="text-align: center; padding: 6px; background: rgba(255,255,255,0.02); border-radius: 3px;">
+                                        <div style="font-size: 0.7rem; color: #a0a0c0;">${game.toUpperCase()}</div>
+                                        <div style="font-size: 1rem; font-weight: bold; color: #00e676;">${data.result}</div>
+                                        <div style="font-size: 0.7rem; color: #a0a0c0;">${data.time || ''}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            container.innerHTML = html;
+            
+            // Update active button
+            document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('active'));
+            event?.target.classList.add('active');
+        }
+        
+        function loadPatternAnalysis() {
+            const results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
+            const container = document.getElementById('pattern-analysis');
+            
+            // Simple pattern analysis
+            let analysis = {
+                commonPairs: {},
+                repeatingNumbers: {},
+                timePatterns: {}
+            };
+            
+            Object.values(results).forEach(dateResults => {
+                const numbers = Object.values(dateResults).map(d => d.result).filter(n => n);
+                
+                // Analyze pairs
+                for (let i = 0; i < numbers.length - 1; i++) {
+                    for (let j = i + 1; j < numbers.length; j++) {
+                        const pair = [numbers[i], numbers[j]].sort().join('-');
+                        analysis.commonPairs[pair] = (analysis.commonPairs[pair] || 0) + 1;
+                    }
+                }
+                
+                // Analyze repeating numbers
+                numbers.forEach(num => {
+                    analysis.repeatingNumbers[num] = (analysis.repeatingNumbers[num] || 0) + 1;
+                });
+            });
+            
+            // Find top patterns
+            const topPairs = Object.entries(analysis.commonPairs)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+            
+            const topNumbers = Object.entries(analysis.repeatingNumbers)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+            
+            let html = `
+                <h4 style="color: #00e676; margin-bottom: 10px;">Top Repeating Numbers:</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                    ${topNumbers.map(([num, count]) => `
+                        <div style="padding: 5px 10px; background: rgba(0, 230, 118, 0.1); border-radius: 3px;">
+                            <strong>${num}</strong> (${count}x)
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <h4 style="color: #2196f3; margin-bottom: 10px;">Common Pairs:</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    ${topPairs.map(([pair, count]) => `
+                        <div style="padding: 5px 10px; background: rgba(33, 150, 243, 0.1); border-radius: 3px;">
+                            <strong>${pair}</strong> (${count}x)
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+        
+        function searchResults() {
+            const date = document.getElementById('search-date').value;
+            const game = document.getElementById('search-game').value;
+            const results = JSON.parse(localStorage.getItem('matkaResults') || '{}');
+            
+            if (!date && !game) {
+                alert('Please select a date or game!');
+                return;
+            }
+            
+            let filteredResults = {};
+            
+            if (date) {
+                const dateResults = results[date];
+                if (dateResults) {
+                    if (game) {
+                        if (dateResults[game]) {
+                            filteredResults[date] = { [game]: dateResults[game] };
+                        }
+                    } else {
+                        filteredResults[date] = dateResults;
+                    }
+                }
+            } else if (game) {
+                // Search all dates for this game
+                Object.keys(results).forEach(d => {
+                    if (results[d][game]) {
+                        if (!filteredResults[d]) filteredResults[d] = {};
+                        filteredResults[d][game] = results[d][game];
+                    }
+                });
+            }
+            
+            // Display results
+            const container = document.getElementById('recent-results');
+            const dates = Object.keys(filteredResults).sort().reverse();
+            
+            if (dates.length === 0) {
+                container.innerHTML = '<p style="color: #a0a0c0; text-align: center; padding: 20px;">No results found for your search.</p>';
+                return;
+            }
+            
+            let html = '<h3 style="color: #ff4081; margin-bottom: 15px;">Search Results:</h3>';
+            
+            dates.forEach(date => {
+                const dateResults = filteredResults[date];
+                html += `
+                    <div style="background: rgba(255,255,255,0.03); padding: 15px; margin-bottom: 10px; border-radius: 5px;">
+                        <h4 style="color: #ff4081; margin-bottom: 10px;">${formatDate(date)}</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px;">
+                            ${Object.entries(dateResults).map(([game, data]) => `
+                                <div style="text-align: center; padding: 8px; background: rgba(255,255,255,0.02); border-radius: 3px;">
+                                    <div style="font-size: 0.8rem; color: #a0a0c0;">${game.toUpperCase()}</div>
+                                    <div style="font-size: 1.2rem; font-weight: bold; color: #00e676;">${data.result}</div>
+                                    <div style="font-size: 0.8rem; color: #a0a0c0;">${data.time || ''}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function clearSearch() {
+            document.getElementById('search-date').value = '';
+            document.getElementById('search-game').value = '';
+            loadRecentResults();
+        }
+        
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-IN', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+        
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

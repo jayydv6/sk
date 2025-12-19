@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - Matka King</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h3><i class="fas fa-bars"></i> Admin Menu</h3>
+            <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-content">
+            <a href="admin-dashboard.html" class="mobile-menu-item">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="manage-results.html" class="mobile-menu-item">
+                <i class="fas fa-flag-checkered"></i> Manage Results
+            </a>
+            <a href="manage-users.html" class="mobile-menu-item active">
+                <i class="fas fa-users"></i> Manage Users
+            </a>
+            <a href="manage-predictions.html" class="mobile-menu-item">
+                <i class="fas fa-bullseye"></i> Manage Predictions
+            </a>
+            <a href="#" class="mobile-menu-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>MATKA KING</h1>
+                <p>User Management</p>
+            </div>
+            <div class="header-buttons">
+                <button onclick="logout()" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Navigation -->
+    <nav class="admin-nav container">
+        <a href="admin-dashboard.html">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="manage-results.html">
+            <i class="fas fa-flag-checkered"></i> Manage Results
+        </a>
+        <a href="manage-users.html" class="active">
+            <i class="fas fa-users"></i> Manage Users
+        </a>
+        <a href="manage-predictions.html">
+            <i class="fas fa-bullseye"></i> Manage Predictions
+        </a>
+        <a href="index.html">
+            <i class="fas fa-home"></i> View Site
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container dashboard-container">
+        <div class="dashboard-header">
+            <h1><i class="fas fa-users"></i> USER MANAGEMENT</h1>
+            <p>Create and manage admin, guesser, premium, and regular users</p>
+        </div>
+
+        <!-- Add New User Form -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-user-plus"></i> ADD NEW USER</h3>
+            <form id="addUserForm" style="margin-top: 15px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                    <div class="form-group">
+                        <label for="new-username">Username *</label>
+                        <input type="text" id="new-username" class="form-control" placeholder="Enter username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-password">Password *</label>
+                        <input type="password" id="new-password" class="form-control" placeholder="Enter password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-name">Full Name</label>
+                        <input type="text" id="new-name" class="form-control" placeholder="Enter full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-email">Email</label>
+                        <input type="email" id="new-email" class="form-control" placeholder="Enter email">
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                    <div class="form-group">
+                        <label for="new-type">User Type *</label>
+                        <select id="new-type" class="form-control" required>
+                            <option value="">Select type</option>
+                            <option value="admin">Admin</option>
+                            <option value="guesser">Guesser</option>
+                            <option value="premium">Premium User</option>
+                            <option value="user">Regular User</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-status">Status</label>
+                        <select id="new-status" class="form-control">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="suspended">Suspended</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-phone">Phone</label>
+                        <input type="tel" id="new-phone" class="form-control" placeholder="Enter phone number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-balance">Balance (₹)</label>
+                        <input type="number" id="new-balance" class="form-control" placeholder="0" min="0">
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add User
+                </button>
+                <button type="button" class="btn btn-outline" onclick="generateSampleUsers()">
+                    <i class="fas fa-magic"></i> Generate Sample Users
+                </button>
+            </form>
+        </div>
+
+        <!-- Users List -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-list"></i> ALL USERS</h3>
+            <div style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 15px;">
+                <input type="text" id="search-users" class="form-control" placeholder="Search users..." onkeyup="searchUsers()">
+                <select id="filter-type" class="form-control" onchange="filterUsers()" style="width: 150px;">
+                    <option value="">All Types</option>
+                    <option value="admin">Admin</option>
+                    <option value="guesser">Guesser</option>
+                    <option value="premium">Premium</option>
+                    <option value="user">User</option>
+                </select>
+                <select id="filter-status" class="form-control" onchange="filterUsers()" style="width: 150px;">
+                    <option value="">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="suspended">Suspended</option>
+                </select>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="user-management-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Balance</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-list">
+                        <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="margin-top: 15px; text-align: center;">
+                <button class="btn btn-outline" onclick="loadMoreUsers()">
+                    <i class="fas fa-sync"></i> Load More
+                </button>
+                <button class="btn btn-danger" onclick="deleteAllUsers()">
+                    <i class="fas fa-trash"></i> Delete All Non-Admin
+                </button>
+            </div>
+        </div>
+
+        <!-- Bulk Actions -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-cogs"></i> BULK ACTIONS</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                <button class="btn btn-success" onclick="activateAllUsers()">
+                    <i class="fas fa-check"></i> Activate All
+                </button>
+                <button class="btn btn-warning" onclick="deactivateAllUsers()">
+                    <i class="fas fa-ban"></i> Deactivate All
+                </button>
+                <button class="btn btn-info" onclick="exportUsersCSV()">
+                    <i class="fas fa-download"></i> Export to CSV
+                </button>
+                <button class="btn btn-outline" onclick="importUsersCSV()">
+                    <i class="fas fa-upload"></i> Import from CSV
+                </button>
+            </div>
+        </div>
+
+        <!-- User Statistics -->
+        <div class="dashboard-card">
+            <h3><i class="fas fa-chart-pie"></i> USER STATISTICS</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 15px;">
+                <div style="text-align: center; padding: 15px; background: rgba(245, 0, 87, 0.1); border-radius: 5px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #ff4081;" id="stats-total">0</div>
+                    <div style="font-size: 0.9rem; color: #a0a0c0;">Total Users</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: rgba(33, 150, 243, 0.1); border-radius: 5px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #2196f3;" id="stats-guessers">0</div>
+                    <div style="font-size: 0.9rem; color: #a0a0c0;">Guessers</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: rgba(255, 215, 0, 0.1); border-radius: 5px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #ffd700;" id="stats-premium">0</div>
+                    <div style="font-size: 0.9rem; color: #a0a0c0;">Premium</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: rgba(0, 230, 118, 0.1); border-radius: 5px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #00e676;" id="stats-active">0</div>
+                    <div style="font-size: 0.9rem; color: #a0a0c0;">Active</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>USER MANAGEMENT</h4>
+                    <p>Create and manage all user accounts</p>
+                    <p>© 2024 Matka King. Admin Access Only.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="mobile-menu.js"></script>
+    <script>
+        // Check admin login
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            if (currentUser.type !== 'admin') {
+                alert('Admin access required!');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load users
+            loadUsers();
+            updateStatistics();
+            
+            // Setup form submission
+            document.getElementById('addUserForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addNewUser();
+            });
+        });
+        
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const container = document.getElementById('users-list');
+            
+            if (users.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 30px;">
+                            <p style="color: #a0a0c0;">No users found. Add your first user!</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            users.forEach(user => {
+                const badgeClass = `badge-${user.type}`;
+                const statusClass = user.status === 'active' ? 'status-active' : 'status-inactive';
+                
+                html += `
+                    <tr>
+                        <td>${user.id || 'N/A'}</td>
+                        <td><strong>${user.username}</strong></td>
+                        <td>${user.name || 'N/A'}</td>
+                        <td><span class="user-badge ${badgeClass}">${user.type.toUpperCase()}</span></td>
+                        <td><span class="${statusClass}">${user.status || 'active'}</span></td>
+                        <td>${new Date(user.created || Date.now()).toLocaleDateString()}</td>
+                        <td>₹${user.balance || '0'}</td>
+                        <td>
+                            <button class="btn btn-small btn-info" onclick="editUser('${user.username}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-small btn-danger" onclick="deleteUser('${user.username}')" ${user.type === 'admin' ? 'disabled' : ''}>
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button class="btn btn-small btn-warning" onclick="toggleUserStatus('${user.username}')">
+                                <i class="fas fa-power-off"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function addNewUser() {
+            const username = document.getElementById('new-username').value.trim();
+            const password = document.getElementById('new-password').value.trim();
+            const name = document.getElementById('new-name').value.trim();
+            const email = document.getElementById('new-email').value.trim();
+            const type = document.getElementById('new-type').value;
+            const status = document.getElementById('new-status').value;
+            const phone = document.getElementById('new-phone').value.trim();
+            const balance = document.getElementById('new-balance').value || '0';
+            
+            if (!username || !password || !type) {
+                alert('Please fill all required fields!');
+                return;
+            }
+            
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            
+            // Check if username exists
+            if (users.find(u => u.username === username)) {
+                alert('Username already exists!');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: type.charAt(0) + Date.now(),
+                username: username,
+                password: password,
+                name: name,
+                email: email,
+                type: type,
+                status: status,
+                phone: phone,
+                balance: parseInt(balance),
+                created: new Date().toISOString(),
+                lastLogin: null
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('matkaUsers', JSON.stringify(users));
+            
+            // Reset form
+            document.getElementById('addUserForm').reset();
+            
+            // Reload users
+            loadUsers();
+            updateStatistics();
+            
+            // Log activity
+            logActivity(`Created new ${type} user: ${username}`);
+            
+            alert(`User ${username} created successfully!`);
+        }
+        
+        function editUser(username) {
+            const users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const user = users.find(u => u.username === username);
+            
+            if (!user) return;
+            
+            const newName = prompt('Enter new name:', user.name || '');
+            if (newName === null) return;
+            
+            const newEmail = prompt('Enter new email:', user.email || '');
+            if (newEmail === null) return;
+            
+            const newPhone = prompt('Enter new phone:', user.phone || '');
+            if (newPhone === null) return;
+            
+            const newBalance = prompt('Enter new balance:', user.balance || '0');
+            if (newBalance === null) return;
+            
+            const newType = prompt('Enter user type (admin/guesser/premium/user):', user.type || 'user');
+            if (newType === null) return;
+            
+            const newStatus = prompt('Enter status (active/inactive/suspended):', user.status || 'active');
+            if (newStatus === null) return;
+            
+            // Update user
+            user.name = newName;
+            user.email = newEmail;
+            user.phone = newPhone;
+            user.balance = parseInt(newBalance);
+            user.type = newType;
+            user.status = newStatus;
+            
+            localStorage.setItem('matkaUsers', JSON.stringify(users));
+            loadUsers();
+            
+            logActivity(`Edited user: ${username}`);
+            alert('User updated successfully!');
+        }
+        
+        function deleteUser(username) {
+            if (!confirm(`Are you sure you want to delete user ${username}?`)) return;
+            
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            users = users.filter(u => u.username !== username);
+            
+            localStorage.setItem('matkaUsers', JSON.stringify(users));
+            loadUsers();
+            updateStatistics();
+            
+            logActivity(`Deleted user: ${username}`);
+            alert('User deleted successfully!');
+        }
+        
+        function toggleUserStatus(username) {
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            const user = users.find(u => u.username === username);
+            
+            if (!user) return;
+            
+            user.status = user.status === 'active' ? 'inactive' : 'active';
+            localStorage.setItem('matkaUsers', JSON.stringify(users));
+            loadUsers();
+            
+            const action = user.status === 'active' ? 'activated' : 'deactivated';
+            logActivity(`${action} user: ${username}`);
+            alert(`User ${username} ${action}!`);
+        }
+        
+        function generateSampleUsers() {
+            if (!confirm('Generate sample users? This will add 5 guessers and 3 premium users.')) return;
+            
+            const sampleUsers = [
+                {
+                    id: 'G001',
+                    username: 'raju_guesser',
+                    password: 'pass123',
+                    name: 'Raju Kumar',
+                    type: 'guesser',
+                    status: 'active',
+                    balance: 5000,
+                    created: new Date().toISOString()
+                },
+                {
+                    id: 'G002',
+                    username: 'amit_prediction',
+                    password: 'pass123',
+                    name: 'Amit Singh',
+                    type: 'guesser',
+                    status: 'active',
+                    balance: 7500,
+                    created: new Date().toISOString()
+                },
+                {
+                    id: 'G003',
+                    username: 'suresh_matka',
+                    password: 'pass123',
+                    name: 'Suresh Patel',
+                    type: 'guesser',
+                    status: 'active',
+                    balance: 3000,
+                    created: new Date().toISOString()
+                },
+                {
+                    id: 'P001',
+                    username: 'vip_ravi',
+                    password: 'pass123',
+                    name: 'Ravi Sharma',
+                    type: 'premium',
+                    status: 'active',
+                    balance: 15000,
+                    created: new Date().toISOString()
+                },
+                {
+                    id: 'P002',
+                    username: 'golden_user',
+                    password: 'pass123',
+                    name: 'Golden Singh',
+                    type: 'premium',
+                    status: 'active',
+                    balance: 20000,
+                    created: new Date().toISOString()
+                }
+            ];
+            
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            
+            // Add only if not exists
+            sampleUsers.forEach(sample => {
+                if (!users.find(u => u.username === sample.username)) {
+                    users.push(sample);
+                }
+            });
+            
+            localStorage.setItem('matkaUsers', JSON.stringify(users));
+            loadUsers();
+            updateStatistics();
+            
+            logActivity('Generated sample users');
+            alert('Sample users generated successfully!');
+        }
+        
+        function searchUsers() {
+            const search = document.getElementById('search-users').value.toLowerCase();
+            const rows = document.querySelectorAll('#users-list tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(search) ? '' : 'none';
+            });
+        }
+        
+        function filterUsers() {
+            const type = document.getElementById('filter-type').value;
+            const status = document.getElementById('filter-status').value;
+            const rows = document.querySelectorAll('#users-list tr');
+            
+            rows.forEach(row => {
+                const typeCell = row.cells[3]?.textContent.toLowerCase();
+                const statusCell = row.cells[4]?.textContent.toLowerCase();
+                
+                const typeMatch = !type || typeCell.includes(type);
+                const statusMatch = !status || statusCell.includes(status);
+                
+                row.style.display = typeMatch && statusMatch ? '' : 'none';
+            });
+        }
+        
+        function updateStatistics() {
+            const users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            
+            document.getElementById('stats-total').textContent = users.length;
+            document.getElementById('stats-guessers').textContent = users.filter(u => u.type === 'guesser').length;
+            document.getElementById('stats-premium').textContent = users.filter(u => u.type === 'premium').length;
+            document.getElementById('stats-active').textContent = users.filter(u => u.status === 'active').length;
+        }
+        
+        function activateAllUsers() {
+            if (!confirm('Activate all users?')) return;
+            
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            users.forEach(u => u.status = 'active');
+            
+            localStorage.setItem('matkaUsers', JSON.stringify(users));
+            loadUsers();
+            updateStatistics();
+            
+            logActivity('Activated all users');
+            alert('All users activated!');
+        }
+        
+        function deactivateAllUsers() {
+            if (!confirm('Deactivate all non-admin users?')) return;
+            
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            users.forEach(u => {
+                if (u.type !== 'admin') {
+                    u.status = 'inactive';
+                }
+            });
+            
+            localStorage.setItem('matkaUsers', JSON.stringify(users));
+            loadUsers();
+            updateStatistics();
+            
+            logActivity('Deactivated all non-admin users');
+            alert('All non-admin users deactivated!');
+        }
+        
+        function deleteAllUsers() {
+            if (!confirm('Delete ALL non-admin users? This cannot be undone!')) return;
+            
+            let users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            users = users.filter(u => u.type === 'admin');
+            
+            localStorage.setItem('matkaUsers', JSON.stringify(users));
+            loadUsers();
+            updateStatistics();
+            
+            logActivity('Deleted all non-admin users');
+            alert('All non-admin users deleted!');
+        }
+        
+        function exportUsersCSV() {
+            const users = JSON.parse(localStorage.getItem('matkaUsers') || '[]');
+            
+            if (users.length === 0) {
+                alert('No users to export!');
+                return;
+            }
+            
+            const headers = ['ID', 'Username', 'Name', 'Type', 'Status', 'Email', 'Phone', 'Balance', 'Created'];
+            const csv = [
+                headers.join(','),
+                ...users.map(user => [
+                    user.id || '',
+                    user.username,
+                    user.name || '',
+                    user.type,
+                    user.status || 'active',
+                    user.email || '',
+                    user.phone || '',
+                    user.balance || '0',
+                    new Date(user.created || Date.now()).toISOString()
+                ].map(field => `"${field}"`).join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `users-export-${new Date().getTime()}.csv`;
+            a.click();
+            
+            logActivity('Exported users to CSV');
+        }
+        
+        function importUsersCSV() {
+            alert('CSV import feature coming soon!');
+        }
+        
+        function loadMoreUsers() {
+            // For future pagination
+            loadUsers();
+        }
+        
+        function logActivity(action) {
+            const activity = JSON.parse(localStorage.getItem('adminActivity') || '[]');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            activity.unshift({
+                user: currentUser.username || 'admin',
+                action: action,
+                time: new Date().toISOString()
+            });
+            
+            if (activity.length > 100) {
+                activity.length = 100;
+            }
+            
+            localStorage.setItem('adminActivity', JSON.stringify(activity));
+        }
+        
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Matka King</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>USER DASHBOARD</h1>
+                <p>Track Your Favorite Games</p>
+            </div>
+            <div class="header-buttons">
+                <a href="index.html" class="btn btn-outline">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="user-dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="results-history.html"><i class="fas fa-history"></i> Results History</a></li>
+                <li><a href="#favorites"><i class="fas fa-star"></i> Favorites</a></li>
+                <li><a href="#premium"><i class="fas fa-crown"></i> Premium</a></li>
+                <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Welcome Section -->
+        <div class="admin-header">
+            <h1><i class="fas fa-user-circle"></i> User Dashboard</h1>
+            <p>Track games, save favorites, and get personalized updates</p>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Quick Stats -->
+                <div class="admin-card" style="margin-bottom: 30px;">
+                    <h3><i class="fas fa-chart-pie"></i> Your Activity Summary</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
+                        <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                            <div style="font-size: 2rem; color: #ff4081; margin-bottom: 10px;">6</div>
+                            <div style="color: #a0a0c0;">Total Games</div>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                            <div style="font-size: 2rem; color: #00e676; margin-bottom: 10px;">3</div>
+                            <div style="color: #a0a0c0;">Favorite Games</div>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                            <div style="font-size: 2rem; color: #2196f3; margin-bottom: 10px;">12</div>
+                            <div style="color: #a0a0c0;">Predictions Viewed</div>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                            <div style="font-size: 2rem; color: #ffd600; margin-bottom: 10px;">85%</div>
+                            <div style="color: #a0a0c0;">Success Rate</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favorite Games -->
+                <div id="favorites" class="admin-card">
+                    <h3><i class="fas fa-heart"></i> Your Favorite Games</h3>
+                    <div id="favoriteGames" class="games-grid">
+                        <!-- Favorite games will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="admin-card" style="margin-top: 30px;">
+                    <h3><i class="fas fa-rss"></i> Recent Activity</h3>
+                    <div id="recentActivity">
+                        <!-- Activity feed will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- User Profile -->
+                <div class="admin-card">
+                    <h3><i class="fas fa-user"></i> Profile</h3>
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="width: 100px; height: 100px; background: linear-gradient(45deg, #f50057, #ff4081); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4 id="userName">Guest User</h4>
+                        <p id="userStatus" style="color: #a0a0c0; margin-bottom: 20px;">Regular Member</p>
+                        <button onclick="showLoginModal()" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-sign-in-alt"></i> Login / Register
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Premium Access -->
+                <div id="premium" class="premium-box">
+                    <h3><i class="fas fa-crown"></i> PREMIUM ACCESS</h3>
+                    <p>Upgrade to premium for exclusive features:</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Early result notifications</li>
+                        <li><i class="fas fa-check"></i> VIP guesser predictions</li>
+                        <li><i class="fas fa-check"></i> Advanced charts & analysis</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                    </ul>
+                    <div class="premium-contact">
+                        <p>Contact admin for premium access</p>
+                        <a href="#contact" class="btn-premium-small">
+                            <i class="fas fa-key"></i> Get Premium
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="admin-card" style="margin-top: 20px;">
+                    <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button onclick="viewTodayResults()" class="btn btn-small">
+                            <i class="fas fa-calendar-day"></i> Today's Results
+                        </button>
+                        <button onclick="viewTopGuessers()" class="btn btn-small">
+                            <i class="fas fa-crown"></i> Top Guessers
+                        </button>
+                        <button onclick="setNotifications()" class="btn btn-small">
+                            <i class="fas fa-bell"></i> Notifications
+                        </button>
+                        <button onclick="exportMyData()" class="btn btn-small">
+                            <i class="fas fa-download"></i> Export Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Updates -->
+                <div class="admin-card" style="margin-top: 20px;">
+                    <h3><i class="fas fa-broadcast-tower"></i> Live Updates</h3>
+                    <div id="liveUpdates">
+                        <!-- Live updates will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>User Dashboard - Matka King &copy; 2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal" style="display: none;">
+        <div style="background: #1a1a2e; padding: 30px; border-radius: 10px; max-width: 400px; width: 90%;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="color: #ff4081;">User Login</h2>
+                <button onclick="closeLoginModal()" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">×</button>
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="userUsername" class="form-control" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="userPassword" class="form-control" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <button onclick="userLogin()" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <p style="color: #a0a0c0;">Don't have account? Contact admin</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // User Dashboard JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFavoriteGames();
+            loadRecentActivity();
+            loadLiveUpdates();
+            
+            // Check if user is logged in
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                updateUserProfile(currentUser);
+            }
+        });
+
+        function loadFavoriteGames() {
+            const games = JSON.parse(localStorage.getItem('matkaGames')) || [];
+            const container = document.getElementById('favoriteGames');
+            
+            // For demo, show first 3 games as favorites
+            const favoriteGames = games.slice(0, 3);
+            
+            container.innerHTML = '';
+            
+            favoriteGames.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <div class="game-header">
+                        <h3>${game.name}</h3>
+                        <span class="game-time">${formatTime(game.time)}</span>
+                    </div>
+                    <div class="game-result">
+                        <div class="result-number">--</div>
+                        <div class="result-number">--</div>
+                        <div class="result-number">--</div>
+                    </div>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button onclick="toggleFavorite(${game.id})" class="btn btn-small btn-danger">
+                            <i class="fas fa-heart-broken"></i> Remove
+                        </button>
+                    </div>
+                `;
+                container.appendChild(gameCard);
+            });
+        }
+
+        function loadRecentActivity() {
+            const predictions = JSON.parse(localStorage.getItem('matkaPredictions') || '[]');
+            const games = JSON.parse(localStorage.getItem('matkaGames') || []);
+            
+            // Get recent activities
+            const recentActivities = predictions
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+                .slice(0, 5)
+                .map(prediction => {
+                    const game = games.find(g => g.id === prediction.gameId);
+                    return `
+                        <div style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: #ff4081;">${prediction.guesserName}</span>
+                                <span style="color: #a0a0c0; font-size: 0.9rem;">
+                                    ${formatTime(new Date(prediction.timestamp).toLocaleTimeString())}
+                                </span>
+                            </div>
+                            <div style="color: white; margin-top: 5px;">
+                                Predicted for ${game ? game.name : 'Game'}
+                            </div>
+                            <div style="color: #2196f3; margin-top: 5px;">
+                                ${prediction.numbers.map(n => n.toString().padStart(2, '0')).join('-')}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            
+            document.getElementById('recentActivity').innerHTML = 
+                recentActivities || '<p style="text-align: center; color: #a0a0c0;">No recent activity</p>';
+        }
+
+        function loadLiveUpdates() {
+            const updates = [
+                { time: 'Just now', message: 'Faridabad result coming soon' },
+                { time: '5 mins ago', message: 'New predictions added by Expert Raj' },
+                { time: '15 mins ago', message: 'Gali market is active' },
+                { time: '30 mins ago', message: 'Deshwar Dubai result declared' }
+            ];
+            
+            const updatesHtml = updates.map(update => `
+                <div style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #00e676;">${update.time}</span>
+                    </div>
+                    <div style="color: white; margin-top: 5px;">${update.message}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('liveUpdates').innerHTML = updatesHtml;
+        }
+
+        function toggleFavorite(gameId) {
+            if (confirm('Remove this game from favorites?')) {
+                showNotification('Game removed from favorites', 'success');
+                loadFavoriteGames();
+            }
+        }
+
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        function userLogin() {
+            const username = document.getElementById('userUsername').value;
+            const password = document.getElementById('userPassword').value;
+            
+            if (!username || !password) {
+                showNotification('Please enter username and password', 'error');
+                return;
+            }
+            
+            // Check premium users first
+            const premiumUsers = JSON.parse(localStorage.getItem('matkaPremium') || '[]');
+            const premiumUser = premiumUsers.find(u => 
+                (u.id === username || u.name === username) && 
+                u.password === password && 
+                u.status === 'active'
+            );
+            
+            if (premiumUser) {
+                localStorage.setItem('currentUser', JSON.stringify({
+                    ...premiumUser,
+                    type: 'premium'
+                }));
+                updateUserProfile(premiumUser);
+                closeLoginModal();
+                showNotification('Premium login successful!', 'success');
+                return;
+            }
+            
+            // Check guessers
+            const guessers = JSON.parse(localStorage.getItem('matkaGuessers') || '[]');
+            const guesser = guessers.find(g => 
+                (g.id === username || g.name === username) && 
+                g.password === password && 
+                g.status === 'active'
+            );
+            
+            if (guesser) {
+                localStorage.setItem('currentUser', JSON.stringify({
+                    ...guesser,
+                    type: 'guesser'
+                }));
+                updateUserProfile(guesser);
+                closeLoginModal();
+                showNotification('Guesser login successful!', 'success');
+                return;
+            }
+            
+            // Regular user (demo)
+            if (username === 'user' && password === 'user123') {
+                const user = {
+                    name: 'Regular User',
+                    type: 'regular',
+                    status: 'active'
+                };
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                updateUserProfile(user);
+                closeLoginModal();
+                showNotification('Login successful!', 'success');
+                return;
+            }
+            
+            showNotification('Invalid credentials!', 'error');
+        }
+
+        function updateUserProfile(user) {
+            document.getElementById('userName').textContent = user.name;
+            
+            if (user.type === 'premium') {
+                document.getElementById('userStatus').textContent = 'Premium Member';
+                document.getElementById('userStatus').style.color = '#ffd600';
+            } else if (user.type === 'guesser') {
+                document.getElementById('userStatus').textContent = 'Verified Guesser';
+                document.getElementById('userStatus').style.color = '#2196f3';
+            } else {
+                document.getElementById('userStatus').textContent = 'Regular Member';
+                document.getElementById('userStatus').style.color = '#a0a0c0';
+            }
+        }
+
+        function viewTodayResults() {
+            window.location.href = 'index.html';
+        }
+
+        function viewTopGuessers() {
+            alert('This would show top guessers leaderboard.');
+        }
+
+        function setNotifications() {
+            alert('Notification settings would open here.');
+        }
+
+        function exportMyData() {
+            const data = {
+                favorites: JSON.parse(localStorage.getItem('matkaGames') || '[]').slice(0, 3),
+                activity: JSON.parse(localStorage.getItem('matkaPredictions') || '[]').slice(0, 10),
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', `matka-user-data.json`);
+            linkElement.click();
+            
+            showNotification('Data exported successfully!', 'success');
+        }
+
+        // Helper functions
+        function formatTime(timeStr) {
+            if (!timeStr) return '';
+            const [hours, minutes] = timeStr.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const hour12 = hour % 12 || 12;
+            return `${hour12}:${minutes.padStart(2, '0')} ${ampm}`;
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#00c853' : type === 'error' ? '#ff1744' : '#2196f3'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 5px;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
